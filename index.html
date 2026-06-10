@@ -624,11 +624,11 @@ tailwind.config = {
           </div>
           <div class="text-xs uppercase tracking-wider text-emerald-400 font-bold mb-2">+ PLATA</div>
           <div class="font-display font-extrabold text-4xl sm:text-5xl text-white mb-3 leading-none">
-            +$240k
-            <span class="block text-base font-medium text-white/60 mt-1">recuperados al año</span>
+            Cero
+            <span class="block text-base font-medium text-white/60 mt-1">no-shows sin cobrar</span>
           </div>
           <p class="text-sm text-white/70 leading-relaxed mb-5">
-            En un consultorio promedio, el <strong class="text-white">25% de los turnos no se presenta</strong>. ARF cobra la seña anticipada por MercadoPago — si no vienen, la plata es tuya.
+            En la mayoría de los consultorios <strong class="text-white">1 de cada 4 turnos no se presenta</strong>. ARF cobra la seña por adelantado vía MercadoPago — si no aparecen, la plata es tuya igual.
           </p>
           <ul class="space-y-3 text-sm text-white/80">
             <li class="flex items-start gap-2.5">
@@ -641,11 +641,11 @@ tailwind.config = {
             </li>
             <li class="flex items-start gap-2.5">
               <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">+8 pacientes nuevos/mes</strong> vía marketplace de profesionales (Premium).</span>
+              <span><strong class="text-white">Pacientes nuevos que llegan solos</strong> a través del marketplace de profesionales de ARF (Premium).</span>
             </li>
             <li class="flex items-start gap-2.5">
               <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">0% de comisión por tus pacientes.</strong> A diferencia de Doctoralia, ARF no cobra sobre la plata que ya era tuya.</span>
+              <span><strong class="text-white">0% de comisión sobre tus pacientes propios.</strong> Lo que ya era tuyo sigue siendo 100% tuyo.</span>
             </li>
           </ul>
         </div>
@@ -846,15 +846,15 @@ tailwind.config = {
           <div class="text-[10px] text-white/50 mt-1">15 hs/semana × $750/hora × 52</div>
         </div>
         <div class="rounded-xl bg-white/5 border border-white/5 p-4">
-          <div class="text-[10px] uppercase text-pink-300 font-bold mb-1">Pacientes nuevos (Premium)</div>
-          <div class="text-xl font-display font-bold text-white">$<span id="calc-nuevos">120.000</span></div>
-          <div class="text-[10px] text-white/50 mt-1">+8 pacientes × precio /año</div>
+          <div class="text-[10px] uppercase text-pink-300 font-bold mb-1">Pacientes nuevos del marketplace</div>
+          <div class="text-xl font-display font-bold text-white">+ <span id="calc-nuevos">a definir</span></div>
+          <div class="text-[10px] text-white/50 mt-1">Plan Premium · depende de tu zona y especialidad</div>
         </div>
       </div>
 
       <div class="mt-6 text-center">
         <p class="text-xs text-white/40 max-w-2xl mx-auto">
-          Cálculo estimado con base en promedios de consultorios odontológicos en Argentina (jun 2026). Asume: 25% no-shows actuales, 15 hs/semana en tareas administrativas a $750/hora promedio, +8 pacientes nuevos/mes vía marketplace si plan Premium. Tu caso real puede ser mayor o menor.
+          Cálculo estimado con base en promedios del rubro odontológico en Argentina (jun 2026). Asume: 25% de no-shows actuales, 15 hs/semana en tareas administrativas a un valor proporcional a tu ticket promedio. Los pacientes nuevos del marketplace no se incluyen en el cálculo porque dependen mucho de tu zona, especialidad y demanda. Tu caso real puede ser mayor o menor.
         </p>
       </div>
 
@@ -931,16 +931,16 @@ tailwind.config = {
         // 25% de los turnos son no-shows. ARF los recupera (seña cobrada).
         var noshows_anual = turnos * 0.25 * precio * 52;
 
-        // 15 horas/semana × $750/hora promedio × 52 semanas.
+        // 15 horas/semana × valor proporcional al ticket × 52 semanas.
         // El precio/hora del dentista escala con su precio promedio de consulta:
         // a más caro el ticket, más vale su hora. Mínimo $500.
         var horaProf = Math.max(500, precio * 0.5);
         var tiempo_anual = 15 * horaProf * 52;
 
-        // +8 pacientes nuevos/mes × precio × 12 meses (Premium).
-        var nuevos_anual = 8 * precio * 12;
-
-        var total = noshows_anual + tiempo_anual + nuevos_anual;
+        // Total = no-shows + tiempo recuperado.
+        // NO incluimos pacientes nuevos del marketplace porque depende mucho
+        // de la zona / especialidad / demanda y no queremos inventar un número.
+        var total = noshows_anual + tiempo_anual;
 
         $tDisp.textContent = turnos;
         $pDisp.textContent = fmt(precio);
@@ -948,7 +948,7 @@ tailwind.config = {
         $mes.textContent = '$' + fmt(total / 12);
         $ns.textContent = fmt(noshows_anual);
         $tt.textContent = fmt(tiempo_anual);
-        $nu.textContent = fmt(nuevos_anual);
+        // calc-nuevos queda con su texto estático "a definir" (no se calcula).
       }
 
       $turnos.addEventListener('input', calc);
