@@ -178,13 +178,13 @@ tailwind.config = {
       </div>
 
       <h1 class="hero-h1 font-display font-extrabold tracking-tighter leading-[0.98] text-5xl sm:text-6xl lg:text-7xl">
-        Tu agenda odontológica
-        <span class="block bg-gradient-to-r from-arf-light via-arf-primary to-arf-light bg-clip-text text-transparent">+ IA</span>
-        <span class="block">con recordatorios automáticos y cobros anticipados.</span>
+        Dejá de perder plata
+        <span class="block bg-gradient-to-r from-arf-light via-arf-primary to-arf-light bg-clip-text text-transparent">por pacientes</span>
+        <span class="block">que no aparecen.</span>
       </h1>
 
       <p class="hero-subtitle mt-6 text-lg sm:text-xl text-white/70 max-w-xl leading-relaxed">
-        Tus pacientes reservan online y <span class="text-white font-medium">pagan la seña al instante</span>. Juli, la IA de tu agenda, les manda los recordatorios por WhatsApp, <span class="text-white font-medium">confirma, reagenda y cancela turnos sola</span> — siempre respetando tus horarios y la duración de cada servicio. Vos solo atendés.
+        Tus pacientes reservan online y <span class="text-white font-medium">pagan la seña por adelantado</span>: si no vienen, la plata es tuya igual. Y Juli, la IA de tu agenda, les manda los recordatorios por WhatsApp y <span class="text-white font-medium">confirma, reagenda y cancela sola</span>. Vos solo atendés.
       </p>
       <p class="mt-3 text-sm text-white/55">
         Sin instalar nada · Sin tarjeta · Listo en 2 minutos
@@ -209,12 +209,12 @@ tailwind.config = {
         <div class="w-1 h-1 rounded-full bg-white/30"></div>
         <div class="flex items-center gap-2">
           <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-          <span class="text-white font-semibold">−50% ausencias</span>
+          <span class="text-white font-semibold">Hasta 50% menos ausencias</span>
         </div>
         <div class="w-1 h-1 rounded-full bg-white/30"></div>
         <div class="flex items-center gap-2">
           <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-          <span class="text-white font-semibold">Facturación AFIP</span>
+          <span class="text-white font-semibold">Facturación ARCA (ex AFIP)</span>
         </div>
         <div class="w-1 h-1 rounded-full bg-white/30"></div>
         <div class="flex items-center gap-2">
@@ -327,17 +327,70 @@ tailwind.config = {
 <!-- ============================================ -->
 <!-- 3. TRUSTED BY / SOCIAL PROOF -->
 <!-- ============================================ -->
-<section class="relative py-16 border-y border-white/5 bg-arf-darker/30">
-  <div class="max-w-7xl mx-auto px-6 text-center">
-    <p class="text-sm uppercase tracking-widest text-white/40 mb-6">Odontólogos en Argentina que ya están reservando turnos por ARF</p>
-    <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-      <div class="trust-avatar bg-gradient-to-br from-purple-500 to-pink-500">JB</div>
-      <div class="trust-avatar bg-gradient-to-br from-emerald-500 to-teal-500">MQ</div>
-      <div class="trust-avatar bg-gradient-to-br from-blue-500 to-cyan-500">GR</div>
-      <div class="trust-avatar bg-gradient-to-br from-orange-500 to-red-500">AS</div>
-      <div class="trust-avatar bg-gradient-to-br from-violet-500 to-fuchsia-500">LC</div>
-      <div class="trust-avatar bg-gradient-to-br from-rose-500 to-pink-500">DF</div>
-      <div class="text-sm text-white/60 ml-2"><span class="text-white font-semibold">+8 odontólogos</span> sumándose esta semana</div>
+<section class="relative py-12 border-y border-white/5 bg-arf-darker/30">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <p class="text-base sm:text-lg text-white/70 leading-relaxed">
+      <span class="text-white font-semibold">No nació en una oficina: nació en un consultorio.</span>
+      Lo construimos porque nos cansamos de mandar recordatorios a mano todas las noches —
+      y hoy lo usamos todos los días con nuestros propios pacientes.
+      <span class="text-white font-semibold">Probalo gratis 30 días, sin tarjeta:</span> si no te sirve, no pagás nada.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 4. EL PROBLEMA (movido arriba de la demo, jun 2026) -->
+<!-- ============================================ -->
+<section class="relative py-24 lg:py-32">
+  <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-7">
+      <div class="eyebrow">EL PROBLEMA</div>
+      <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-[1.05] mb-8">
+        Tu mañana arranca con<br><span class="text-white/40">23 "Le recuerdo su turno..." por mandar.</span>
+      </h2>
+
+      <ul class="space-y-5 text-lg">
+        <li class="problem-item flex items-start gap-4">
+          <div class="problem-icon">📱</div>
+          <div>Mandás recordatorios uno por uno cada noche.</div>
+        </li>
+        <li class="problem-item flex items-start gap-4">
+          <div class="problem-icon">💸</div>
+          <div>Pacientes que reservan, no pagan, y no aparecen = 1 de cada 4 turnos al aire.</div>
+        </li>
+        <li class="problem-item flex items-start gap-4">
+          <div class="problem-icon">📅</div>
+          <div>Te equivocás y anotás dos pacientes a la misma hora.</div>
+        </li>
+        <li class="problem-item flex items-start gap-4">
+          <div class="problem-icon">🤯</div>
+          <div>Coordinar mensajes ida y vuelta para reagendar.</div>
+        </li>
+        <li class="problem-item flex items-start gap-4">
+          <div class="problem-icon">📓</div>
+          <div>Libreta de papel que se mancha o se pierde.</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Mockup WhatsApp inbox saturado -->
+    <div class="lg:col-span-5">
+      <div class="relative glass-card rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+        <div class="absolute top-3 right-3 z-10 px-3 py-1 rounded-full bg-red-500/90 text-xs font-bold text-white animate-pulse">23 por avisar</div>
+        <div class="bg-emerald-700/40 px-4 py-3 flex items-center gap-3 border-b border-white/10">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          <div class="text-sm font-medium">Recordatorios por mandar a mano</div>
+        </div>
+        <div class="divide-y divide-white/5">
+          <div class="inbox-row"><div class="avatar-mini bg-pink-500/30">MR</div><div class="flex-1"><div class="text-sm font-medium">María Rodríguez</div><div class="text-xs text-white/50 truncate">Turno mañana 09:00 · Consulta · sin avisar</div></div><div class="badge-unread">!</div></div>
+          <div class="inbox-row"><div class="avatar-mini bg-blue-500/30">JP</div><div class="flex-1"><div class="text-sm font-medium">Juan Pérez</div><div class="text-xs text-white/50 truncate">Turno mañana 10:30 · Limpieza · sin avisar</div></div><div class="badge-unread">!</div></div>
+          <div class="inbox-row"><div class="avatar-mini bg-emerald-500/30">LF</div><div class="flex-1"><div class="text-sm font-medium">Lucía Fernández</div><div class="text-xs text-white/50 truncate">Turno mañana 12:00 · Control · sin avisar</div></div><div class="badge-unread">!</div></div>
+          <div class="inbox-row"><div class="avatar-mini bg-orange-500/30">RC</div><div class="flex-1"><div class="text-sm font-medium">Roberto Cruz</div><div class="text-xs text-white/50 truncate">Turno mañana 15:00 · Arreglo · sin avisar</div></div><div class="badge-unread">!</div></div>
+          <div class="inbox-row"><div class="avatar-mini bg-violet-500/30">SM</div><div class="flex-1"><div class="text-sm font-medium">Sofía Martínez</div><div class="text-xs text-white/50 truncate">Turno mañana 16:30 · Consulta · sin avisar</div></div><div class="badge-unread">!</div></div>
+          <div class="inbox-row opacity-50"><div class="avatar-mini bg-rose-500/30">DA</div><div class="flex-1"><div class="text-sm font-medium">Diego Acosta</div><div class="text-xs text-white/50 truncate">Turno mañana 18:00 · Limpieza · sin avisar</div></div><div class="badge-unread">!</div></div>
+        </div>
+        <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-red-500/30 to-transparent pointer-events-none"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -531,62 +584,8 @@ tailwind.config = {
 })();
 </script>
 
-<!-- ============================================ -->
-<!-- 4. EL PROBLEMA -->
-<!-- ============================================ -->
-<section class="relative py-24 lg:py-32">
-  <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
-    <div class="lg:col-span-7">
-      <div class="eyebrow">EL PROBLEMA</div>
-      <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-[1.05] mb-8">
-        Tu mañana arranca con<br><span class="text-white/40">23 "Le recuerdo su turno..." por mandar.</span>
-      </h2>
-
-      <ul class="space-y-5 text-lg">
-        <li class="problem-item flex items-start gap-4">
-          <div class="problem-icon">📱</div>
-          <div>Mandás recordatorios uno por uno cada noche.</div>
-        </li>
-        <li class="problem-item flex items-start gap-4">
-          <div class="problem-icon">💸</div>
-          <div>Pacientes que reservan, no pagan, y no aparecen = 1 de cada 4 turnos al aire.</div>
-        </li>
-        <li class="problem-item flex items-start gap-4">
-          <div class="problem-icon">📅</div>
-          <div>Te equivocás y anotás dos pacientes a la misma hora.</div>
-        </li>
-        <li class="problem-item flex items-start gap-4">
-          <div class="problem-icon">🤯</div>
-          <div>Coordinar mensajes ida y vuelta para reagendar.</div>
-        </li>
-        <li class="problem-item flex items-start gap-4">
-          <div class="problem-icon">📓</div>
-          <div>Libreta de papel que se mancha o se pierde.</div>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Mockup WhatsApp inbox saturado -->
-    <div class="lg:col-span-5">
-      <div class="relative glass-card rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-        <div class="absolute top-3 right-3 z-10 px-3 py-1 rounded-full bg-red-500/90 text-xs font-bold text-white animate-pulse">23 por avisar</div>
-        <div class="bg-emerald-700/40 px-4 py-3 flex items-center gap-3 border-b border-white/10">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-          <div class="text-sm font-medium">Recordatorios por mandar a mano</div>
-        </div>
-        <div class="divide-y divide-white/5">
-          <div class="inbox-row"><div class="avatar-mini bg-pink-500/30">MR</div><div class="flex-1"><div class="text-sm font-medium">María Rodríguez</div><div class="text-xs text-white/50 truncate">Turno mañana 09:00 · Consulta · sin avisar</div></div><div class="badge-unread">!</div></div>
-          <div class="inbox-row"><div class="avatar-mini bg-blue-500/30">JP</div><div class="flex-1"><div class="text-sm font-medium">Juan Pérez</div><div class="text-xs text-white/50 truncate">Turno mañana 10:30 · Limpieza · sin avisar</div></div><div class="badge-unread">!</div></div>
-          <div class="inbox-row"><div class="avatar-mini bg-emerald-500/30">LF</div><div class="flex-1"><div class="text-sm font-medium">Lucía Fernández</div><div class="text-xs text-white/50 truncate">Turno mañana 12:00 · Control · sin avisar</div></div><div class="badge-unread">!</div></div>
-          <div class="inbox-row"><div class="avatar-mini bg-orange-500/30">RC</div><div class="flex-1"><div class="text-sm font-medium">Roberto Cruz</div><div class="text-xs text-white/50 truncate">Turno mañana 15:00 · Arreglo · sin avisar</div></div><div class="badge-unread">!</div></div>
-          <div class="inbox-row"><div class="avatar-mini bg-violet-500/30">SM</div><div class="flex-1"><div class="text-sm font-medium">Sofía Martínez</div><div class="text-xs text-white/50 truncate">Turno mañana 16:30 · Consulta · sin avisar</div></div><div class="badge-unread">!</div></div>
-          <div class="inbox-row opacity-50"><div class="avatar-mini bg-rose-500/30">DA</div><div class="flex-1"><div class="text-sm font-medium">Diego Acosta</div><div class="text-xs text-white/50 truncate">Turno mañana 18:00 · Limpieza · sin avisar</div></div><div class="badge-unread">!</div></div>
-        </div>
-        <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-red-500/30 to-transparent pointer-events-none"></div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- (la sección EL PROBLEMA se movió ARRIBA de la demo — jun 2026: primero
+     el dolor, después la solución. El bloque vive antes de #probalo.) -->
 
 <!-- ============================================ -->
 <!-- 4.5 MÁS PLATA · MÁS TIEMPO · MÁS ORGANIZACIÓN -->
@@ -637,7 +636,7 @@ tailwind.config = {
             </li>
             <li class="flex items-start gap-2.5">
               <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">+35% más re-bookings.</strong> Juli reagenda sola en vez de perder al paciente.</span>
+              <span><strong class="text-white">Más reagendamientos, menos pacientes perdidos.</strong> Juli reagenda sola en vez de dejar ir al paciente.</span>
             </li>
             <li class="flex items-start gap-2.5">
               <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
@@ -677,7 +676,7 @@ tailwind.config = {
             </li>
             <li class="flex items-start gap-2.5">
               <svg class="w-5 h-5 text-arf-light shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">2 hs/semana</strong> ahorradas en facturación AFIP electrónica.</span>
+              <span><strong class="text-white">2 hs/semana</strong> ahorradas en facturación electrónica ARCA (ex AFIP).</span>
             </li>
             <li class="flex items-start gap-2.5">
               <svg class="w-5 h-5 text-arf-light shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
@@ -854,7 +853,7 @@ tailwind.config = {
 
       <div class="mt-6 text-center">
         <p class="text-xs text-white/40 max-w-2xl mx-auto">
-          Cálculo estimado con base en promedios del rubro odontológico en Argentina (jun 2026). Asume: 25% de no-shows actuales, 15 hs/semana en tareas administrativas a un valor proporcional a tu ticket promedio. Los pacientes nuevos del marketplace no se incluyen en el cálculo porque dependen mucho de tu zona, especialidad y demanda. Tu caso real puede ser mayor o menor.
+          Cálculo estimado con base en promedios del rubro odontológico en Argentina (jun 2026). Asume: 25% de no-shows actuales que se recuperan entre la seña cobrada y los pacientes que, habiendo pagado, asisten o reagendan; y 15 hs/semana en tareas administrativas a un valor proporcional a tu ticket promedio. Los pacientes nuevos del marketplace no se incluyen porque dependen de tu zona, especialidad y demanda. Es una estimación: tu caso real puede ser mayor o menor.
         </p>
       </div>
 
@@ -1248,7 +1247,7 @@ tailwind.config = {
       <ul class="space-y-3 text-base mb-8">
         <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg><span>Tu perfil público con fotos y videos de tu trabajo</span></li>
         <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg><span>Cartel <em>"Próximo turno disponible mañana 14:30"</em> en tu tarjeta</span></li>
-        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg><span>Reseñas reales con tu respuesta pública (3 veces más conversión)</span></li>
+        <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg><span>Reseñas reales de tus pacientes, con tu respuesta pública</span></li>
         <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg><span>Una galería de tus fotos al estilo Instagram — los pacientes te descubren mirando</span></li>
         <li class="flex items-start gap-3"><svg class="w-5 h-5 text-emerald-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg><span>0% de comisión sobre la seña que cobrás</span></li>
       </ul>
@@ -1256,6 +1255,10 @@ tailwind.config = {
         <div class="text-xs text-arf-light font-semibold uppercase tracking-wider mb-1">Por qué te conviene</div>
         <p class="text-sm text-white/80">Cualquier paciente nuevo te paga el plan Premium completo en un par de turnos. Es publicidad que se paga sola.</p>
       </div>
+      <a href="https://marketplace.solucionesdentalesarf.com" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-arf-light hover:text-white transition">
+        Mirá la vidriera funcionando en vivo
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
     </div>
 
     <!-- Mockup marketplace card -->
@@ -1273,8 +1276,8 @@ tailwind.config = {
               <div class="flex items-end gap-3">
                 <div class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-xl border-2 border-white/40 flex items-center justify-center font-display font-bold text-xl shadow-2xl">JB</div>
                 <div class="flex-1">
-                  <div class="font-display font-bold text-lg leading-tight">Dra. Jimena Basualdo</div>
-                  <div class="text-xs text-white/80">Odontología General · Tucumán</div>
+                  <div class="font-display font-bold text-lg leading-tight">Dra. Demo</div>
+                  <div class="text-xs text-white/80">Odontología General · Buenos Aires · tarjeta de ejemplo</div>
                 </div>
               </div>
             </div>
@@ -1364,7 +1367,7 @@ tailwind.config = {
           <li class="flex items-start gap-3"><span class="text-emerald-400 font-bold shrink-0">1.</span><span>Vos cargás una vez tus <strong class="text-white">días y horarios de atención</strong> (ej: lun a vie de 9 a 18) y tus sedes.</span></li>
           <li class="flex items-start gap-3"><span class="text-emerald-400 font-bold shrink-0">2.</span><span>Cargás <strong class="text-white">cuánto dura cada servicio</strong> que ofrecés (consulta 30 min, limpieza 45 min, blanqueamiento 1h).</span></li>
           <li class="flex items-start gap-3"><span class="text-emerald-400 font-bold shrink-0">3.</span><span>Cargás los turnos que ya tenés agendados — o los importás con una <strong class="text-white">foto de tu libreta</strong> en segundos.</span></li>
-          <li class="flex items-start gap-3"><span class="text-emerald-400 font-bold shrink-0">4.</span><span>A partir de ahí Juli ve tu agenda viva: <strong class="text-white">solo ofrece huecos libres</strong> respetando cada duración. Imposible que double-bookee.</span></li>
+          <li class="flex items-start gap-3"><span class="text-emerald-400 font-bold shrink-0">4.</span><span>A partir de ahí Juli ve tu agenda viva: <strong class="text-white">solo ofrece huecos libres</strong> respetando cada duración. Imposible que te pise dos turnos.</span></li>
         </ol>
       </div>
 
@@ -1518,7 +1521,7 @@ tailwind.config = {
           <div class="comp-row"><div>IA en WhatsApp que atiende sola</div><div class="comp-arf">✅ <span class="text-xs text-arf-light">Juli</span></div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
           <div class="comp-row"><div>Recordatorios con botones</div><div class="comp-arf">✅</div><div class="comp-other">⚠️ <span class="text-xs text-white/50">solo SMS</span></div><div class="comp-other">❌ <span class="text-xs text-white/50">manual</span></div></div>
           <div class="comp-row"><div>Reagendamiento automático sin vos</div><div class="comp-arf">✅</div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
-          <div class="comp-row"><div>Facturación electrónica AFIP</div><div class="comp-arf">✅ <span class="text-xs text-arf-light">factura oficial</span></div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
+          <div class="comp-row"><div>Facturación electrónica ARCA (ex AFIP)</div><div class="comp-arf">✅ <span class="text-xs text-arf-light">factura oficial</span></div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
           <div class="comp-row"><div>IA que escribe tu bio y textos para Instagram</div><div class="comp-arf">✅</div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
           <div class="comp-row"><div>Odontograma + historia clínica</div><div class="comp-arf">✅</div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
           <div class="comp-row"><div>Planes de tratamiento con PDF + cobro</div><div class="comp-arf">✅</div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
@@ -1649,14 +1652,14 @@ tailwind.config = {
         <div class="lg:col-span-8">
           <div class="text-6xl text-arf-light/30 font-display leading-none mb-4">"</div>
           <blockquote class="font-display font-bold text-2xl sm:text-3xl lg:text-4xl tracking-tight leading-[1.2]">
-            Pasé de mandar 15 recordatorios cada noche a no mandar ninguno. Los ausencias bajaron a la mitad.
-            <span class="bg-gradient-to-r from-arf-light to-arf-primary bg-clip-text text-transparent">Recuperé 7 horas a la semana.</span>
+            Mandábamos 15 recordatorios cada noche, uno por uno. Hoy no mandamos ninguno:
+            <span class="bg-gradient-to-r from-arf-light to-arf-primary bg-clip-text text-transparent">Juli los manda sola y los pacientes confirman desde WhatsApp.</span>
           </blockquote>
           <div class="mt-8 flex items-center gap-4">
-            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-display font-bold text-lg">JB</div>
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-arf-primary to-arf-light flex items-center justify-center font-display font-bold text-lg">SD</div>
             <div>
-              <div class="font-semibold">Dra. Jimena Basualdo</div>
-              <div class="text-sm text-white/60">Odontóloga</div>
+              <div class="font-semibold">Soluciones Dentales ARF</div>
+              <div class="text-sm text-white/60">El consultorio donde nació el sistema — lo usamos todos los días con nuestros pacientes</div>
             </div>
           </div>
         </div>
@@ -1664,15 +1667,15 @@ tailwind.config = {
         <div class="lg:col-span-4 space-y-4 stats-section">
           <div class="glass-card rounded-2xl p-5">
             <div class="text-3xl font-display font-extrabold text-arf-light">−<span data-counter="50">0</span>%</div>
-            <div class="text-sm text-white/60 mt-1">pacientes que no aparecen</div>
+            <div class="text-sm text-white/60 mt-1">de ausencias con seña + recordatorios (hasta)</div>
           </div>
           <div class="glass-card rounded-2xl p-5">
             <div class="text-3xl font-display font-extrabold text-arf-light"><span data-counter="7">0</span> hs</div>
-            <div class="text-sm text-white/60 mt-1">por semana recuperadas</div>
+            <div class="text-sm text-white/60 mt-1">por semana que dejamos de gastar en mensajes</div>
           </div>
           <div class="glass-card rounded-2xl p-5">
-            <div class="text-3xl font-display font-extrabold text-arf-light"><span data-counter="100">0</span>%</div>
-            <div class="text-sm text-white/60 mt-1">turnos confirmados antes del día</div>
+            <div class="text-3xl font-display font-extrabold text-arf-light"><span data-counter="24">0</span>/7</div>
+            <div class="text-sm text-white/60 mt-1">Juli responde el WhatsApp a cualquier hora</div>
           </div>
         </div>
       </div>
@@ -1692,27 +1695,13 @@ tailwind.config = {
 
   <div class="relative max-w-5xl mx-auto px-6">
     <div class="text-center mb-12">
-      <div class="eyebrow mx-auto">PROMO LANZAMIENTO 2026</div>
+      <div class="eyebrow mx-auto">PRECIOS DE LANZAMIENTO 2026</div>
       <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tighter">
-        Promoción de lanzamiento.
+        Empezás gratis.<br class="sm:hidden"> Crecés cuando te sirva.
       </h2>
-    </div>
-
-    <!-- COUNTDOWN -->
-    <div class="text-center mb-12">
-      <div class="text-sm text-white/60 mb-4 flex items-center justify-center gap-2">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        La promoción termina en:
-      </div>
-      <div id="countdown" class="flex flex-wrap justify-center gap-3 sm:gap-4">
-        <div class="countdown-box"><div id="cd-days" class="cd-num">00</div><div class="cd-label">días</div></div>
-        <div class="cd-sep">:</div>
-        <div class="countdown-box"><div id="cd-hours" class="cd-num">00</div><div class="cd-label">horas</div></div>
-        <div class="cd-sep">:</div>
-        <div class="countdown-box"><div id="cd-mins" class="cd-num">00</div><div class="cd-label">mins</div></div>
-        <div class="cd-sep">:</div>
-        <div class="countdown-box"><div id="cd-secs" class="cd-num">00</div><div class="cd-label">segs</div></div>
-      </div>
+      <p class="mt-4 text-base text-white/60 max-w-xl mx-auto">
+        Todos los planes pagos incluyen 30 días de Premium de prueba, sin tarjeta.
+      </p>
     </div>
 
     <!-- PRICING GRID — 4 planes -->
@@ -1813,7 +1802,7 @@ tailwind.config = {
           <li class="pricing-feature"><span class="check">✓</span> Cartel "próximo turno disponible" en tu perfil</li>
           <li class="pricing-feature"><span class="check">✓</span> Galería tipo Instagram para que te descubran</li>
           <li class="pricing-feature"><span class="check">✓</span> Reseñas reales que vos podés aprobar y responder</li>
-          <li class="pricing-feature"><span class="check">✓</span> Facturación electrónica AFIP oficial</li>
+          <li class="pricing-feature"><span class="check">✓</span> Facturación electrónica oficial ARCA (ex AFIP)</li>
           <li class="pricing-feature"><span class="check">✓</span> IA que escribe tus textos de Instagram e ideas para historias</li>
           <li class="pricing-feature"><span class="check">✓</span> Odontograma + historia clínica</li>
           <li class="pricing-feature"><span class="check">✓</span> Dashboard de clínica + invitar profesionales</li>
@@ -1841,12 +1830,8 @@ tailwind.config = {
 
     <div class="space-y-px">
       <details class="faq-item" open>
-        <summary>¿Qué es la vidriera de odontólogos?</summary>
-        <div class="faq-answer">Es una página pública (parecida a Doctoralia o Booksy) donde las personas que buscan dentista en tu ciudad encuentran tu perfil: foto, fotos de tu trabajo, reseñas, especialidad y un botón para reservar al toque. Es <strong>exclusivo del plan Premium</strong> — y es la principal fuente de pacientes nuevos. Como pagás <strong>0% de comisión sobre la seña</strong>, cualquier paciente nuevo te paga el plan completo en 1 o 2 turnos.</div>
-      </details>
-      <details class="faq-item">
         <summary>¿Quién es Juli y cómo funciona?</summary>
-        <div class="faq-answer">Juli es <strong>la IA de tu agenda</strong>. Cada vez que el sistema le manda un recordatorio a tu paciente desde el WhatsApp oficial de Soluciones Dentales, Juli queda lista para responder: confirma asistencia, reagenda a otro día/hora libre, cancela y libera el slot, o agenda turnos nuevos cuando un paciente le pide. Lo hace mirando tu agenda en tiempo real — tus días y horarios de atención, la duración de cada servicio que cargaste y los turnos que ya tenés ocupados — así que <strong>nunca te genera un turnos pisados</strong>. Disponible desde el plan Profesional.</div>
+        <div class="faq-answer">Juli es <strong>la IA de tu agenda</strong>. Cada vez que el sistema le manda un recordatorio a tu paciente desde el WhatsApp oficial de Soluciones Dentales, Juli queda lista para responder: confirma asistencia, reagenda a otro día/hora libre, cancela y libera el lugar, o agenda turnos nuevos cuando un paciente le pide. Lo hace mirando tu agenda en tiempo real — tus días y horarios, la duración de cada servicio y los turnos que ya tenés ocupados — así que <strong>nunca te pisa turnos</strong>. Disponible desde el plan Profesional.</div>
       </details>
       <details class="faq-item">
         <summary>¿Y si yo agrego un turno manual a la agenda? ¿Juli se entera?</summary>
@@ -1854,55 +1839,27 @@ tailwind.config = {
       </details>
       <details class="faq-item">
         <summary>¿Tengo que usar mi número personal de WhatsApp?</summary>
-        <div class="faq-answer">No. Todo el ida y vuelta con el paciente pasa por el <strong>WhatsApp oficial de Soluciones Dentales</strong> — un número central administrado por nosotros, con la palomita verde de WhatsApp. Tu número personal queda fuera del trabajo. Para el paciente la conversación se identifica con el nombre de tu consultorio, así que sabe que es tu consultorio quien le escribe.</div>
+        <div class="faq-answer">No. Todo el ida y vuelta con el paciente pasa por el <strong>WhatsApp oficial de Soluciones Dentales</strong> — un número central administrado por nosotros, con la palomita verde de WhatsApp. Tu número personal queda fuera del trabajo. Cuando un paciente reserva por tu link, el sistema le manda automáticamente ese contacto identificado con el nombre de tu consultorio, y ya queda en contacto con Juli para confirmar, reagendar o consultar.</div>
       </details>
       <details class="faq-item">
         <summary>¿Cómo funciona el cobro de la seña?</summary>
-        <div class="faq-answer">Cargás el monto de la seña por cada servicio (ej: Consulta $5.000). Tu paciente entra a tu link público o a la vidriera, elige día y hora y paga la seña en MercadoPago. La plata entra <strong>directo a tu cuenta de MercadoPago</strong> (no a la nuestra) y el turno se agenda solo. Vos no movés un dedo.</div>
+        <div class="faq-answer">Cargás el monto de la seña por cada servicio (ej: Consulta $5.000). Tu paciente entra a tu link público, elige día y hora y paga la seña en MercadoPago. La plata entra <strong>directo a tu cuenta de MercadoPago</strong> (no a la nuestra) y el turno se agenda solo. Vos no movés un dedo.</div>
       </details>
       <details class="faq-item">
         <summary>¿Qué pasa si el paciente cancela?</summary>
-        <div class="faq-answer">Si cancela con <strong>+48hs antes del turno</strong>, el sistema le devuelve el 100% del anticipo automáticamente. Si cancela dentro de las 48hs o no aparece, el anticipo no se reintegra (política aceptada al pagar). Esto baja los ausencias porque el paciente ya pagó y no quiere perder la plata.</div>
+        <div class="faq-answer">Si cancela con <strong>más de 48hs antes del turno</strong>, el sistema le devuelve el 100% del anticipo automáticamente. Si cancela dentro de las 48hs o no aparece, el anticipo no se reintegra (política que el paciente acepta al pagar). Eso baja las ausencias: el paciente ya puso plata y no la quiere perder.</div>
       </details>
       <details class="faq-item">
         <summary>¿Cuánto cobra ARF de comisión por reserva?</summary>
         <div class="faq-answer">Depende del plan: <strong>Gratis 5%</strong>, <strong>Esencial 2,5%</strong>, <strong>Profesional 1%</strong>, <strong>Premium 0%</strong>. La comisión sale del anticipo (no de tu bolsillo), vía MercadoPago Marketplace. En Premium el 100% del cobro va a tu cuenta — sin descuentos.</div>
       </details>
       <details class="faq-item">
-        <summary>¿Cómo se entera el paciente del número de WhatsApp?</summary>
-        <div class="faq-answer">Cuando un paciente reserva un turno por tu link público o por la vidriera, el sistema le manda automáticamente el contacto del WhatsApp de Soluciones Dentales (identificado a nombre de tu consultorio). Lo mismo si vos compartís tu link de reservas por Instagram o stickers. El paciente ya queda en contacto con Juli para confirmar, reagendar o hacer cualquier consulta.</div>
-      </details>
-      <details class="faq-item">
-        <summary>¿Cómo es la facturación AFIP?</summary>
-        <div class="faq-answer">Con el plan Premium emitís facturas electrónicas oficiales (Factura B, Factura C y Recibo) directo con AFIP. Cargás tus datos fiscales una vez y a partir de ahí, cada vez que un paciente paga, la factura se genera sola y le llega por mail. Cero idas al contador para sacarlas.</div>
-      </details>
-      <details class="faq-item">
-        <summary>¿Qué son las herramientas IA de marketing?</summary>
-        <div class="faq-answer">Plan Premium incluye un botón que escribe tu descripción de Instagram, los textos para tus posts, ideas para historias y respuestas profesionales a las reseñas que te dejan los pacientes — todo redactado por IA y adaptado a tu especialidad. Es como tener una agencia de redes sociales al toque, sin pagarla.</div>
-      </details>
-      <details class="faq-item">
         <summary>¿Reduce de verdad las ausencias?</summary>
-        <div class="faq-answer">Sí. El paciente ya pagó la seña — si no aparece, pierde plata. Eso solo baja las ausencias <strong>hasta un 50%</strong>. Si encima sumás los recordatorios automáticos de Juli en WhatsApp (Profesional+), llega al 60%.</div>
-      </details>
-      <details class="faq-item">
-        <summary>¿Funciona si tengo una clínica con varios profesionales?</summary>
-        <div class="faq-answer">Sí. Con Premium, el dueño tiene un dashboard de clínica multi-profesional, puede invitar profesionales por mail con un link, ver la agenda consolidada de todos, gestionar los seats. Cada profesional con sus horarios, sus servicios, sus precios.</div>
-      </details>
-      <details class="faq-item">
-        <summary>¿Cuánto tiempo me toma configurarlo?</summary>
-        <div class="faq-answer">2 minutos el registro. Importás tu agenda actual con una foto — no tenés que tipear los turnos uno por uno. Si subís a Premium, en otros 5 minutos tenés tu perfil de la vidriera listo con foto, descripción (generada con IA), fotos de tu trabajo y reseñas.</div>
-      </details>
-      <details class="faq-item">
-        <summary>¿Hay un programa de referidos?</summary>
-        <div class="faq-answer">Sí. Cada vez que invitás a otro odontólogo y se queda con un plan pago, vos te ganás <strong>1 mes gratis</strong> de tu plan actual. Sin tope. Disponible desde el plan Esencial.</div>
-      </details>
-      <details class="faq-item">
-        <summary>¿Tiene app para el celular?</summary>
-        <div class="faq-answer">Sí. Es una aplicación que se instala desde el navegador en 1 toque y funciona como cualquier otra app — la abrís desde el celular o la compu sin tener que bajar nada de la tienda.</div>
+        <div class="faq-answer">Sí. El paciente ya pagó la seña — si no aparece, pierde plata. Eso solo puede bajar las ausencias <strong>hasta un 50%</strong>. Sumando los recordatorios automáticos de Juli por WhatsApp (Profesional en adelante), el efecto es todavía mayor. Es lo que vivimos todos los días en nuestro propio consultorio.</div>
       </details>
       <details class="faq-item">
         <summary>¿Y si no me gusta o no me sirve?</summary>
-        <div class="faq-answer">Empezás <strong>gratis sin tarjeta</strong>. Tenés 30 días de Premium incluidos para probar todo. Si no te gusta, no pagás nada — caés al plan Gratis (40 turnos/mes) y seguís usando el sistema sin presión.</div>
+        <div class="faq-answer">Empezás <strong>gratis sin tarjeta</strong>. Tenés 30 días de Premium incluidos para probar todo. Si no te gusta, no pagás nada — pasás al plan Gratis (40 turnos/mes) y seguís usando el sistema sin presión.</div>
       </details>
     </div>
   </div>
@@ -1918,16 +1875,16 @@ tailwind.config = {
 
   <div class="relative max-w-5xl mx-auto px-6 text-center">
     <h2 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tighter leading-[1.05]">
-      Mientras dudás,<br>
-      <span class="text-white">otro odontólogo de tu zona</span><br>
-      <span class="text-white">se está sumando.</span>
+      Cada turno que no aparece<br>
+      <span class="text-white">ya te costó plata.</span><br>
+      <span class="text-white">El próximo, cobralo igual.</span>
     </h2>
     <p class="mt-8 text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto">
-      30 días de Premium gratis. Sin tarjeta. Tu perfil en la vidriera listo en 5 minutos.
+      30 días de Premium gratis. Sin tarjeta. Tu agenda lista en 2 minutos.
     </p>
     <div class="mt-12">
       <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="magnetic inline-flex items-center gap-3 bg-white text-arf-primary font-bold text-lg px-10 py-5 rounded-2xl hover:bg-white/90 transition shadow-2xl">
-        Activar mi perfil ahora
+        Crear cuenta gratis
         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
       <div class="text-sm text-white/70 mt-4">Empezás en el plan Gratis · 30 días Premium de prueba · Sin tarjeta · Cancelás cuando quieras</div>
@@ -1960,64 +1917,53 @@ tailwind.config = {
       <div>
         <div class="text-sm font-semibold mb-4">Producto</div>
         <ul class="space-y-2 text-sm text-white/50">
-          <li><a href="#producto" class="hover:text-white transition">Features</a></li>
-          <li><a href="#precios" class="hover:text-white transition">Pricing</a></li>
-          <li><a href="#" class="hover:text-white transition">Roadmap</a></li>
-          <li><a href="#" class="hover:text-white transition">Changelog</a></li>
+          <li><a href="#producto" class="hover:text-white transition">Funcionalidades</a></li>
+          <li><a href="#precios" class="hover:text-white transition">Precios</a></li>
+          <li><a href="#como-funciona" class="hover:text-white transition">Cómo funciona</a></li>
+          <li><a href="#faq" class="hover:text-white transition">Preguntas frecuentes</a></li>
         </ul>
       </div>
 
       <div>
-        <div class="text-sm font-semibold mb-4">Recursos</div>
+        <div class="text-sm font-semibold mb-4">Pacientes</div>
         <ul class="space-y-2 text-sm text-white/50">
-          <li><a href="#" class="hover:text-white transition">Blog</a></li>
-          <li><a href="#" class="hover:text-white transition">Soporte</a></li>
-          <li><a href="#" class="hover:text-white transition">Docs</a></li>
-          <li><a href="#" class="hover:text-white transition">Status</a></li>
+          <li><a href="https://marketplace.solucionesdentalesarf.com" class="hover:text-white transition">Buscar un odontólogo</a></li>
+          <li><a href="#marketplace" class="hover:text-white transition">Vidriera para profesionales</a></li>
         </ul>
       </div>
 
       <div>
         <div class="text-sm font-semibold mb-4">Empresa</div>
         <ul class="space-y-2 text-sm text-white/50">
-          <li><a href="#" class="hover:text-white transition">Nosotros</a></li>
-          <li><a href="#" class="hover:text-white transition">Contacto</a></li>
-          <li><a href="#" class="hover:text-white transition">Trabajá con nosotros</a></li>
-          <li><a href="#" class="hover:text-white transition">Términos</a></li>
-          <li><a href="#" class="hover:text-white transition">Privacidad</a></li>
+          <li><a href="mailto:alejo@solucionesdentalesarf.com" class="hover:text-white transition">Contacto</a></li>
+          <li><a href="https://crm.solucionesdentalesarf.com/terminos" class="hover:text-white transition">Términos y condiciones</a></li>
+          <li><a href="https://crm.solucionesdentalesarf.com/privacidad" class="hover:text-white transition">Política de privacidad</a></li>
         </ul>
       </div>
     </div>
 
     <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="text-sm text-white/40">© 2026 Soluciones Dentales · Hecho en Tucumán 🇦🇷</div>
+      <div class="text-sm text-white/40">© 2026 Soluciones Dentales · Hecho en Argentina 🇦🇷</div>
       <div class="text-xs text-white/30">v2026.05</div>
     </div>
   </div>
 </footer>
 
-<!-- ============================================ -->
-<!-- STICKY BOTTOM COUNTER (urgencia persistente) -->
-<!-- ============================================ -->
-<div id="sticky-urgency" class="fixed bottom-4 right-4 z-40 glass-card rounded-2xl px-4 py-3 max-w-xs hidden md:flex items-center gap-3 shadow-2xl transform translate-y-24 transition-transform duration-500">
-  <div class="w-2 h-2 rounded-full bg-arf-light animate-pulse"></div>
-  <div class="text-xs">
-    <div class="font-semibold"><span id="sticky-cupos">17</span> perfiles destacados disponibles</div>
-    <div class="text-white/60">Promo lanzamiento termina en <span id="sticky-time">04d 23h</span></div>
-  </div>
-</div>
+<!-- (sticky de urgencia eliminado jun 2026 — escasez fabricada sin sustancia
+     erosionaba confianza con un público profesional) -->
 
-<!-- ============================================ -->
-<!-- FLOATING NOTIFICATIONS CONTAINER -->
-<!-- ============================================ -->
-<div id="notif-container" class="fixed bottom-4 left-4 z-40 space-y-2 pointer-events-none"></div>
+<!-- (notif-container eliminado jun 2026 — mostraba registros falsos) -->
 
 <!-- ============================================ -->
 <!-- SCRIPTS -->
 <!-- ============================================ -->
 <script src="assets/js/animations.js"></script>
-<script src="assets/js/countdown.js"></script>
-<script src="assets/js/notifications.js"></script>
+<!-- countdown.js y notifications.js removidos jun 2026: countdown falso,
+     sticky de urgencia y toasts de "Dr. X se sumó" con personas inventadas.
+     Prueba social fabricada = riesgo de confianza (y legal) con un público
+     profesional. Cuando haya usuarios reales, volver a agregar con datos
+     reales y consentimiento. -->
+
 <script src="assets/js/counter.js"></script>
 <script src="assets/js/whatsapp-typing.js"></script>
 <script>
@@ -2046,10 +1992,7 @@ tailwind.config = {
     if (winScroll > 40) nav.classList.add('nav-compact');
     else nav.classList.remove('nav-compact');
 
-    // Sticky urgency appearance after hero
-    if (winScroll > window.innerHeight * 0.8) {
-      document.getElementById('sticky-urgency')?.classList.remove('translate-y-24');
-    }
+    // (sticky-urgency eliminado jun 2026 — no hay nada que mostrar acá)
   });
 </script>
 
