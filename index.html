@@ -3,24 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Soluciones Dentales — Tu agenda odontológica con IA. Los pacientes reservan online y pagan la seña al instante. Recordatorios automáticos por WhatsApp.">
-<meta name="keywords" content="agenda dental online, cobro de seña anticipada odontologo, software odontologico Argentina, link reservas dentista, MercadoPago consultorio">
-<meta property="og:title" content="Soluciones Dentales — Tu agenda odontológica con IA">
-<meta property="og:description" content="Los pacientes reservan online y pagan la seña al instante. Juli, la IA de tu agenda, manda los recordatorios y reagenda sola. Vos solo atendés.">
+<meta name="description" content="La agenda online para odontólogos. Tus pacientes reservan, cancelan y reprograman su turno solos, con recordatorios automáticos por WhatsApp. Menos ausencias, agenda siempre llena.">
+<meta name="keywords" content="agenda online odontologos, agenda dental, software para consultorios dentales, link reservas dentista, recordatorios whatsapp turnos, cobro de seña MercadoPago">
+<meta property="og:title" content="Soluciones Dentales — La agenda online para odontólogos">
+<meta property="og:description" content="Tus pacientes reservan, cancelan y reprograman su turno solos, con recordatorios automáticos por WhatsApp. Menos ausencias. Vos solo atendés.">
 <meta property="og:type" content="website">
-<title>Soluciones Dentales — Tu agenda odontológica con IA</title>
+<title>Soluciones Dentales — La agenda online para odontólogos</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- Meta Pixel — audiencia "professional" (SaaS, junio 2026, Alejo) ============
-  Esta landing capta DENTISTAS que se suscriben al CRM. Cargamos solo el
-  pixel SaaS (1003475539099176), no el de Marketplace. Eventos:
-    - PageView: automático al cargar.
-    - Lead: al click en "Crear cuenta gratis" (cualquier CTA con data-cta).
-  Si en algún momento la landing capta también pacientes, sumar el otro
-  pixel acá mismo y usar fbq('trackSingle', ID, ...) por audiencia. =========-->
+<!-- Meta Pixel — audiencia "professional" (SaaS). Capta odontólogos que se
+  suscriben al CRM. Eventos: PageView (auto) + Lead (click en cualquier CTA
+  que lleve a /auth/empezar). -->
 <script>
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -35,12 +31,7 @@
 <!-- End Meta Pixel -->
 
 <script>
-  // Junio 2026 (Alejo): tracking de Lead al click en cualquier CTA que
-  // lleve al registro (/auth/empezar). Cubre TODOS los botones "Crear cuenta
-  // gratis" de la landing (~6 botones repartidos en header, hero, precios,
-  // CTA final, etc) sin tener que marcarlos manualmente uno por uno.
-  // Se dispara al click, antes del navigate, para que llegue a Meta aunque
-  // el usuario salga rápido.
+  // Lead al click en cualquier CTA que lleve al registro (/auth/empezar).
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('a[href*="/auth/empezar"]').forEach(function (el) {
       el.addEventListener('click', function () {
@@ -73,42 +64,82 @@ tailwind.config = {
         'display': ['Plus Jakarta Sans', 'sans-serif'],
         'body': ['Inter', 'sans-serif'],
       },
-      animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'float': 'float 6s ease-in-out infinite',
-        'shimmer': 'shimmer 2s linear infinite',
-      },
-      keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
-        },
-        shimmer: {
-          '0%': { backgroundPosition: '-200% 0' },
-          '100%': { backgroundPosition: '200% 0' },
-        }
-      }
     }
   }
 }
 </script>
 
 <link rel="stylesheet" href="assets/css/styles.css">
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<style>html{scroll-behavior:smooth}</style>
+<style>
+  html{scroll-behavior:smooth}
+  /* Refuerzos locales por si styles.css no define algo — la landing nueva es
+     autosuficiente y no depende de animaciones JS externas. */
+  .eyebrow{display:inline-block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#d7a3ff;background:rgba(182,0,255,.10);border:1px solid rgba(182,0,255,.25);padding:.4rem .9rem;border-radius:9999px}
+  .btn-gradient{background:linear-gradient(135deg,#7C1FD6,#B600FF);color:#fff;box-shadow:0 8px 30px rgba(124,31,214,.35);transition:transform .15s,box-shadow .15s}
+  .btn-gradient:hover{transform:translateY(-1px);box-shadow:0 12px 38px rgba(124,31,214,.5)}
+  .btn-ghost{border:1px solid rgba(255,255,255,.18);color:#fff;background:rgba(255,255,255,.03);transition:background .15s}
+  .btn-ghost:hover{background:rgba(255,255,255,.08)}
+  .glass-card{background:rgba(255,255,255,.04);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08)}
+  .check{display:inline-flex;width:1.1rem;justify-content:center;color:#B600FF;font-weight:700;margin-right:.15rem}
+  .pricing-feature{display:flex;gap:.5rem;align-items:flex-start;line-height:1.35}
+  .faq-item{border:1px solid rgba(255,255,255,.08);border-radius:1rem;background:rgba(255,255,255,.02);overflow:hidden}
+  .faq-item summary{cursor:pointer;list-style:none;padding:1.1rem 1.3rem;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:'+';color:#B600FF;font-size:1.3rem;font-weight:700}
+  .faq-item[open] summary::after{content:'–'}
+  .faq-answer{padding:0 1.3rem 1.2rem;color:rgba(255,255,255,.65);font-size:.95rem;line-height:1.6}
+  .social-link{display:inline-flex;align-items:center;justify-content:center;width:2.2rem;height:2.2rem;border-radius:.7rem;background:rgba(255,255,255,.05);color:rgba(255,255,255,.6);transition:.15s}
+  .social-link:hover{background:rgba(182,0,255,.18);color:#fff}
+  .grid-pattern{background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:40px 40px}
+  .hero-glow{background:radial-gradient(60% 50% at 50% 0%,rgba(124,31,214,.35),transparent 70%)}
+  .step-num{width:2.6rem;height:2.6rem;border-radius:.9rem;background:linear-gradient(135deg,#7C1FD6,#B600FF);display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif}
+  .feature-ico{width:2.8rem;height:2.8rem;border-radius:.9rem;background:rgba(182,0,255,.12);border:1px solid rgba(182,0,255,.22);display:flex;align-items:center;justify-content:center;color:#d7a3ff}
+  .nav-compact .nav-inner{background:rgba(10,1,24,.85)}
+  /* Mockup de la app (dashboard "Inicio") en el hero */
+  .app-mock{position:relative;background:#fff;border-radius:1.1rem;box-shadow:0 30px 80px -20px rgba(124,31,214,.5),0 0 0 1px rgba(255,255,255,.08);overflow:hidden;color:#1f0838}
+  .app-top{display:flex;align-items:center;gap:.45rem;padding:.6rem .9rem;border-bottom:1px solid #efe9f5;background:#faf7fe}
+  .app-dot{width:.58rem;height:.58rem;border-radius:50%}
+  .app-body{display:flex;min-height:355px}
+  .app-side{width:120px;background:#0a0118;color:#cbb6e6;padding:.85rem .55rem;display:flex;flex-direction:column;gap:.12rem;flex-shrink:0}
+  .app-nav{display:flex;align-items:center;gap:.45rem;font-size:.7rem;padding:.42rem .5rem;border-radius:.55rem;color:#b3a0d4}
+  .app-nav.active{background:linear-gradient(135deg,#7C1FD6,#B600FF);color:#fff}
+  .app-main{flex:1;padding:.95rem 1.05rem;background:#fff;min-width:0}
+  .app-stat{flex:1;border:1px solid #eee;border-radius:.7rem;padding:.5rem .6rem;background:#fbfafc;text-align:left}
+  .app-row{display:flex;align-items:center;gap:.55rem;padding:.46rem .15rem;border-bottom:1px solid #f3eefa}
+  .app-av{width:1.85rem;height:1.85rem;border-radius:.55rem;background:linear-gradient(135deg,#7C1FD6,#B600FF);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:700;flex-shrink:0}
+  .badge-ok{background:#e7f8ef;color:#1a9b56;font-size:.58rem;font-weight:700;padding:.1rem .45rem;border-radius:999px;white-space:nowrap}
+  .badge-wait{background:#fef3e2;color:#c8860d;font-size:.58rem;font-weight:700;padding:.1rem .45rem;border-radius:999px;white-space:nowrap}
+  .float-card{position:absolute;z-index:5;background:#fff;border-radius:.8rem;box-shadow:0 14px 40px -8px rgba(31,8,56,.4);padding:.5rem .7rem;display:flex;align-items:center;gap:.5rem;font-size:.7rem;color:#1f0838;font-weight:600;white-space:nowrap}
+  .float-a{top:2.4rem;right:.6rem;animation:floaty 5s ease-in-out infinite}
+  .float-b{bottom:2.2rem;left:.6rem;animation:floaty 6s ease-in-out infinite .9s}
+  @media (min-width:1024px){.float-a{right:-.5rem}.float-b{left:-.5rem}}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  .live-dot{width:.5rem;height:.5rem;border-radius:50%;background:#1a9b56;animation:livepulse 1.8s infinite}
+  @keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(26,155,86,.5)}70%{box-shadow:0 0 0 7px rgba(26,155,86,0)}100%{box-shadow:0 0 0 0 rgba(26,155,86,0)}}
+  .app-row{animation:rowin .5s ease both}
+  .app-row:nth-child(2){animation-delay:.05s}.app-row:nth-child(3){animation-delay:.12s}.app-row:nth-child(4){animation-delay:.19s}.app-row:nth-child(5){animation-delay:.26s}.app-row:nth-child(6){animation-delay:.33s}
+  @keyframes rowin{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+  /* Odontograma showcase */
+  .odo-card{background:#fff;border-radius:1.1rem;box-shadow:0 30px 80px -25px rgba(124,31,214,.45),0 0 0 1px rgba(255,255,255,.08);padding:1.1rem 1.2rem;color:#1f0838}
+  .odo-legend{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem}
+  .odo-pill{display:inline-flex;align-items:center;gap:.3rem;font-size:.6rem;font-weight:700;padding:.18rem .5rem;border-radius:999px}
+  .odo-arch{display:flex;flex-wrap:wrap;justify-content:center;gap:.22rem}
+  .tooth{display:flex;flex-direction:column;align-items:center;gap:.1rem}
+  .tooth small{font-size:.48rem;color:#9a8aad;line-height:1}
+  .tooth .crown{width:1.2rem;height:1.2rem;border-radius:.3rem;border:1.6px solid #22c55e;background:#fff}
+  .odo-mid{text-align:center;font-size:.54rem;color:#c0aedb;letter-spacing:.12em;text-transform:uppercase;margin:.5rem 0;border-top:1px dashed #ece4f7;padding-top:.5rem}
+</style>
 </head>
 <body class="bg-arf-deep text-white font-body antialiased overflow-x-hidden">
 
 <!-- ============================================ -->
-<!-- 1. NAV STICKY + SCROLL PROGRESS BAR -->
+<!-- NAV -->
 <!-- ============================================ -->
 <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
   <div class="nav-inner backdrop-blur-xl bg-arf-deep/60 border-b border-white/5">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="#" class="flex items-center gap-2.5">
-        <!-- Logo ARF. — versión SVG inline (reemplaza con <img src="assets/logo-arf.png"> cuando tengas la PNG real). -->
         <svg viewBox="0 0 100 100" class="w-10 h-10 rounded-xl" xmlns="http://www.w3.org/2000/svg" aria-label="Soluciones Dentales ARF">
           <rect width="100" height="100" rx="14" fill="#B600FF"/>
           <text x="50" y="68" text-anchor="middle" font-family="Plus Jakarta Sans, Inter, sans-serif" font-weight="800" font-size="44" fill="#fff" letter-spacing="-1">ARF.</text>
@@ -117,10 +148,9 @@ tailwind.config = {
       </a>
 
       <div class="hidden md:flex items-center gap-7 text-sm text-white/70">
-        <a href="#producto" class="hover:text-white transition">Producto</a>
-        <a href="#producto" class="hover:text-white transition">Juli IA</a>
-        <a href="#precios" class="hover:text-white transition">Precios</a>
         <a href="#como-funciona" class="hover:text-white transition">Cómo funciona</a>
+        <a href="#producto" class="hover:text-white transition">Funciones</a>
+        <a href="#precios" class="hover:text-white transition">Precios</a>
         <a href="#faq" class="hover:text-white transition">FAQ</a>
       </div>
 
@@ -135,1578 +165,245 @@ tailwind.config = {
     <div id="scroll-progress" class="h-0.5 bg-gradient-to-r from-arf-primary to-arf-light w-0 transition-all duration-100"></div>
   </div>
 
-  <!-- Mobile menu -->
   <div id="mobile-menu" class="fixed inset-y-0 right-0 w-72 bg-arf-darker border-l border-white/10 transform translate-x-full transition-transform duration-300 z-50 p-6">
     <button id="close-menu" class="absolute top-4 right-4 p-2 text-white/70 hover:text-white" aria-label="Cerrar menú">
       <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
     <div class="mt-12 flex flex-col gap-6 text-lg">
-      <a href="#producto" class="mobile-link">Producto</a>
-      <a href="#producto" class="mobile-link">Juli IA</a>
-      <a href="#precios" class="mobile-link">Precios</a>
-      <a href="#como-funciona" class="mobile-link">Cómo funciona</a>
-      <a href="#faq" class="mobile-link">FAQ</a>
-      <a href="https://crm.solucionesdentalesarf.com/auth/login" class="mobile-link">Iniciar sesión</a>
+      <a href="#como-funciona" class="mobile-link hover:text-arf-light transition">Cómo funciona</a>
+      <a href="#producto" class="mobile-link hover:text-arf-light transition">Funciones</a>
+      <a href="#precios" class="mobile-link hover:text-arf-light transition">Precios</a>
+      <a href="#faq" class="mobile-link hover:text-arf-light transition">FAQ</a>
+      <a href="https://crm.solucionesdentalesarf.com/auth/login" class="mobile-link hover:text-arf-light transition">Iniciar sesión</a>
       <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="btn-gradient text-center font-medium px-5 py-3 rounded-xl mt-4" data-cta="signup-mobile">Crear cuenta gratis</a>
     </div>
   </div>
 </nav>
 
 <!-- ============================================ -->
-<!-- 2. HERO -->
+<!-- HERO -->
 <!-- ============================================ -->
-<section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
-  <!-- Gradient mesh background -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="hero-mesh absolute inset-0"></div>
-    <div class="orb orb-1 absolute top-20 -left-20 w-96 h-96 rounded-full bg-arf-primary/40 blur-[70px]"></div>
-    <div class="orb orb-2 absolute top-40 right-0 w-[28rem] h-[28rem] rounded-full bg-arf-light/30 blur-[80px]"></div>
-    <div class="orb orb-3 absolute bottom-0 left-1/3 w-80 h-80 rounded-full bg-arf-primary/20 blur-[60px]"></div>
-    <div class="absolute inset-0 grid-pattern opacity-20"></div>
-  </div>
+<section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+  <div class="hero-glow absolute inset-0"></div>
+  <div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-10 items-center">
 
-  <div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
+    <!-- IZQUIERDA — texto -->
+    <div class="text-center lg:text-left">
+      <div class="eyebrow mb-6">La agenda online para odontólogos</div>
 
-    <!-- LEFT 60% -->
-    <div class="lg:col-span-7">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs font-medium text-white/80 mb-6 hero-badge">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-arf-light opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-arf-light"></span>
-        </span>
-        NUEVO — Lanzamiento Argentina 2026
-      </div>
-
-      <h1 class="hero-h1 font-display font-extrabold tracking-tighter leading-[0.98] text-5xl sm:text-6xl lg:text-7xl">
-        Dejá de perder plata
-        <span class="block bg-gradient-to-r from-arf-light via-arf-primary to-arf-light bg-clip-text text-transparent">por pacientes</span>
-        <span class="block">que no aparecen.</span>
+      <h1 class="font-display font-extrabold tracking-tighter leading-[0.98] text-5xl sm:text-6xl lg:text-[4.2rem]">
+        Dejá de perder plata por
+        <span class="block bg-gradient-to-r from-arf-light via-arf-primary to-arf-light bg-clip-text text-transparent">los pacientes que no aparecen</span>
       </h1>
 
-      <p class="hero-subtitle mt-6 text-lg sm:text-xl text-white/70 max-w-xl leading-relaxed">
-        Tus pacientes reservan online y <span class="text-white font-medium">pagan la seña por adelantado</span>: si no vienen, la plata es tuya igual. Y Juli, la IA de tu agenda, les manda los recordatorios por WhatsApp y <span class="text-white font-medium">confirma, reagenda y cancela sola</span>. Vos solo atendés.
+      <p class="mt-6 text-lg text-white/70 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+        La agenda donde tus pacientes <span class="text-white font-medium">reservan, cancelan y reprograman su turno solos</span> —24/7— con <span class="text-white font-medium">recordatorios automáticos por WhatsApp</span>. Menos ausencias. Vos solo atendés.
       </p>
-      <p class="mt-3 text-sm text-white/55">
-        Sin instalar nada · Sin tarjeta · Listo en 2 minutos
-      </p>
+      <p class="mt-3 text-sm text-white/55">Sin instalar nada · Sin tarjeta · Listo en 2 minutos</p>
 
-      <div class="hero-ctas mt-8 flex flex-wrap items-center gap-4">
-        <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="btn-gradient text-base font-semibold px-7 py-4 rounded-2xl inline-flex items-center gap-2">
+      <div class="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+        <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="btn-gradient text-base font-semibold px-7 py-4 rounded-2xl inline-flex items-center gap-2" data-cta="signup-hero">
           Crear cuenta gratis
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
-        <a href="#probalo" class="btn-ghost text-base font-medium px-7 py-4 rounded-2xl inline-flex items-center gap-2">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          Probá la demo
-        </a>
+        <a href="#como-funciona" class="btn-ghost text-base font-medium px-7 py-4 rounded-2xl inline-flex items-center gap-2">Ver cómo funciona</a>
       </div>
 
-      <div class="hero-stats mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-white/60 stats-section">
-        <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-          <span class="text-white font-semibold">Plan gratis sin tarjeta</span>
-        </div>
-        <div class="w-1 h-1 rounded-full bg-white/30"></div>
-        <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-          <span class="text-white font-semibold">Hasta 50% menos ausencias</span>
-        </div>
-        <div class="w-1 h-1 rounded-full bg-white/30"></div>
-        <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-          <span class="text-white font-semibold">Facturación ARCA (ex AFIP)</span>
-        </div>
-        <div class="w-1 h-1 rounded-full bg-white/30"></div>
-        <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-          <span class="text-white font-semibold">0% comisión Premium</span>
-        </div>
+      <div class="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-white/60">
+        <div class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i><span class="text-white/80 font-medium">Plan gratis sin tarjeta</span></div>
+        <div class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i><span class="text-white/80 font-medium">Hasta 50% menos ausencias</span></div>
       </div>
     </div>
 
-    <!-- RIGHT 40% — Dashboard mockup with 3D perspective -->
-    <div class="lg:col-span-5 relative">
-      <div class="hero-mockup relative perspective-container">
-        <!-- Floating notification -->
-        <div class="absolute -top-4 -left-4 z-20 glass-card rounded-2xl px-4 py-3 flex items-center gap-3 floating-notif">
-          <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
-            <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-          </div>
-          <div>
-            <div class="text-xs text-white/60">Ana Paula Vidal</div>
-            <div class="text-sm font-medium">Confirmó su turno</div>
-          </div>
+    <!-- DERECHA — mockup del dashboard "Inicio" cargado y con movimiento -->
+    <div class="relative px-2 sm:px-6 lg:px-0">
+      <div class="app-mock">
+        <div class="app-top">
+          <span class="app-dot" style="background:#ff5f57"></span>
+          <span class="app-dot" style="background:#febc2e"></span>
+          <span class="app-dot" style="background:#28c840"></span>
+          <span style="margin-left:.45rem;font-size:.66rem;color:#9a8aad;font-weight:600">Soluciones Dentales — Agenda</span>
+          <span style="margin-left:auto;display:flex;align-items:center;gap:.35rem;font-size:.6rem;color:#1a9b56;font-weight:700"><span class="live-dot"></span> Link activo</span>
         </div>
-
-        <!-- WhatsApp mini-mockup floating -->
-        <div class="absolute -bottom-8 -right-4 z-20 floating-mockup">
-          <div class="w-64 rounded-2xl glass-card overflow-hidden border border-white/10 shadow-2xl">
-            <div class="bg-emerald-700/30 px-3 py-2 flex items-center gap-2 border-b border-white/10">
-              <div class="w-7 h-7 rounded-full bg-gradient-to-br from-arf-primary to-arf-light flex items-center justify-center text-[10px] font-bold">SD</div>
-              <div class="text-xs">
-                <div class="font-medium">Soluciones Dentales</div>
-                <div class="text-emerald-400 text-[10px]">en línea</div>
-              </div>
+        <div class="app-body">
+          <div class="app-side">
+            <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.7rem;padding:0 .25rem">
+              <div style="width:1.35rem;height:1.35rem;border-radius:.4rem;background:#B600FF;color:#fff;font-size:.5rem;font-weight:800;display:flex;align-items:center;justify-content:center">ARF</div>
+              <span style="font-size:.6rem;font-weight:700;color:#fff">Soluciones</span>
             </div>
-            <div id="hero-chat" class="p-3 space-y-2 min-h-[160px] bg-arf-darker/50 text-xs">
-              <!-- mensajes inyectados por whatsapp-typing.js -->
-            </div>
+            <div class="app-nav active"><i data-lucide="home" style="width:13px;height:13px"></i> Inicio</div>
+            <div class="app-nav"><i data-lucide="calendar" style="width:13px;height:13px"></i> Mi agenda</div>
+            <div class="app-nav"><i data-lucide="users" style="width:13px;height:13px"></i> Pacientes</div>
+            <div class="app-nav"><i data-lucide="wallet" style="width:13px;height:13px"></i> Mi cuenta</div>
+            <div class="app-nav"><i data-lucide="megaphone" style="width:13px;height:13px"></i> Marketing</div>
           </div>
-        </div>
-
-        <!-- Dashboard mockup -->
-        <div class="dashboard-mockup transform-3d glass-card rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-          <div class="flex border-b border-white/10">
-            <div class="w-20 bg-arf-darker/80 p-3 space-y-3 border-r border-white/10">
-              <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-arf-primary to-arf-light"></div>
-              <div class="space-y-2">
-                <div class="w-8 h-8 rounded-lg bg-white/10"></div>
-                <div class="w-8 h-8 rounded-lg bg-white/5"></div>
-                <div class="w-8 h-8 rounded-lg bg-white/5"></div>
-                <div class="w-8 h-8 rounded-lg bg-white/5"></div>
-              </div>
+          <div class="app-main">
+            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:.95rem">Hola, doctora!</div>
+            <div style="font-size:.64rem;color:#9a8aad;margin-bottom:.65rem">Tu día de hoy</div>
+            <div style="display:flex;gap:.45rem;margin-bottom:.75rem">
+              <div class="app-stat"><div style="font-size:1.05rem;font-weight:800;color:#7C1FD6">8</div><div style="font-size:.56rem;color:#9a8aad">Turnos hoy</div></div>
+              <div class="app-stat"><div style="font-size:1.05rem;font-weight:800;color:#1a9b56">6</div><div style="font-size:.56rem;color:#9a8aad">Confirmados</div></div>
+              <div class="app-stat"><div style="font-size:1.05rem;font-weight:800;color:#c8860d">2</div><div style="font-size:.56rem;color:#9a8aad">Por confirmar</div></div>
             </div>
-            <div class="flex-1 p-4">
-              <div class="flex items-center justify-between mb-4">
-                <div>
-                  <div class="text-xs text-white/50">Hoy, 19 de mayo</div>
-                  <div class="font-semibold text-sm">Agenda Dra. Silva</div>
-                </div>
-                <div class="text-[10px] px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-400">8 confirmados</div>
-              </div>
-              <div class="space-y-2">
-                <div class="bg-white/5 rounded-lg p-2 flex items-center gap-2 border-l-2 border-arf-light">
-                  <div class="text-[10px] text-white/50 w-10">09:00</div>
-                  <div class="flex-1 text-xs">M. Pérez · Consulta</div>
-                  <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
-                </div>
-                <div class="bg-white/5 rounded-lg p-2 flex items-center gap-2 border-l-2 border-arf-light">
-                  <div class="text-[10px] text-white/50 w-10">10:30</div>
-                  <div class="flex-1 text-xs">L. Gómez · Blanqueamiento</div>
-                  <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
-                </div>
-                <div class="bg-white/5 rounded-lg p-2 flex items-center gap-2 border-l-2 border-yellow-400">
-                  <div class="text-[10px] text-white/50 w-10">12:00</div>
-                  <div class="flex-1 text-xs">A. Vidal · Limpieza</div>
-                  <div class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></div>
-                </div>
-                <div class="bg-white/5 rounded-lg p-2 flex items-center gap-2 border-l-2 border-arf-light">
-                  <div class="text-[10px] text-white/50 w-10">15:00</div>
-                  <div class="flex-1 text-xs">R. Cruz · Endodoncia</div>
-                  <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
-                </div>
-                <div class="bg-white/5 rounded-lg p-2 flex items-center gap-2 border-l-2 border-arf-light/40">
-                  <div class="text-[10px] text-white/50 w-10">17:00</div>
-                  <div class="flex-1 text-xs">J. Romero · Consulta</div>
-                  <div class="w-2 h-2 rounded-full bg-white/30"></div>
-                </div>
-              </div>
-              <div class="mt-3 grid grid-cols-3 gap-2 text-center">
-                <div class="bg-white/5 rounded-lg p-2">
-                  <div class="text-sm font-bold text-arf-light">$247k</div>
-                  <div class="text-[9px] text-white/50">Hoy</div>
-                </div>
-                <div class="bg-white/5 rounded-lg p-2">
-                  <div class="text-sm font-bold">12</div>
-                  <div class="text-[9px] text-white/50">Turnos</div>
-                </div>
-                <div class="bg-white/5 rounded-lg p-2">
-                  <div class="text-sm font-bold text-emerald-400">↑ 34%</div>
-                  <div class="text-[9px] text-white/50">vs sem</div>
-                </div>
-              </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.15rem">
+              <span style="font-size:.7rem;font-weight:700">Próximos turnos</span>
+              <span style="font-size:.58rem;color:#7C1FD6;font-weight:700">+ Nuevo turno</span>
+            </div>
+            <div>
+              <div class="app-row"><span style="font-size:.6rem;color:#9a8aad;width:2.3rem">09:30</span><div class="app-av">MG</div><div style="flex:1;min-width:0"><div style="font-size:.7rem;font-weight:600">María González</div><div style="font-size:.56rem;color:#9a8aad">Limpieza</div></div><span class="badge-ok">Confirmado</span></div>
+              <div class="app-row"><span style="font-size:.6rem;color:#9a8aad;width:2.3rem">10:00</span><div class="app-av">CP</div><div style="flex:1;min-width:0"><div style="font-size:.7rem;font-weight:600">Carlos Pérez</div><div style="font-size:.56rem;color:#9a8aad">Brackets</div></div><span class="badge-ok">Confirmado</span></div>
+              <div class="app-row"><span style="font-size:.6rem;color:#9a8aad;width:2.3rem">10:30</span><div class="app-av">LR</div><div style="flex:1;min-width:0"><div style="font-size:.7rem;font-weight:600">Lucía Romero</div><div style="font-size:.56rem;color:#9a8aad">Consulta</div></div><span class="badge-wait">Por confirmar</span></div>
+              <div class="app-row"><span style="font-size:.6rem;color:#9a8aad;width:2.3rem">11:00</span><div class="app-av">JF</div><div style="flex:1;min-width:0"><div style="font-size:.7rem;font-weight:600">Juan Fernández</div><div style="font-size:.56rem;color:#9a8aad">Conducto</div></div><span class="badge-ok">Confirmado</span></div>
+              <div class="app-row"><span style="font-size:.6rem;color:#9a8aad;width:2.3rem">11:30</span><div class="app-av">AS</div><div style="flex:1;min-width:0"><div style="font-size:.7rem;font-weight:600">Ana Suárez</div><div style="font-size:.56rem;color:#9a8aad">Arreglo</div></div><span class="badge-ok">Confirmado</span></div>
+              <div class="app-row"><span style="font-size:.6rem;color:#9a8aad;width:2.3rem">12:00</span><div class="app-av">MD</div><div style="flex:1;min-width:0"><div style="font-size:.7rem;font-weight:600">Marcos Díaz</div><div style="font-size:.56rem;color:#9a8aad">Extracción</div></div><span class="badge-wait">Por confirmar</span></div>
             </div>
           </div>
         </div>
       </div>
+      <div class="float-card float-a"><span style="width:1.3rem;height:1.3rem;border-radius:50%;background:#e7f8ef;color:#1a9b56;display:flex;align-items:center;justify-content:center"><i data-lucide="check" style="width:13px;height:13px"></i></span> Turno reservado online</div>
+      <div class="float-card float-b"><span style="width:1.3rem;height:1.3rem;border-radius:50%;background:#e7f3ff;color:#2563eb;display:flex;align-items:center;justify-content:center"><i data-lucide="message-circle" style="width:13px;height:13px"></i></span> Recordatorio enviado</div>
     </div>
-
   </div>
 </section>
 
 <!-- ============================================ -->
-<!-- 3. TRUSTED BY / SOCIAL PROOF -->
+<!-- CÓMO FUNCIONA -->
 <!-- ============================================ -->
-<section class="relative py-12 border-y border-white/5 bg-arf-darker/30">
-  <div class="max-w-4xl mx-auto px-6 text-center">
-    <p class="text-base sm:text-lg text-white/70 leading-relaxed">
-      <span class="text-white font-semibold">No nació en una oficina: nació en un consultorio.</span>
-      Lo construimos porque nos cansamos de mandar recordatorios a mano todas las noches —
-      y hoy lo usamos todos los días con nuestros propios pacientes.
-      <span class="text-white font-semibold">Probalo gratis 30 días, sin tarjeta:</span> si no te sirve, no pagás nada.
-    </p>
-  </div>
-</section>
-
-<!-- ============================================ -->
-<!-- 4. EL PROBLEMA (movido arriba de la demo, jun 2026) -->
-<!-- ============================================ -->
-<section class="relative py-24 lg:py-32">
-  <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
-    <div class="lg:col-span-7">
-      <div class="eyebrow">EL PROBLEMA</div>
-      <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-[1.05] mb-8">
-        Tu mañana arranca con<br><span class="text-white/40">23 "Le recuerdo su turno..." por mandar.</span>
-      </h2>
-
-      <ul class="space-y-5 text-lg">
-        <li class="problem-item flex items-start gap-4">
-          <div class="problem-icon">📱</div>
-          <div>Mandás recordatorios uno por uno cada noche.</div>
-        </li>
-        <li class="problem-item flex items-start gap-4">
-          <div class="problem-icon">💸</div>
-          <div>Pacientes que reservan, no pagan, y no aparecen = 1 de cada 4 turnos al aire.</div>
-        </li>
-        <li class="problem-item flex items-start gap-4">
-          <div class="problem-icon">📅</div>
-          <div>Te equivocás y anotás dos pacientes a la misma hora.</div>
-        </li>
-        <li class="problem-item flex items-start gap-4">
-          <div class="problem-icon">🤯</div>
-          <div>Coordinar mensajes ida y vuelta para reagendar.</div>
-        </li>
-        <li class="problem-item flex items-start gap-4">
-          <div class="problem-icon">📓</div>
-          <div>Libreta de papel que se mancha o se pierde.</div>
-        </li>
-      </ul>
+<section id="como-funciona" class="relative py-20 lg:py-28 bg-arf-darker/40 border-y border-white/5">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <div class="eyebrow mb-5">Cómo funciona</div>
+      <h2 class="font-display font-extrabold text-4xl sm:text-5xl tracking-tighter leading-[1.05]">Tu agenda, en piloto automático</h2>
+      <p class="mt-4 text-white/60 max-w-xl mx-auto">En 3 pasos dejás de vivir contestando el WhatsApp para mover turnos.</p>
     </div>
 
-    <!-- Mockup WhatsApp inbox saturado -->
-    <div class="lg:col-span-5">
-      <div class="relative glass-card rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-        <div class="absolute top-3 right-3 z-10 px-3 py-1 rounded-full bg-red-500/90 text-xs font-bold text-white animate-pulse">23 por avisar</div>
-        <div class="bg-emerald-700/40 px-4 py-3 flex items-center gap-3 border-b border-white/10">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-          <div class="text-sm font-medium">Recordatorios por mandar a mano</div>
-        </div>
-        <div class="divide-y divide-white/5">
-          <div class="inbox-row"><div class="avatar-mini bg-pink-500/30">MR</div><div class="flex-1"><div class="text-sm font-medium">María Rodríguez</div><div class="text-xs text-white/50 truncate">Turno mañana 09:00 · Consulta · sin avisar</div></div><div class="badge-unread">!</div></div>
-          <div class="inbox-row"><div class="avatar-mini bg-blue-500/30">JP</div><div class="flex-1"><div class="text-sm font-medium">Juan Pérez</div><div class="text-xs text-white/50 truncate">Turno mañana 10:30 · Limpieza · sin avisar</div></div><div class="badge-unread">!</div></div>
-          <div class="inbox-row"><div class="avatar-mini bg-emerald-500/30">LF</div><div class="flex-1"><div class="text-sm font-medium">Lucía Fernández</div><div class="text-xs text-white/50 truncate">Turno mañana 12:00 · Control · sin avisar</div></div><div class="badge-unread">!</div></div>
-          <div class="inbox-row"><div class="avatar-mini bg-orange-500/30">RC</div><div class="flex-1"><div class="text-sm font-medium">Roberto Cruz</div><div class="text-xs text-white/50 truncate">Turno mañana 15:00 · Arreglo · sin avisar</div></div><div class="badge-unread">!</div></div>
-          <div class="inbox-row"><div class="avatar-mini bg-violet-500/30">SM</div><div class="flex-1"><div class="text-sm font-medium">Sofía Martínez</div><div class="text-xs text-white/50 truncate">Turno mañana 16:30 · Consulta · sin avisar</div></div><div class="badge-unread">!</div></div>
-          <div class="inbox-row opacity-50"><div class="avatar-mini bg-rose-500/30">DA</div><div class="flex-1"><div class="text-sm font-medium">Diego Acosta</div><div class="text-xs text-white/50 truncate">Turno mañana 18:00 · Limpieza · sin avisar</div></div><div class="badge-unread">!</div></div>
-        </div>
-        <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-red-500/30 to-transparent pointer-events-none"></div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="glass-card rounded-2xl p-7">
+        <div class="step-num mb-5">1</div>
+        <h3 class="font-display font-bold text-xl mb-2">Cargás tu agenda</h3>
+        <p class="text-white/60 text-[15px] leading-relaxed">Tus días, horarios y servicios con su duración. Listo en 2 minutos, desde la compu o el celular.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-7">
+        <div class="step-num mb-5">2</div>
+        <h3 class="font-display font-bold text-xl mb-2">El paciente reserva solo</h3>
+        <p class="text-white/60 text-[15px] leading-relaxed">Desde tu link saca, cancela o reprograma su turno cuando quiere, 24/7. Si activás la seña, paga por MercadoPago y la plata va directo a tu cuenta.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-7">
+        <div class="step-num mb-5">3</div>
+        <h3 class="font-display font-bold text-xl mb-2">Los recordatorios salen solos</h3>
+        <p class="text-white/60 text-[15px] leading-relaxed">El sistema le manda los recordatorios por WhatsApp automáticamente. Menos ausencias, agenda siempre llena. Vos solo atendés.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============================================ -->
-<!-- 3.5. PROBALO ACÁ — Demo interactiva del booking -->
+<!-- FUNCIONES -->
 <!-- ============================================ -->
-<section id="probalo" class="relative py-24 lg:py-32 overflow-hidden bg-black">
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-arf-primary/20 blur-[90px]"></div>
-  </div>
-
-  <div class="relative max-w-3xl mx-auto px-6">
-    <div class="text-center mb-10">
-      <div class="eyebrow mx-auto">PROBALO ACÁ</div>
-      <h2 class="font-display font-extrabold text-4xl sm:text-5xl tracking-tighter leading-[1.05]">
-        Así reserva un paciente.
-      </h2>
-      <p class="mt-4 text-base sm:text-lg text-white/65 max-w-xl mx-auto">
-        Hacé el flow vos mismo. Es exactamente lo que ve el paciente cuando entra a tu link de reservas.
-      </p>
+<section id="producto" class="relative py-20 lg:py-28">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <div class="eyebrow mb-5">Todo en un solo lugar</div>
+      <h2 class="font-display font-extrabold text-4xl sm:text-5xl tracking-tighter leading-[1.05]">Todo lo que hace por vos</h2>
     </div>
 
-    <div class="arf-demo-frame">
-      <div class="arf-demo-head">
-        <div class="arf-demo-prof">
-          <div class="arf-demo-avatar">DR</div>
-          <div class="arf-demo-prof-info">
-            <span>Dra. Demo</span>
-            <span>Odontología General · Buenos Aires</span>
-          </div>
-        </div>
-        <span class="arf-demo-step" id="arf-demo-step-label">Paso 1 de 3</span>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="glass-card rounded-2xl p-7">
+        <div class="feature-ico mb-4"><i data-lucide="link" class="w-5 h-5"></i></div>
+        <h3 class="font-display font-bold text-lg mb-2">Tu link de reservas propio</h3>
+        <p class="text-white/60 text-[15px] leading-relaxed">Los pacientes entran a <span class="text-white/90 font-medium">tu propio link</span> y sacan, cancelan o reprograman su turno solos, 24/7. Tu agenda se llena sin que muevas un dedo.</p>
       </div>
-
-      <div id="arf-demo-step-1">
-        <div class="arf-demo-label">Elegí el servicio</div>
-        <div class="arf-demo-svc" data-svc="consulta" data-price="1000">
-          <div>
-            <div class="arf-demo-svc-name">Consulta general</div>
-            <div class="arf-demo-svc-dur">30 min · Anticipo $1.000</div>
-          </div>
-          <div class="arf-demo-svc-price">$1.000</div>
-        </div>
-        <div class="arf-demo-svc" data-svc="limpieza" data-price="2500">
-          <div>
-            <div class="arf-demo-svc-name">Limpieza dental</div>
-            <div class="arf-demo-svc-dur">45 min · Anticipo $2.500</div>
-          </div>
-          <div class="arf-demo-svc-price">$2.500</div>
-        </div>
-        <div class="arf-demo-svc" data-svc="blanqueamiento" data-price="5000">
-          <div>
-            <div class="arf-demo-svc-name">Blanqueamiento</div>
-            <div class="arf-demo-svc-dur">60 min · Anticipo $5.000</div>
-          </div>
-          <div class="arf-demo-svc-price">$5.000</div>
-        </div>
+      <div class="glass-card rounded-2xl p-7">
+        <div class="feature-ico mb-4"><i data-lucide="bell-ring" class="w-5 h-5"></i></div>
+        <h3 class="font-display font-bold text-lg mb-2">Recordatorios automáticos</h3>
+        <p class="text-white/60 text-[15px] leading-relaxed">Salen por WhatsApp desde el <span class="text-white/90 font-medium">número oficial de Soluciones Dentales</span> — no desde tu número personal. El gran enemigo del ausentismo.</p>
       </div>
-
-      <div id="arf-demo-step-2" class="arf-demo-hidden">
-        <div class="arf-demo-label">Elegí día y hora · Lunes 8 de Junio</div>
-        <div class="arf-demo-slots">
-          <div class="arf-demo-slot busy">9:00</div>
-          <div class="arf-demo-slot">9:30</div>
-          <div class="arf-demo-slot busy">10:00</div>
-          <div class="arf-demo-slot">10:30</div>
-          <div class="arf-demo-slot">11:00</div>
-          <div class="arf-demo-slot busy">11:30</div>
-          <div class="arf-demo-slot">14:00</div>
-          <div class="arf-demo-slot">14:30</div>
-        </div>
+      <div class="glass-card rounded-2xl p-7">
+        <div class="feature-ico mb-4"><i data-lucide="wallet" class="w-5 h-5"></i></div>
+        <h3 class="font-display font-bold text-lg mb-2">Cobro de seña anticipada</h3>
+        <p class="text-white/60 text-[15px] leading-relaxed">El paciente paga la seña al reservar por MercadoPago. Si no viene, la plata es tuya igual.</p>
       </div>
-
-      <div id="arf-demo-step-3" class="arf-demo-hidden">
-        <div class="arf-demo-label">Tus datos</div>
-        <input class="arf-demo-input" id="arf-demo-name" placeholder="Nombre completo">
-        <input class="arf-demo-input" id="arf-demo-phone" placeholder="Teléfono · ej. +54 9 11 1234 5678">
-        <input class="arf-demo-input" id="arf-demo-email" placeholder="Email" type="email">
-        <div class="arf-demo-summary">
-          <div>
-            <div class="arf-demo-summary-label">Anticipo de seña</div>
-            <div class="arf-demo-summary-detail"><span id="arf-demo-svc-summary">Consulta</span> · <span id="arf-demo-slot-summary">9:30 hs</span></div>
-          </div>
-          <span class="arf-demo-summary-price" id="arf-demo-price-summary">$1.000</span>
-        </div>
-        <button class="arf-demo-pay-btn" id="arf-demo-pay" disabled>Reservar y pagar la seña</button>
+      <div class="glass-card rounded-2xl p-7">
+        <div class="feature-ico mb-4"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></div>
+        <h3 class="font-display font-bold text-lg mb-2">Pagos y reportes</h3>
+        <p class="text-white/60 text-[15px] leading-relaxed">Cobros con MercadoPago, multi-sede y reportes para saber cómo viene tu consultorio.</p>
       </div>
-
-      <div id="arf-demo-step-4" class="arf-demo-hidden arf-demo-success">
-        <div class="arf-demo-success-icon">
-          <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-        </div>
-        <h3 class="font-display font-extrabold text-2xl mb-2">¡Turno reservado!</h3>
-        <p class="text-white/70 text-sm leading-relaxed">
-          Te mandamos un mail de confirmación.<br>
-          <span class="text-emerald-400 font-semibold">La seña ya entró a la cuenta de la Dra. Demo.</span>
-        </p>
-        <button class="arf-demo-restart" onclick="arfDemoRestart()">↻ Probar de nuevo</button>
-        <div class="arf-demo-disclaimer">— Demo interactiva. No se cobró nada real.</div>
+      <div class="glass-card rounded-2xl p-7">
+        <div class="feature-ico mb-4"><i data-lucide="receipt" class="w-5 h-5"></i></div>
+        <h3 class="font-display font-bold text-lg mb-2">Facturación ARCA (ex AFIP)</h3>
+        <p class="text-white/60 text-[15px] leading-relaxed">Facturación electrónica oficial integrada, disponible en el plan Premium.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<style>
-.arf-demo-frame{background:linear-gradient(135deg,rgba(124,31,214,.1),rgba(255,255,255,.03));border:1px solid rgba(182,0,255,.25);border-radius:24px;padding:24px;max-width:540px;margin:0 auto}
-.arf-demo-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:18px}
-.arf-demo-prof{display:flex;align-items:center;gap:11px}
-.arf-demo-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#B600FF,#7C1FD6);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff}
-.arf-demo-prof-info{display:flex;flex-direction:column}
-.arf-demo-prof-info span:first-child{font-weight:600;font-size:14px;color:#fff}
-.arf-demo-prof-info span:last-child{font-size:12px;color:rgba(255,255,255,.5)}
-.arf-demo-step{font-size:11px;color:#10b981;background:rgba(16,185,129,.15);padding:5px 11px;border-radius:7px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
-.arf-demo-label{font-size:11px;color:rgba(255,255,255,.6);margin-bottom:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
-.arf-demo-svc{display:flex;justify-content:space-between;align-items:center;padding:13px 15px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:11px;margin-bottom:8px;cursor:pointer;transition:all .2s}
-.arf-demo-svc:hover,.arf-demo-svc.sel{background:linear-gradient(135deg,rgba(182,0,255,.15),rgba(124,31,214,.08));border-color:rgba(182,0,255,.5);transform:translateX(2px)}
-.arf-demo-svc-name{font-weight:600;font-size:14px;color:#fff}
-.arf-demo-svc-dur{font-size:11.5px;color:rgba(255,255,255,.5);margin-top:2px}
-.arf-demo-svc-price{font-weight:700;color:#10b981;font-size:14px}
-.arf-demo-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.arf-demo-slot{padding:11px 6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:9px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;color:#fff;transition:all .2s}
-.arf-demo-slot:hover,.arf-demo-slot.sel{background:linear-gradient(135deg,rgba(182,0,255,.2),rgba(124,31,214,.1));border-color:rgba(182,0,255,.5);color:#D87DFF}
-.arf-demo-slot.busy{opacity:.3;text-decoration:line-through;cursor:not-allowed;color:rgba(255,255,255,.4)}
-.arf-demo-input{width:100%;padding:11px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:13.5px;margin-bottom:9px;font-family:inherit;outline:none;transition:border-color .2s}
-.arf-demo-input:focus{border-color:rgba(182,0,255,.5)}
-.arf-demo-input::placeholder{color:rgba(255,255,255,.35)}
-.arf-demo-summary{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:12px;padding:13px 16px;margin-top:14px;display:flex;justify-content:space-between;align-items:center}
-.arf-demo-summary-label{font-size:11.5px;color:rgba(255,255,255,.6)}
-.arf-demo-summary-detail{font-weight:600;font-size:14.5px;margin-top:3px;color:#fff}
-.arf-demo-summary-price{font-weight:800;color:#10b981;font-size:20px}
-.arf-demo-pay-btn{width:100%;padding:15px;background:linear-gradient(135deg,#B600FF,#7C1FD6);border:none;border-radius:12px;color:#fff;font-weight:700;font-size:14.5px;cursor:pointer;margin-top:14px;font-family:inherit;transition:transform .15s,opacity .2s}
-.arf-demo-pay-btn:hover:not(:disabled){transform:translateY(-1px)}
-.arf-demo-pay-btn:disabled{opacity:.4;cursor:not-allowed}
-.arf-demo-success{text-align:center;padding:30px 14px}
-.arf-demo-success-icon{width:66px;height:66px;border-radius:50%;background:rgba(16,185,129,.18);border:2px solid #10b981;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#10b981}
-.arf-demo-restart{background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);padding:9px 18px;border-radius:9px;cursor:pointer;font-size:12px;margin-top:16px;font-family:inherit;transition:all .2s}
-.arf-demo-restart:hover{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.35)}
-.arf-demo-disclaimer{font-size:11px;color:rgba(255,255,255,.4);margin-top:16px;font-style:italic}
-.arf-demo-hidden{display:none !important}
-</style>
-
-<script>
-(function(){
-  const SERVICES={consulta:'Consulta general',limpieza:'Limpieza dental',blanqueamiento:'Blanqueamiento'};
-  let svc=null,svcPrice=null,slot=null;
-  const stepLabel=document.getElementById('arf-demo-step-label');
-  function go(step){
-    for(let i=1;i<=4;i++){
-      const el=document.getElementById('arf-demo-step-'+i);
-      if(el){if(i===step)el.classList.remove('arf-demo-hidden');else el.classList.add('arf-demo-hidden');}
-    }
-    if(stepLabel){stepLabel.textContent=step<=3?'Paso '+step+' de 3':'✓ Completado';if(step===4)stepLabel.style.background='rgba(16,185,129,.2)';}
-  }
-  document.querySelectorAll('.arf-demo-svc').forEach(el=>{
-    el.addEventListener('click',()=>{
-      document.querySelectorAll('.arf-demo-svc').forEach(x=>x.classList.remove('sel'));
-      el.classList.add('sel');svc=el.dataset.svc;svcPrice=parseInt(el.dataset.price);
-      setTimeout(()=>go(2),300);
-    });
-  });
-  document.querySelectorAll('.arf-demo-slot:not(.busy)').forEach(el=>{
-    el.addEventListener('click',()=>{
-      document.querySelectorAll('.arf-demo-slot').forEach(x=>x.classList.remove('sel'));
-      el.classList.add('sel');slot=el.textContent;
-      document.getElementById('arf-demo-svc-summary').textContent=SERVICES[svc]||'Consulta';
-      document.getElementById('arf-demo-slot-summary').textContent=slot+' hs';
-      document.getElementById('arf-demo-price-summary').textContent='$'+svcPrice.toLocaleString('es-AR');
-      setTimeout(()=>go(3),300);
-    });
-  });
-  const inputs=['arf-demo-name','arf-demo-phone','arf-demo-email'];
-  function check(){
-    const all=inputs.every(id=>document.getElementById(id).value.trim().length>0);
-    document.getElementById('arf-demo-pay').disabled=!all;
-  }
-  inputs.forEach(id=>document.getElementById(id).addEventListener('input',check));
-  const payBtn=document.getElementById('arf-demo-pay');
-  payBtn.addEventListener('click',function(){
-    this.textContent='Procesando pago...';this.disabled=true;
-    setTimeout(()=>{this.textContent='Reservar y pagar la seña';go(4);},1300);
-  });
-  window.arfDemoRestart=function(){
-    svc=null;svcPrice=null;slot=null;
-    document.querySelectorAll('.arf-demo-svc,.arf-demo-slot').forEach(x=>x.classList.remove('sel'));
-    inputs.forEach(id=>document.getElementById(id).value='');
-    payBtn.disabled=true;
-    if(stepLabel)stepLabel.style.background='';
-    go(1);
-  };
-})();
-</script>
-
-<!-- (la sección EL PROBLEMA se movió ARRIBA de la demo — jun 2026: primero
-     el dolor, después la solución. El bloque vive antes de #probalo.) -->
-
-<!-- ============================================ -->
-<!-- 4.5 MÁS PLATA · MÁS TIEMPO · MÁS ORGANIZACIÓN -->
-<!-- (junio 2026 — Alejo, persuasion stack) -->
-<!-- ============================================ -->
-<section id="por-que-arf" class="relative py-24 lg:py-32 overflow-hidden bg-arf-darker/40">
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full bg-arf-primary/20 blur-[120px]"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-arf-light/15 blur-[100px]"></div>
-  </div>
-
-  <div class="relative max-w-7xl mx-auto px-6">
-    <div class="text-center mb-16">
-      <div class="eyebrow mx-auto">POR QUÉ ARF</div>
-      <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-[1.02] max-w-4xl mx-auto">
-        Más <span class="bg-gradient-to-r from-emerald-400 to-arf-light bg-clip-text text-transparent">plata</span>, más
-        <span class="bg-gradient-to-r from-arf-light to-arf-primary bg-clip-text text-transparent">tiempo</span> y más
-        <span class="bg-gradient-to-r from-arf-primary to-pink-400 bg-clip-text text-transparent">orden</span>
-        en tu consultorio.
-      </h2>
-      <p class="mt-6 text-lg sm:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-        No es magia ni un dashboard más. ARF reemplaza el trabajo manual que hoy te roba dinero y horas — con números:
-      </p>
-    </div>
-
-    <!-- 3 columnas -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-      <!-- COLUMNA 1: MÁS DINERO -->
-      <div class="glass-card rounded-3xl p-8 border border-emerald-500/20 relative overflow-hidden group hover:border-emerald-500/40 transition-all">
-        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-50"></div>
-        <div class="relative">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center mb-5 shadow-lg shadow-emerald-500/30">
-            <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </div>
-          <div class="text-xs uppercase tracking-wider text-emerald-400 font-bold mb-2">+ PLATA</div>
-          <div class="font-display font-extrabold text-4xl sm:text-5xl text-white mb-3 leading-none">
-            Cero
-            <span class="block text-base font-medium text-white/60 mt-1">no-shows sin cobrar</span>
-          </div>
-          <p class="text-sm text-white/70 leading-relaxed mb-5">
-            En la mayoría de los consultorios <strong class="text-white">1 de cada 4 turnos no se presenta</strong>. ARF cobra la seña por adelantado vía MercadoPago — si no aparecen, la plata es tuya igual.
-          </p>
-          <ul class="space-y-3 text-sm text-white/80">
-            <li class="flex items-start gap-2.5">
-              <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">No-shows = $0 perdidos.</strong> El paciente ya pagó.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">Más reagendamientos, menos pacientes perdidos.</strong> Juli reagenda sola en vez de dejar ir al paciente.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">La seña entra directo a tu MercadoPago.</strong> Sin links manuales, sin pasar por nadie.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">0% de comisión sobre tus pacientes propios.</strong> Lo que ya era tuyo sigue siendo 100% tuyo.</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- COLUMNA 2: MÁS TIEMPO -->
-      <div class="glass-card rounded-3xl p-8 border border-arf-light/20 relative overflow-hidden group hover:border-arf-light/40 transition-all">
-        <div class="absolute inset-0 bg-gradient-to-br from-arf-light/10 to-transparent opacity-50"></div>
-        <div class="relative">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-arf-light to-arf-primary flex items-center justify-center mb-5 shadow-lg shadow-arf-light/30">
-            <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </div>
-          <div class="text-xs uppercase tracking-wider text-arf-light font-bold mb-2">+ TIEMPO</div>
-          <div class="font-display font-extrabold text-4xl sm:text-5xl text-white mb-3 leading-none">
-            60 hs/mes
-            <span class="block text-base font-medium text-white/60 mt-1">para vos</span>
-          </div>
-          <p class="text-sm text-white/70 leading-relaxed mb-5">
-            Una semana y media de trabajo cada mes que hoy <strong class="text-white">perdés en tareas repetitivas</strong>. ARF las hace solo.
-          </p>
-          <ul class="space-y-3 text-sm text-white/80">
-            <li class="flex items-start gap-2.5">
-              <svg class="w-5 h-5 text-arf-light shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">8 hs/semana</strong> ahorradas en recordatorios manuales (Juli los manda sola).</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <svg class="w-5 h-5 text-arf-light shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">5 hs/semana</strong> ahorradas coordinando reagendamientos por WhatsApp.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <svg class="w-5 h-5 text-arf-light shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">2 hs/semana</strong> ahorradas en facturación electrónica ARCA (ex AFIP).</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <svg class="w-5 h-5 text-arf-light shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">Cero "Le confirmo el turno…"</strong> nunca más. El paciente confirma solo desde el WhatsApp.</span>
-            </li>
-          </ul>
-          <div class="mt-5 pt-5 border-t border-white/10 text-center">
-            <div class="text-[11px] uppercase tracking-wider text-arf-light/80 font-semibold">= 15 hs/semana</div>
-            <div class="text-2xl font-display font-extrabold text-white">para atender más pacientes o irte temprano</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- COLUMNA 3: MÁS ORGANIZACIÓN -->
-      <div class="glass-card rounded-3xl p-8 border border-pink-400/20 relative overflow-hidden group hover:border-pink-400/40 transition-all">
-        <div class="absolute inset-0 bg-gradient-to-br from-pink-400/10 to-transparent opacity-50"></div>
-        <div class="relative">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-arf-primary to-pink-500 flex items-center justify-center mb-5 shadow-lg shadow-pink-500/30">
-            <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-          </div>
-          <div class="text-xs uppercase tracking-wider text-pink-400 font-bold mb-2">+ ORDEN</div>
-          <div class="font-display font-extrabold text-4xl sm:text-5xl text-white mb-3 leading-none">
-            1 lugar
-            <span class="block text-base font-medium text-white/60 mt-1">para todo lo del consultorio</span>
-          </div>
-          <p class="text-sm text-white/70 leading-relaxed mb-5">
-            Se acabó el Excel + WhatsApp + libretita + planilla de pagos. <strong class="text-white">Todo lo tuyo en una sola pantalla</strong>, sincronizado en tiempo real.
-          </p>
-          <ul class="space-y-3 text-sm text-white/80">
-            <li class="flex items-start gap-2.5">
-              <svg class="w-5 h-5 text-pink-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">Agenda multi-sede coordinada</strong> con tus horarios y la duración de cada servicio.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <svg class="w-5 h-5 text-pink-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">Ficha digital completa</strong>: odontograma, historia clínica, fotos antes/después.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <svg class="w-5 h-5 text-pink-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">Cobros y deudas</strong> integradas con MercadoPago + transferencia.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <svg class="w-5 h-5 text-pink-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">Reportes en tiempo real</strong>: facturado, pacientes nuevos, retención, ausencias.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <svg class="w-5 h-5 text-pink-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-              <span><strong class="text-white">Sincronización con Google Calendar</strong>: tu agenda personal nunca choca con la del consultorio.</span>
-            </li>
-          </ul>
-        </div>
+      <div class="glass-card rounded-2xl p-7">
+        <div class="feature-ico mb-4"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
+        <h3 class="font-display font-bold text-lg mb-2">Gestión de obras sociales</h3>
+        <p class="text-white/60 text-[15px] leading-relaxed">Cargás la obra social de cada paciente y llevás la cuenta de <span class="text-white/90 font-medium">lo que te debe cada una</span> — pendiente, presentado y cobrado, sin perder un peso.</p>
       </div>
     </div>
 
-    <!-- CTA bajo las 3 columnas -->
-    <div class="mt-12 text-center">
-      <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="btn-gradient text-base sm:text-lg font-semibold px-8 py-4 rounded-2xl inline-flex items-center gap-2" data-cta="signup-beneficios">
-        Quiero todo esto en mi consultorio
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
-      <p class="mt-3 text-sm text-white/55">30 días Premium gratis · Sin tarjeta · Cancelás cuando quieras</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- ============================================ -->
-<!-- 4.7 CALCULADORA DE GANANCIA -->
-<!-- (junio 2026 — Alejo) -->
-<!-- ============================================ -->
-<section id="calculadora" class="relative py-24 lg:py-32 overflow-hidden">
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-0 right-0 w-[700px] h-[700px] rounded-full bg-gradient-to-br from-emerald-500/15 to-arf-primary/15 blur-[120px]"></div>
-  </div>
-
-  <div class="relative max-w-5xl mx-auto px-6">
-    <div class="text-center mb-12">
-      <div class="eyebrow mx-auto">CALCULADORA</div>
-      <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-[1.02] max-w-3xl mx-auto">
-        Cuánto vas a ganar más
-        <span class="block bg-gradient-to-r from-emerald-400 via-arf-light to-arf-primary bg-clip-text text-transparent">con ARF este año.</span>
-      </h2>
-      <p class="mt-5 text-lg text-white/70 max-w-2xl mx-auto">
-        Movés el slider abajo y ves el cálculo en vivo para tu consultorio.
-      </p>
-    </div>
-
-    <div class="glass-card rounded-3xl p-8 sm:p-10 border border-white/10 shadow-2xl">
-
-      <!-- Slider de turnos -->
-      <div class="mb-8">
-        <div class="flex items-center justify-between mb-4">
-          <label class="text-sm uppercase tracking-wider text-white/60 font-semibold">
-            ¿Cuántos turnos hacés por semana?
-          </label>
-          <div class="text-2xl sm:text-3xl font-display font-extrabold">
-            <span id="calc-turnos-display" class="text-arf-light">40</span>
-            <span class="text-white/40 text-base font-normal"> / semana</span>
-          </div>
-        </div>
-        <input
-          id="calc-turnos"
-          type="range"
-          min="10"
-          max="120"
-          value="40"
-          step="5"
-          class="calc-slider w-full"
-        >
-        <div class="flex justify-between text-[11px] text-white/40 mt-2">
-          <span>10</span><span>40</span><span>80</span><span>120</span>
-        </div>
-      </div>
-
-      <!-- Slider de precio promedio -->
-      <div class="mb-10">
-        <div class="flex items-center justify-between mb-4">
-          <label class="text-sm uppercase tracking-wider text-white/60 font-semibold">
-            Precio promedio de una consulta
-          </label>
-          <div class="text-2xl sm:text-3xl font-display font-extrabold">
-            $<span id="calc-precio-display" class="text-arf-light">15.000</span>
-          </div>
-        </div>
-        <input
-          id="calc-precio"
-          type="range"
-          min="5000"
-          max="50000"
-          value="15000"
-          step="1000"
-          class="calc-slider w-full"
-        >
-        <div class="flex justify-between text-[11px] text-white/40 mt-2">
-          <span>$5.000</span><span>$15.000</span><span>$30.000</span><span>$50.000</span>
-        </div>
-      </div>
-
-      <!-- Resultado principal -->
-      <div class="relative bg-gradient-to-br from-emerald-500/20 via-arf-primary/15 to-arf-light/20 rounded-2xl p-6 sm:p-8 border border-white/10 overflow-hidden">
-        <div class="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-emerald-400/30 blur-[60px]"></div>
-        <div class="relative text-center">
-          <div class="text-[11px] uppercase tracking-wider text-emerald-300 font-bold mb-2">CON ARF GANÁS MÁS</div>
-          <div class="font-display font-extrabold text-5xl sm:text-7xl tracking-tighter leading-none mb-3 bg-gradient-to-r from-emerald-300 via-white to-emerald-300 bg-clip-text text-transparent">
-            <span id="calc-resultado">$3.840.000</span>
-          </div>
-          <div class="text-base sm:text-lg text-white/80 font-medium mb-1">
-            extra por año
-          </div>
-          <div class="text-xs text-white/50">
-            Equivale a <span id="calc-mensual" class="text-white font-semibold">$320.000</span> más todos los meses.
-          </div>
-        </div>
-      </div>
-
-      <!-- Breakdown -->
-      <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div class="rounded-xl bg-white/5 border border-white/5 p-4">
-          <div class="text-[10px] uppercase text-emerald-300 font-bold mb-1">No-shows recuperados</div>
-          <div class="text-xl font-display font-bold text-white">$<span id="calc-noshows">3.120.000</span></div>
-          <div class="text-[10px] text-white/50 mt-1">25% × turnos × precio × 52 semanas</div>
-        </div>
-        <div class="rounded-xl bg-white/5 border border-white/5 p-4">
-          <div class="text-[10px] uppercase text-arf-light font-bold mb-1">Tiempo recuperado</div>
-          <div class="text-xl font-display font-bold text-white">$<span id="calc-tiempo">600.000</span></div>
-          <div class="text-[10px] text-white/50 mt-1">15 hs/semana × $750/hora × 52</div>
-        </div>
-      </div>
-
-      <div class="mt-6 text-center">
-        <p class="text-xs text-white/40 max-w-2xl mx-auto">
-          Cálculo estimado con base en promedios del rubro odontológico en Argentina (jun 2026). Asume: 25% de no-shows actuales que se recuperan entre la seña cobrada y los pacientes que, habiendo pagado, asisten o reagendan; y 15 hs/semana en tareas administrativas a un valor proporcional a tu ticket promedio. Es una estimación: tu caso real puede ser mayor o menor.
-        </p>
-      </div>
-
-      <div class="mt-8 text-center">
-        <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="btn-gradient text-base sm:text-lg font-semibold px-8 py-4 rounded-2xl inline-flex items-center gap-2" data-cta="signup-calculadora">
-          Empezar a recuperar esa plata
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
-        <p class="mt-3 text-xs text-white/55">Probás Premium 30 días gratis · Sin tarjeta</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Estilos del slider de la calculadora -->
-  <style>
-    .calc-slider {
-      -webkit-appearance: none;
-      appearance: none;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      outline: none;
-    }
-    .calc-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #B600FF 0%, #7C1FD6 100%);
-      cursor: pointer;
-      border: 3px solid white;
-      box-shadow: 0 4px 12px rgba(124, 31, 214, 0.4);
-      transition: transform 0.15s ease;
-    }
-    .calc-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.1);
-    }
-    .calc-slider::-moz-range-thumb {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #B600FF 0%, #7C1FD6 100%);
-      cursor: pointer;
-      border: 3px solid white;
-      box-shadow: 0 4px 12px rgba(124, 31, 214, 0.4);
-    }
-  </style>
-
-  <!-- JS de la calculadora -->
-  <script>
-    (function () {
-      var $turnos = document.getElementById('calc-turnos');
-      var $precio = document.getElementById('calc-precio');
-      var $tDisp  = document.getElementById('calc-turnos-display');
-      var $pDisp  = document.getElementById('calc-precio-display');
-      var $res    = document.getElementById('calc-resultado');
-      var $mes    = document.getElementById('calc-mensual');
-      var $ns     = document.getElementById('calc-noshows');
-      var $tt     = document.getElementById('calc-tiempo');
-      var $nu     = document.getElementById('calc-nuevos');
-      if (!$turnos || !$precio) return;
-
-      function fmt(n) {
-        try {
-          return new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 }).format(Math.round(n));
-        } catch (e) { return Math.round(n).toString(); }
-      }
-
-      function calc() {
-        var turnos = parseInt($turnos.value, 10) || 0;
-        var precio = parseInt($precio.value, 10) || 0;
-
-        // 25% de los turnos son no-shows. ARF los recupera (seña cobrada).
-        var noshows_anual = turnos * 0.25 * precio * 52;
-
-        // 15 horas/semana × valor proporcional al ticket × 52 semanas.
-        // El precio/hora del dentista escala con su precio promedio de consulta:
-        // a más caro el ticket, más vale su hora. Mínimo $500.
-        var horaProf = Math.max(500, precio * 0.5);
-        var tiempo_anual = 15 * horaProf * 52;
-
-        // Total = no-shows + tiempo recuperado.
-        // NO incluimos pacientes nuevos del marketplace porque depende mucho
-        // de la zona / especialidad / demanda y no queremos inventar un número.
-        var total = noshows_anual + tiempo_anual;
-
-        $tDisp.textContent = turnos;
-        $pDisp.textContent = fmt(precio);
-        $res.textContent = '$' + fmt(total);
-        $mes.textContent = '$' + fmt(total / 12);
-        $ns.textContent = fmt(noshows_anual);
-        $tt.textContent = fmt(tiempo_anual);
-        // calc-nuevos queda con su texto estático "a definir" (no se calcula).
-      }
-
-      $turnos.addEventListener('input', calc);
-      $precio.addEventListener('input', calc);
-      calc();
-    })();
-  </script>
-</section>
-
-
-<!-- ============================================ -->
-<!-- 5. LA SOLUCIÓN -->
-<!-- ============================================ -->
-<section id="producto" class="relative py-24 lg:py-40 overflow-hidden bg-black">
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-arf-primary/30 to-arf-light/30 blur-[90px]"></div>
-  </div>
-
-  <div class="relative max-w-6xl mx-auto px-6 text-center">
-    <div class="eyebrow mx-auto">LA SOLUCIÓN</div>
-    <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-7xl tracking-tighter leading-[1.0]">
-      Tu agenda automática.<br><span class="bg-gradient-to-r from-arf-primary via-arf-light to-arf-primary bg-clip-text text-transparent">Tu WhatsApp automatizado.</span>
-    </h2>
-    <p class="mt-6 text-xl text-white/70 max-w-2xl mx-auto">
-      Sin que vos hagas nada.
-    </p>
-    <p class="mt-4 text-sm text-white/50 max-w-2xl mx-auto">
-      Los recordatorios salen desde el WhatsApp oficial de Soluciones Dentales, a nombre de tu consultorio. Tu número personal queda fuera del trabajo.
-    </p>
-
-    <!-- Phone mockup centerpiece -->
-    <div class="mt-16 flex justify-center">
-      <div class="relative">
-        <!-- Glow ring -->
-        <div class="absolute inset-0 -m-8 rounded-[3rem] bg-gradient-to-r from-arf-primary to-arf-light opacity-30 blur-2xl"></div>
-
-        <div class="relative w-[320px] sm:w-[360px] rounded-[2.5rem] bg-black border-[10px] border-white/10 shadow-2xl overflow-hidden">
-          <!-- Notch -->
-          <div class="absolute top-2 left-1/2 -translate-x-1/2 w-32 h-6 bg-black rounded-full z-10"></div>
-
-          <!-- WhatsApp header -->
-          <div class="bg-emerald-800 px-4 pt-10 pb-3 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-arf-primary to-arf-light flex items-center justify-center text-xs font-bold">SD</div>
-            <div class="text-left">
-              <div class="text-sm font-medium">Soluciones Dentales</div>
-              <div class="text-[10px] text-emerald-300">en línea</div>
-            </div>
-          </div>
-
-          <!-- Chat body -->
-          <div id="juli-chat" class="bg-[#0b141a] min-h-[420px] p-4 space-y-2 text-sm">
-            <!-- mensajes inyectados por whatsapp-typing.js -->
-          </div>
-
-          <!-- Input bar -->
-          <div class="bg-[#1f2c33] px-3 py-2 flex items-center gap-2">
-            <div class="flex-1 bg-[#2a3942] rounded-full px-4 py-2 text-xs text-white/40">Mensaje</div>
-            <div class="w-9 h-9 rounded-full bg-emerald-600 flex items-center justify-center">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-            </div>
-          </div>
-        </div>
-
-        <!-- Toast flotante -->
-        <div id="juli-toast" class="absolute -right-4 sm:-right-32 top-1/2 glass-card rounded-2xl px-4 py-3 flex items-center gap-2 opacity-0 translate-y-4 transition-all duration-500">
-          <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
-            <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-          </div>
-          <div class="text-xs text-left whitespace-nowrap">
-            <div class="font-medium">Turno confirmado</div>
-            <div class="text-white/50">Automáticamente</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================ -->
-<!-- 6. FEATURES — BENTO GRID -->
-<!-- ============================================ -->
-<section class="relative py-24 lg:py-32">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="text-center mb-16">
-      <div class="eyebrow mx-auto">TODO LO QUE NECESITÁS</div>
-      <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-[1.05] max-w-3xl mx-auto">
-        Una plataforma completa.<br>
-        <span class="text-white/40">Cero complejidad.</span>
-      </h2>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[280px]">
-
-      <!-- Feature 1 (GRANDE col-span-2) -->
-      <div class="bento-card tilt-card md:col-span-2 row-span-2 glass-card rounded-3xl p-8 relative overflow-hidden group">
-        <div class="absolute inset-0 bg-gradient-to-br from-arf-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        <div class="relative h-full flex flex-col">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-arf-primary to-arf-light flex items-center justify-center">
-              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-            </div>
-            <span class="text-xs px-2 py-1 rounded-full bg-arf-light/20 text-arf-light font-medium">LO PRINCIPAL</span>
-          </div>
-          <h3 class="font-display font-bold text-2xl mb-2">Cobro automático de la seña</h3>
-          <p class="text-white/60 max-w-md">El paciente reserva por tu link público, paga la seña en MercadoPago y el turno se agenda solo. La plata entra a tu cuenta al instante.</p>
-
-          <!-- Mini booking preview -->
-          <div class="mt-auto pt-6">
-            <div class="space-y-2 max-w-sm">
-              <div class="bg-white/5 border border-white/10 rounded-2xl p-3 space-y-2">
-                <div class="text-[11px] text-white/40 uppercase tracking-wide">Consulta · jue 4/6 · 18:30</div>
-                <div class="flex items-center justify-between">
-                  <div class="text-xs text-white/70">Anticipo</div>
-                  <div class="text-sm font-semibold text-emerald-400">$5.000</div>
-                </div>
-                <div class="text-[10px] text-white/40">Resto ($10.000) en consultorio</div>
-                <div class="mt-2 text-center text-[11px] font-semibold bg-gradient-to-r from-arf-primary to-arf-light rounded-lg py-2">Reservar y pagar</div>
-              </div>
-              <div class="flex items-center gap-2 text-[10px] text-emerald-400">
-                <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>Pago acreditado en tu MercadoPago</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Feature 2 -->
-      <div class="bento-card tilt-card glass-card rounded-3xl p-6 relative overflow-hidden group">
-        <div class="absolute inset-0 bg-gradient-to-br from-arf-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        <div class="relative h-full flex flex-col">
-          <div class="w-10 h-10 rounded-xl bg-arf-light/20 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-arf-light" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-          </div>
-          <h3 class="font-display font-bold text-lg mb-1">Agenda sin turnos pisados</h3>
-          <p class="text-white/60 text-sm">Slots reales según tus horarios. Imposible agendar dos pacientes a la misma hora.</p>
-          <div class="mt-auto pt-4 grid grid-cols-7 gap-1">
-            <div class="aspect-square rounded bg-white/5"></div>
-            <div class="aspect-square rounded bg-white/5"></div>
-            <div class="aspect-square rounded bg-arf-primary/40"></div>
-            <div class="aspect-square rounded bg-arf-light/60"></div>
-            <div class="aspect-square rounded bg-arf-primary/40"></div>
-            <div class="aspect-square rounded bg-white/5"></div>
-            <div class="aspect-square rounded bg-white/5"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Feature 3 -->
-      <div class="bento-card tilt-card glass-card rounded-3xl p-6 relative overflow-hidden group">
-        <div class="absolute inset-0 bg-gradient-to-br from-arf-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        <div class="relative h-full flex flex-col">
-          <div class="w-10 h-10 rounded-xl bg-arf-light/20 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-arf-light" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-          </div>
-          <h3 class="font-display font-bold text-lg mb-1">Reagendamiento automático</h3>
-          <p class="text-white/60 text-sm">El paciente toca "Reagendar" y el sistema le ofrece tus horarios libres. Vos no coordinás nada.</p>
-          <div class="mt-auto pt-4 space-y-1.5">
-            <div class="text-[10px] bg-white/5 rounded px-2 py-1.5">Estos son tus horarios libres:</div>
-            <div class="grid grid-cols-3 gap-1">
-              <div class="text-[9px] text-center bg-arf-light/20 text-arf-light rounded px-1 py-1">Mar 09:00</div>
-              <div class="text-[9px] text-center bg-arf-light/20 text-arf-light rounded px-1 py-1">Mié 15:30</div>
-              <div class="text-[9px] text-center bg-arf-light/20 text-arf-light rounded px-1 py-1">Jue 11:00</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Feature 4 — DIFERENCIADOR -->
-      <div class="bento-card tilt-card glass-card rounded-3xl p-6 relative overflow-hidden group border border-arf-light/30">
-        <div class="absolute inset-0 bg-gradient-to-br from-arf-primary/15 to-transparent opacity-60 group-hover:opacity-100 transition-opacity"></div>
-        <div class="relative h-full flex flex-col">
-          <div class="flex items-center gap-2 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-arf-primary to-arf-light flex items-center justify-center">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11H5a2 2 0 00-2 2v7a2 2 0 002 2h14a2 2 0 002-2v-7a2 2 0 00-2-2h-4M9 11V7a3 3 0 016 0v4M9 11h6"/></svg>
-            </div>
-            <span class="text-xs px-2 py-1 rounded-full bg-arf-light/20 text-arf-light font-medium">DIFERENCIADOR</span>
-          </div>
-          <h3 class="font-display font-bold text-lg mb-1">Odontograma digital</h3>
-          <p class="text-white/60 text-sm">Cargá el estado dental de cada paciente en un odontograma interactivo. Adiós a la ficha de papel.</p>
-          <div class="mt-auto pt-4 grid grid-cols-8 gap-1">
-            <div class="aspect-square rounded bg-white/10"></div>
-            <div class="aspect-square rounded bg-arf-light/50"></div>
-            <div class="aspect-square rounded bg-white/10"></div>
-            <div class="aspect-square rounded bg-emerald-500/40"></div>
-            <div class="aspect-square rounded bg-white/10"></div>
-            <div class="aspect-square rounded bg-white/10"></div>
-            <div class="aspect-square rounded bg-arf-primary/50"></div>
-            <div class="aspect-square rounded bg-white/10"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Feature 5 — DIFERENCIADOR -->
-      <div class="bento-card tilt-card glass-card rounded-3xl p-6 relative overflow-hidden group border border-arf-light/30">
-        <div class="absolute inset-0 bg-gradient-to-br from-arf-primary/15 to-transparent opacity-60 group-hover:opacity-100 transition-opacity"></div>
-        <div class="relative h-full flex flex-col">
-          <div class="flex items-center gap-2 mb-4">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-arf-primary to-arf-light flex items-center justify-center">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            </div>
-            <span class="text-xs px-2 py-1 rounded-full bg-arf-light/20 text-arf-light font-medium">DIFERENCIADOR</span>
-          </div>
-          <h3 class="font-display font-bold text-lg mb-1">Planes de tratamiento con PDF</h3>
-          <p class="text-white/60 text-sm">Armá presupuestos con cuotas y entregale al paciente un plan profesional en PDF.</p>
-          <div class="mt-auto pt-4 space-y-1.5">
-            <div class="flex items-center justify-between text-[10px] bg-white/5 rounded px-2 py-1.5"><span class="text-white/60">Cuota 1 de 3</span><span class="font-semibold">$25.000</span></div>
-            <div class="flex items-center justify-between text-[10px] bg-white/5 rounded px-2 py-1.5"><span class="text-white/60">Cuota 2 de 3</span><span class="font-semibold">$25.000</span></div>
-            <div class="flex items-center justify-between text-[10px] bg-arf-light/10 rounded px-2 py-1.5"><span class="text-arf-light">Plan en PDF</span><span class="text-arf-light">↓ listo</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Feature 6 (GRANDE col-span-3) -->
-      <div class="bento-card tilt-card md:col-span-2 lg:col-span-3 glass-card rounded-3xl p-8 relative overflow-hidden group">
-        <div class="absolute inset-0 bg-gradient-to-br from-arf-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        <div class="relative h-full grid md:grid-cols-2 gap-6 items-center">
-          <div>
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-arf-primary to-arf-light flex items-center justify-center">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-              </div>
-              <span class="text-xs px-2 py-1 rounded-full bg-arf-light/20 text-arf-light font-medium">TU PLATA, TU CUENTA</span>
-            </div>
-            <h3 class="font-display font-bold text-2xl mb-2">Tu MercadoPago conectado al sistema</h3>
-            <p class="text-white/60">Conectás tu cuenta una vez. Cada vez que un paciente reserva un turno, paga la seña directo y <strong class="text-white">la plata cae en tu MercadoPago</strong>. Sin pasar por nuestras manos, sin generar links a mano.</p>
-          </div>
-          <!-- Cobro automático al reservar -->
-          <div class="relative">
-            <div class="glass-card rounded-2xl p-5 border border-arf-light/20">
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-xs text-white/50">Turno reservado · pago MercadoPago</span>
-                <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400">pagado</span>
-              </div>
-              <div class="flex items-center justify-between bg-white/5 rounded-xl px-3 py-3">
-                <div>
-                  <div class="text-[10px] text-white/50">En tu cuenta de MercadoPago</div>
-                  <div class="font-bold text-xl">$25.000</div>
-                </div>
-                <div class="w-9 h-9 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                  <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </div>
-              </div>
-              <div class="text-[10px] text-white/40 mt-2 text-center">Se cobra al reservar · Sin links manuales · 0% comisión en Premium</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Features secundarios -->
-    <div id="features-secundarios" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-      <div class="glass-card rounded-2xl p-5">
-        <div class="text-2xl mb-2">📷</div>
-        <h3 class="font-display font-bold text-base mb-1">Importá tu agenda con una foto</h3>
-        <p class="text-white/60 text-sm">Sacale una foto a tu libreta o agenda actual y queda cargada en el sistema. Sin tipear nada.</p>
-      </div>
-      <div class="glass-card rounded-2xl p-5">
-        <div class="text-2xl mb-2">🔔</div>
-        <h3 class="font-display font-bold text-base mb-1">Te avisamos al instante</h3>
-        <p class="text-white/60 text-sm">Cuando un paciente confirma, cancela o reagenda, te llega un email y un aviso en el momento. No tenés que estar revisando el sistema.</p>
-      </div>
-      <div class="glass-card rounded-2xl p-5">
-        <div class="text-2xl mb-2">🏢</div>
-        <h3 class="font-display font-bold text-base mb-1">Multi-sede + multi-profesional</h3>
-        <p class="text-white/60 text-sm">Cada consultorio y cada profesional con sus propios horarios.</p>
-      </div>
-      <div class="glass-card rounded-2xl p-5">
-        <div class="text-2xl mb-2">📊</div>
-        <h3 class="font-display font-bold text-base mb-1">Stats de tu consultorio</h3>
-        <p class="text-white/60 text-sm">Cuántos turnos diste, cuántos confirmaron, cuántos no aparecieron, cuánto facturaste.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================ -->
-<!-- 6.5 MARKETPLACE — VALUE PROP NUEVO (Premium) -->
-<!-- ============================================ -->
-<section id="marketplace" class="relative py-24 lg:py-32 overflow-hidden bg-black">
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-1/3 right-0 w-[600px] h-[600px] rounded-full bg-arf-light/25 blur-[100px]"></div>
-    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-arf-primary/25 blur-[90px]"></div>
-  </div>
-
-  <div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
-    <div class="lg:col-span-6 order-2 lg:order-1">
-      <div class="eyebrow">PRÓXIMAMENTE · PREMIUM</div>
-      <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-[1.02] mb-6">
-        Pronto, una vidriera<br>
-        <span class="bg-gradient-to-r from-arf-light via-arf-primary to-arf-light bg-clip-text text-transparent">que te trae pacientes.</span>
-      </h2>
-      <p class="text-lg text-white/70 leading-relaxed mb-6">
-        Estamos sumando consultorios en tu ciudad para armar una vidriera pública de odontólogos. Cuando haya masa crítica cerca tuyo, las personas que buscan dentista van a encontrar tu perfil y reservar al toque — con <strong class="text-white">0% de comisión sobre tu seña</strong>.
-      </p>
-      <p class="text-base text-white/60 mb-8">
-        Mientras tanto, lo que ya funciona desde el día 1 es lo importante: tu agenda, el cobro de la seña y Juli respondiendo tu WhatsApp. La vidriera es el extra que llega después, sin costo adicional en tu plan.
-      </p>
-      <div class="glass-card rounded-2xl p-5 border-l-4 border-arf-light max-w-md">
-        <div class="text-xs text-arf-light font-semibold uppercase tracking-wider mb-1">Los primeros tienen ventaja</div>
-        <p class="text-sm text-white/80">Los consultorios que entren ahora van a estar primeros en la vidriera de su zona cuando se active. Sumate temprano.</p>
-      </div>
-    </div>
-
-    <!-- Mockup marketplace card -->
-    <div class="lg:col-span-6 order-1 lg:order-2">
-      <div class="relative max-w-md mx-auto">
-        <div class="absolute -inset-6 rounded-[3rem] bg-gradient-to-br from-arf-primary/30 to-arf-light/30 blur-2xl"></div>
-
-        <!-- Tarjeta marketplace -->
-        <div class="relative glass-card rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-          <!-- Header con foto -->
-          <div class="relative h-56 bg-gradient-to-br from-purple-600 via-pink-500 to-arf-primary">
-            <div class="absolute inset-0 bg-gradient-to-t from-arf-darker/90 via-transparent to-transparent"></div>
-            <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-arf-light/30 backdrop-blur text-[10px] font-bold uppercase tracking-wider">Premium</div>
-            <div class="absolute bottom-3 left-3 right-3">
-              <div class="flex items-end gap-3">
-                <div class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-xl border-2 border-white/40 flex items-center justify-center font-display font-bold text-xl shadow-2xl">JB</div>
-                <div class="flex-1">
-                  <div class="font-display font-bold text-lg leading-tight">Dra. Demo</div>
-                  <div class="text-xs text-white/80">Odontología General · Buenos Aires · tarjeta de ejemplo</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Body -->
-          <div class="p-5 space-y-4">
-            <!-- Rating + reservas -->
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-1.5">
-                <div class="flex gap-0.5 text-yellow-400">
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568L24 9.75l-6 5.847L19.336 24 12 19.897 4.664 24 6 15.597 0 9.75l8.332-1.595L12 .587z"/></svg>
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568L24 9.75l-6 5.847L19.336 24 12 19.897 4.664 24 6 15.597 0 9.75l8.332-1.595L12 .587z"/></svg>
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568L24 9.75l-6 5.847L19.336 24 12 19.897 4.664 24 6 15.597 0 9.75l8.332-1.595L12 .587z"/></svg>
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568L24 9.75l-6 5.847L19.336 24 12 19.897 4.664 24 6 15.597 0 9.75l8.332-1.595L12 .587z"/></svg>
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568L24 9.75l-6 5.847L19.336 24 12 19.897 4.664 24 6 15.597 0 9.75l8.332-1.595L12 .587z"/></svg>
-                </div>
-                <span class="text-xs text-white/70">4.9 · 47 reseñas</span>
-              </div>
-              <div class="text-[10px] px-2 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold">23 reservaron este mes</div>
-            </div>
-
-            <!-- Badge próximo turno -->
-            <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-xl px-3 py-2.5 flex items-center gap-2">
-              <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-              <div class="text-xs">
-                <span class="text-white/60">Próximo turno disponible:</span>
-                <span class="font-semibold text-emerald-400 ml-1">mañana 14:30</span>
-              </div>
-            </div>
-
-            <!-- Portfolio thumbs -->
-            <div class="grid grid-cols-4 gap-1.5">
-              <div class="aspect-square rounded-lg bg-gradient-to-br from-purple-400 to-pink-500"></div>
-              <div class="aspect-square rounded-lg bg-gradient-to-br from-blue-400 to-cyan-500"></div>
-              <div class="aspect-square rounded-lg bg-gradient-to-br from-emerald-400 to-teal-500"></div>
-              <div class="aspect-square rounded-lg bg-gradient-to-br from-orange-400 to-pink-500"></div>
-            </div>
-
-            <!-- CTA -->
-            <button class="w-full py-3 rounded-xl bg-gradient-to-r from-arf-primary to-arf-light font-bold text-sm hover:opacity-90 transition shadow-lg shadow-arf-primary/30">
-              Reservar turno ahora →
-            </button>
-          </div>
-        </div>
-
-        <!-- Notif flotante -->
-        <div class="absolute -top-4 -right-4 glass-card rounded-2xl px-4 py-3 flex items-center gap-3 shadow-2xl floating-notif">
-          <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
-            <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
-          </div>
-          <div class="text-xs">
-            <div class="font-semibold">+ Lucía P.</div>
-            <div class="text-white/60">Paciente nuevo</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================ -->
-<!-- 6.6 JULI IA — Quién es, cómo funciona -->
-<!-- ============================================ -->
-<section class="relative py-24 lg:py-32 overflow-hidden">
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-arf-primary/20 blur-[90px]"></div>
-  </div>
-
-  <div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
-    <div class="lg:col-span-6">
-      <div class="eyebrow">CONOCÉ A JULI · INCLUIDA DESDE PROFESIONAL</div>
-      <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-[1.02] mb-6">
-        Juli es <span class="bg-gradient-to-r from-emerald-400 via-arf-light to-arf-primary bg-clip-text text-transparent">la IA de tu agenda</span>.
-      </h2>
-      <p class="text-lg text-white/70 leading-relaxed mb-4">
-        Cada vez que el sistema le manda un recordatorio a tu paciente desde el <strong class="text-white">WhatsApp oficial de Soluciones Dentales</strong>, Juli queda lista para responderle. <strong class="text-white">Confirma, reagenda, cancela y vuelve a agendar</strong> — todo dentro de tu agenda, en tiempo real, sin que vos hagas nada.
-      </p>
-      <p class="text-lg text-white/70 leading-relaxed mb-6">
-        Es como tener una recepcionista que conoce tu agenda de memoria, está despierta 24/7 y nunca se equivoca con los horarios.
-      </p>
-
-      <!-- Mini explicación de cómo Juli sabe tus horarios -->
-      <div class="glass-card rounded-2xl p-5 border border-emerald-500/20 mb-6">
-        <div class="text-[11px] uppercase tracking-wider text-emerald-400 font-semibold mb-3">CÓMO JULI MIRA TU AGENDA</div>
-        <ol class="space-y-2.5 text-sm text-white/80">
-          <li class="flex items-start gap-3"><span class="text-emerald-400 font-bold shrink-0">1.</span><span>Vos cargás una vez tus <strong class="text-white">días y horarios de atención</strong> (ej: lun a vie de 9 a 18) y tus sedes.</span></li>
-          <li class="flex items-start gap-3"><span class="text-emerald-400 font-bold shrink-0">2.</span><span>Cargás <strong class="text-white">cuánto dura cada servicio</strong> que ofrecés (consulta 30 min, limpieza 45 min, blanqueamiento 1h).</span></li>
-          <li class="flex items-start gap-3"><span class="text-emerald-400 font-bold shrink-0">3.</span><span>Cargás los turnos que ya tenés agendados — o los importás con una <strong class="text-white">foto de tu libreta</strong> en segundos.</span></li>
-          <li class="flex items-start gap-3"><span class="text-emerald-400 font-bold shrink-0">4.</span><span>A partir de ahí Juli ve tu agenda viva: <strong class="text-white">solo ofrece huecos libres</strong> respetando cada duración. Imposible que te pise dos turnos.</span></li>
-        </ol>
-      </div>
-
-      <!-- Ejemplo concreto de Juli en acción -->
-      <div class="glass-card rounded-2xl p-5 border border-arf-light/20 mb-6">
-        <div class="text-[11px] uppercase tracking-wider text-arf-light font-semibold mb-3">QUÉ PUEDE HACER JULI POR VOS</div>
-        <ul class="space-y-2.5 text-sm text-white/80">
-          <li class="flex items-start gap-3"><span class="text-emerald-400">✓</span><span><strong class="text-white">Manda el recordatorio</strong> 24h y 3h antes del turno. El paciente responde y Juli ya está ahí.</span></li>
-          <li class="flex items-start gap-3"><span class="text-emerald-400">✓</span><span><strong class="text-white">Reagenda al toque.</strong> Si el paciente dice "no puedo el martes, ¿hay algo el jueves a la mañana?", Juli le ofrece los huecos del jueves AM y mueve el turno sola.</span></li>
-          <li class="flex items-start gap-3"><span class="text-emerald-400">✓</span><span><strong class="text-white">Cancela y libera el horario.</strong> Si avisa con +48h, devuelve la seña automáticamente. Y el lugar queda libre para otro paciente.</span></li>
-          <li class="flex items-start gap-3"><span class="text-emerald-400">✓</span><span><strong class="text-white">Agenda turnos nuevos.</strong> Si un paciente te escribe pidiendo turno, Juli le ofrece tus huecos libres y cierra la reserva con seña incluida.</span></li>
-          <li class="flex items-start gap-3"><span class="text-emerald-400">✓</span><span><strong class="text-white">Responde dudas básicas.</strong> Precios, dirección, formas de pago, qué hace tal servicio. Todo con la info que vos cargaste.</span></li>
+    <!-- Showcase — historia clínica / odontograma -->
+    <div class="mt-16 grid lg:grid-cols-2 gap-10 items-center">
+      <div>
+        <div class="eyebrow mb-4">Ficha clínica completa</div>
+        <h3 class="font-display font-extrabold text-3xl sm:text-4xl tracking-tight leading-tight mb-4">La historia clínica de tus pacientes, en orden</h3>
+        <p class="text-white/65 text-[15px] leading-relaxed mb-5">Odontograma interactivo —adulto, de leche o mixto—, periodontograma, historia clínica y radiografías. Marcás cada pieza con un click (caries, obturado, corona, implante…) y queda todo cargado y respaldado en un solo lugar.</p>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li class="pricing-feature"><span class="check">✓</span> Odontograma adulto, de leche y mixto</li>
+          <li class="pricing-feature"><span class="check">✓</span> Periodontograma e historia clínica</li>
+          <li class="pricing-feature"><span class="check">✓</span> Radiografías y tratamientos por paciente</li>
         </ul>
       </div>
-
-      <p class="text-base text-white/65 leading-relaxed">
-        <strong class="text-white">Ejemplo real:</strong> tenés un turno a las 10:00 que dura 30 min. Si un paciente pide una limpieza (45 min), Juli no le va a ofrecer las 10:15 — le ofrece directamente a partir de las 10:30, y solo si quedan 45 min antes del próximo paciente.
-      </p>
-    </div>
-
-    <div class="lg:col-span-6">
-      <!-- Mockup WhatsApp con Juli en acción -->
-      <div class="relative max-w-sm mx-auto">
-        <div class="absolute -inset-4 rounded-[3rem] bg-gradient-to-br from-emerald-500/20 to-arf-light/30 blur-2xl"></div>
-
-        <div class="relative rounded-[2.5rem] bg-black border-[10px] border-white/10 shadow-2xl overflow-hidden">
-          <div class="absolute top-2 left-1/2 -translate-x-1/2 w-32 h-6 bg-black rounded-full z-10"></div>
-
-          <div class="bg-emerald-800 px-4 pt-10 pb-3 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-arf-primary to-arf-light flex items-center justify-center text-xs font-bold">SD</div>
-            <div class="text-left">
-              <div class="text-sm font-medium">Soluciones Dentales</div>
-              <div class="text-[10px] text-emerald-300">en línea</div>
-            </div>
-          </div>
-
-          <div class="bg-[#0b141a] min-h-[480px] p-3 space-y-2 text-sm">
-            <!-- Paciente -->
-            <div class="max-w-[80%] bg-[#202c33] rounded-2xl rounded-tl-md px-3 py-2 text-white/90">
-              <div class="text-xs">Hola, querría sacar turno para limpieza</div>
-              <div class="text-[9px] text-white/40 text-right mt-0.5">10:42</div>
-            </div>
-            <!-- Juli -->
-            <div class="ml-auto max-w-[80%] bg-emerald-700 rounded-2xl rounded-tr-md px-3 py-2 text-white">
-              <div class="text-xs">buenas! como le va? un placer poder atenderle. la limpieza dental sale $8.500 y tarda 30 min aprox. tengo turnos para esta semana, le paso opciones?</div>
-              <div class="text-[9px] text-white/60 text-right mt-0.5">10:42 ✓✓</div>
-            </div>
-            <div class="ml-auto max-w-[80%] bg-emerald-700 rounded-2xl rounded-tr-md px-3 py-2 text-white">
-              <div class="text-xs">📅 jueves 12 a las 10:30<br>📅 viernes 13 a las 16:00<br>📅 sábado 14 a las 9:00</div>
-              <div class="text-[9px] text-white/60 text-right mt-0.5">10:42 ✓✓</div>
-            </div>
-            <!-- Paciente -->
-            <div class="max-w-[80%] bg-[#202c33] rounded-2xl rounded-tl-md px-3 py-2 text-white/90">
-              <div class="text-xs">El jueves perfecto</div>
-              <div class="text-[9px] text-white/40 text-right mt-0.5">10:43</div>
-            </div>
-            <!-- Juli con link -->
-            <div class="ml-auto max-w-[85%] bg-emerald-700 rounded-2xl rounded-tr-md px-3 py-2 text-white">
-              <div class="text-xs mb-2">listo! para confirmar el turno necesito que abone la seña ($2.500) acá:</div>
-              <div class="bg-emerald-900/50 rounded-lg px-2.5 py-1.5 text-[10px] text-emerald-200 underline">crm.solucionesdentalesarf.com/reservar/...</div>
-              <div class="text-[9px] text-white/60 text-right mt-1">10:43 ✓✓</div>
-            </div>
-            <!-- Toast confirmación -->
-            <div class="mx-auto max-w-[70%] bg-arf-primary/30 border border-arf-light/40 rounded-xl px-3 py-2 text-center text-[10px] text-white/90">
-              ✓ Turno confirmado · seña $2.500 cobrada
-            </div>
-          </div>
+      <div class="odo-card">
+        <div class="odo-legend">
+          <span class="odo-pill" style="background:#dcfce7;color:#15803d"><span style="width:.45rem;height:.45rem;border-radius:50%;background:#16a34a;display:inline-block"></span> Sano</span>
+          <span class="odo-pill" style="background:#fee2e2;color:#b91c1c"><span style="width:.45rem;height:.45rem;border-radius:50%;background:#ef4444;display:inline-block"></span> Caries</span>
+          <span class="odo-pill" style="background:#dbeafe;color:#1d4ed8"><span style="width:.45rem;height:.45rem;border-radius:50%;background:#3b82f6;display:inline-block"></span> Obturado</span>
+          <span class="odo-pill" style="background:#f3e8ff;color:#7e22ce"><span style="width:.45rem;height:.45rem;border-radius:50%;background:#a855f7;display:inline-block"></span> Corona</span>
+          <span class="odo-pill" style="background:#f1f5f9;color:#475569"><span style="width:.45rem;height:.45rem;border-radius:50%;background:#94a3b8;display:inline-block"></span> Ausente</span>
+          <span class="odo-pill" style="background:#cffafe;color:#0e7490"><span style="width:.45rem;height:.45rem;border-radius:50%;background:#06b6d4;display:inline-block"></span> Implante</span>
         </div>
-
-        <!-- Pill flotante -->
-        <div class="absolute -top-6 -left-4 glass-card rounded-full px-4 py-2 flex items-center gap-2 shadow-2xl floating-notif">
-          <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
-          <div class="text-[11px] font-semibold">Juli respondió en 4 segundos</div>
-        </div>
+        <div style="font-size:.55rem;color:#9a8aad;text-align:center;margin-bottom:.45rem">Derecha del paciente →&nbsp;&nbsp;← Izquierda del paciente</div>
+        <div id="odo-upper" class="odo-arch"></div>
+        <div class="odo-mid">línea media</div>
+        <div id="odo-lower" class="odo-arch"></div>
       </div>
     </div>
+
+    <p class="text-center text-sm text-white/45 mt-12">
+      <span class="text-arf-light font-semibold">Próximamente:</span> vidriera de pacientes que te encuentran y reservan con vos.
+    </p>
   </div>
 </section>
+<script>
+  (function(){
+    var upper=[18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28];
+    var lower=[48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
+    var st={16:'#ef4444',26:'#3b82f6',24:'#a855f7',36:'#94a3b8',46:'#06b6d4'};
+    function build(arr,el){ if(!el)return; el.innerHTML=arr.map(function(n){var c=st[n]||'#22c55e';return '<div class="tooth"><small>'+n+'</small><div class="crown" style="border-color:'+c+'"></div></div>';}).join(''); }
+    function go(){ build(upper,document.getElementById('odo-upper')); build(lower,document.getElementById('odo-lower')); }
+    if(document.readyState!=='loading')go(); else document.addEventListener('DOMContentLoaded',go);
+  })();
+</script>
 
 <!-- ============================================ -->
-<!-- 6.7 HERRAMIENTAS IA — Marketing (Premium) -->
+<!-- PRECIOS -->
 <!-- ============================================ -->
-<section class="relative py-24 lg:py-32 bg-arf-darker/40">
+<section id="precios" class="relative py-20 lg:py-28 bg-arf-darker/40 border-y border-white/5">
   <div class="max-w-7xl mx-auto px-6">
     <div class="text-center mb-14">
-      <div class="eyebrow mx-auto">IA MARKETING · PREMIUM</div>
-      <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-[1.05] max-w-3xl mx-auto">
-        Tu agencia de marketing<br>
-        <span class="text-white/40">en un botón.</span>
-      </h2>
-      <p class="mt-6 text-lg text-white/65 max-w-2xl mx-auto">Generá tu descripción para Instagram, los textos de tus posts, ideas para historias y respuestas profesionales a reseñas. Todo escrito con IA y adaptado a tu especialidad.</p>
+      <div class="eyebrow mb-5">Precios</div>
+      <h2 class="font-display font-extrabold text-4xl sm:text-5xl tracking-tighter">Empezás gratis. Crecés cuando te sirva.</h2>
+      <p class="mt-4 text-base text-white/60 max-w-xl mx-auto">Todos los planes pagos incluyen 14 días de Premium de prueba, sin tarjeta.</p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-4">
-      <div class="glass-card rounded-2xl p-6 border border-arf-light/20">
-        <div class="text-2xl mb-3">✍️</div>
-        <h3 class="font-display font-bold mb-1">Tu bio para Instagram</h3>
-        <p class="text-sm text-white/60 mb-4">"Odontóloga | Ortodoncia invisible | Tucumán | 📍 turnos por DM"</p>
-        <div class="text-[10px] uppercase tracking-wider text-arf-light">Generada en 3 segundos</div>
-      </div>
-      <div class="glass-card rounded-2xl p-6 border border-arf-light/20">
-        <div class="text-2xl mb-3">📸</div>
-        <h3 class="font-display font-bold mb-1">Textos para tus posts</h3>
-        <p class="text-sm text-white/60 mb-4">"Sonrisas que cambian vidas. Resultado real de un tratamiento de ortodoncia de 14 meses..."</p>
-        <div class="text-[10px] uppercase tracking-wider text-arf-light">Con hashtags optimizados</div>
-      </div>
-      <div class="glass-card rounded-2xl p-6 border border-arf-light/20">
-        <div class="text-2xl mb-3">💡</div>
-        <h3 class="font-display font-bold mb-1">Ideas para stories</h3>
-        <p class="text-sm text-white/60 mb-4">"5 mitos sobre el blanqueamiento", "Cómo elegir tu primer brackets", "El tour por mi consultorio"...</p>
-        <div class="text-[10px] uppercase tracking-wider text-arf-light">Listo para grabar</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================ -->
-<!-- 7. COMPARATIVA -->
-<!-- ============================================ -->
-<section class="relative py-24 lg:py-32 bg-arf-darker/40">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="text-center mb-16">
-      <div class="eyebrow mx-auto">COMPARATIVA</div>
-      <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tighter">
-        Por qué Soluciones Dentales,<br><span class="text-white/40">y no otra cosa.</span>
-      </h2>
-    </div>
-
-    <div class="overflow-x-auto">
-      <div class="comparison-table min-w-[720px]">
-        <div class="comparison-header grid grid-cols-4 gap-2 mb-2">
-          <div></div>
-          <div class="comparison-arf rounded-t-2xl p-4 text-center">
-            <div class="font-display font-bold text-lg">Soluciones Dentales</div>
-            <div class="text-xs text-arf-light">Lo que estás viendo</div>
-          </div>
-          <div class="bg-white/5 rounded-t-2xl p-4 text-center">
-            <div class="font-display font-bold text-lg text-white/70">Otras plataformas</div>
-            <div class="text-xs text-white/40">de agenda</div>
-          </div>
-          <div class="bg-white/5 rounded-t-2xl p-4 text-center">
-            <div class="font-display font-bold text-lg text-white/70">WhatsApp solo</div>
-            <div class="text-xs text-white/40">manual</div>
-          </div>
-        </div>
-
-        <div class="comparison-body space-y-1">
-          <!-- rows -->
-          <div class="comp-row"><div>Agenda online</div><div class="comp-arf">✅</div><div class="comp-other">✅</div><div class="comp-other">❌</div></div>
-          <div class="comp-row"><div>Vidriera pública que te trae pacientes nuevos</div><div class="comp-arf">🔜 <span class="text-xs text-arf-light">próximamente</span></div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
-          <div class="comp-row"><div>IA en WhatsApp que atiende sola</div><div class="comp-arf">✅ <span class="text-xs text-arf-light">Juli</span></div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
-          <div class="comp-row"><div>Recordatorios con botones</div><div class="comp-arf">✅</div><div class="comp-other">⚠️ <span class="text-xs text-white/50">solo SMS</span></div><div class="comp-other">❌ <span class="text-xs text-white/50">manual</span></div></div>
-          <div class="comp-row"><div>Reagendamiento automático sin vos</div><div class="comp-arf">✅</div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
-          <div class="comp-row"><div>Facturación electrónica ARCA (ex AFIP)</div><div class="comp-arf">✅ <span class="text-xs text-arf-light">factura oficial</span></div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
-          <div class="comp-row"><div>IA que escribe tu bio y textos para Instagram</div><div class="comp-arf">✅</div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
-          <div class="comp-row"><div>Odontograma + historia clínica</div><div class="comp-arf">✅</div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
-          <div class="comp-row"><div>Planes de tratamiento con PDF + cobro</div><div class="comp-arf">✅</div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
-          <div class="comp-row"><div>Cobrás con TU MercadoPago</div><div class="comp-arf">✅</div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
-          <div class="comp-row"><div>Importás tu agenda con una foto</div><div class="comp-arf">✅</div><div class="comp-other">❌</div><div class="comp-other">❌</div></div>
-          <div class="comp-row"><div>Multi-sede + clínica multi-profesional</div><div class="comp-arf">✅</div><div class="comp-other">⚠️ <span class="text-xs text-white/50">plan caro</span></div><div class="comp-other">❌</div></div>
-          <div class="comp-row comp-row-highlight"><div>Precio</div><div class="comp-arf"><span class="text-arf-light font-bold">arrancás gratis</span></div><div class="comp-other">desde $30k+/mes</div><div class="comp-other">gratis <span class="text-xs text-white/50">+ 7hs/sem tuyas</span></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================ -->
-<!-- 8. CÓMO FUNCIONA -->
-<!-- ============================================ -->
-<section id="como-funciona" class="relative py-24 lg:py-32">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="text-center mb-20">
-      <div class="eyebrow mx-auto">CÓMO FUNCIONA</div>
-      <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-[1.05]">
-        En 3 pasos.<br><span class="text-white/40">Sin instalación. Sin papelitos.</span>
-      </h2>
-    </div>
-
-    <div class="relative">
-      <!-- Vertical connector line -->
-      <div class="absolute left-8 top-8 bottom-8 w-px bg-gradient-to-b from-arf-primary via-arf-light to-arf-primary hidden md:block"></div>
-
-      <div class="space-y-16">
-
-        <div class="timeline-step grid md:grid-cols-12 gap-8 items-center">
-          <div class="md:col-span-5 flex items-start gap-6">
-            <div class="step-num">01</div>
-            <div>
-              <h3 class="font-display font-bold text-2xl mb-2">Te registrás en 2 minutos</h3>
-              <p class="text-white/60">Cargás tus datos, horarios, sedes y servicios. Sin reuniones, sin capacitaciones eternas.</p>
-            </div>
-          </div>
-          <div class="md:col-span-7">
-            <div class="glass-card rounded-2xl p-6">
-              <div class="flex items-center gap-2 mb-4">
-                <div class="flex gap-1.5"><div class="w-2.5 h-2.5 rounded-full bg-red-500/60"></div><div class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div><div class="w-2.5 h-2.5 rounded-full bg-emerald-500/60"></div></div>
-                <div class="text-xs text-white/40 ml-2">Configuración inicial</div>
-              </div>
-              <div class="space-y-3">
-                <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-xs">✓</div><div class="text-sm">Datos del consultorio</div></div>
-                <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-xs">✓</div><div class="text-sm">Horarios y servicios</div></div>
-                <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-arf-light/30 flex items-center justify-center text-xs animate-pulse">3</div><div class="text-sm">Cargar profesionales</div></div>
-                <div class="flex items-center gap-3 opacity-40"><div class="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-xs">4</div><div class="text-sm">Configurar contraseña</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-step grid md:grid-cols-12 gap-8 items-center">
-          <div class="md:col-span-5 flex items-start gap-6">
-            <div class="step-num">02</div>
-            <div>
-              <h3 class="font-display font-bold text-2xl mb-2">Activamos tu cuenta</h3>
-              <p class="text-white/60">Te asignamos a la red de WhatsApp de Soluciones Dentales. Sin migración técnica, sin esperas — ya queda lista para mandar recordatorios automáticos a tu nombre.</p>
-            </div>
-          </div>
-          <div class="md:col-span-7">
-            <div class="glass-card rounded-2xl p-6">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                  <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                </div>
-                <div>
-                  <div class="text-sm font-semibold">Cuenta activa</div>
-                  <div class="text-xs text-white/50">Listo para recibir pacientes</div>
-                </div>
-              </div>
-              <div class="space-y-2 text-sm">
-                <div class="flex items-center justify-between p-2 rounded-lg bg-white/5">
-                  <span class="text-white/60">WhatsApp asignado</span>
-                  <span class="font-mono text-arf-light">+54 9 11 ··· activo</span>
-                </div>
-                <div class="flex items-center justify-between p-2 rounded-lg bg-white/5">
-                  <span class="text-white/60">Agenda configurada con tus servicios</span>
-                  <span class="text-emerald-400 text-xs">✓ OK</span>
-                </div>
-                <div class="flex items-center justify-between p-2 rounded-lg bg-white/5">
-                  <span class="text-white/60">Recordatorios automáticos</span>
-                  <span class="text-emerald-400 text-xs">✓ ON</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-step grid md:grid-cols-12 gap-8 items-center">
-          <div class="md:col-span-5 flex items-start gap-6">
-            <div class="step-num">03</div>
-            <div>
-              <h3 class="font-display font-bold text-2xl mb-2">Tus pacientes reciben recordatorios automáticos</h3>
-              <p class="text-white/60">24h y 3h antes de cada turno. Confirman, cancelan o reagendan con 1 toque. Vos solo atendés.</p>
-            </div>
-          </div>
-          <div class="md:col-span-7">
-            <div class="glass-card rounded-2xl p-6">
-              <div class="text-xs text-white/40 mb-3">Turnos de mañana · confirmándose en tiempo real</div>
-              <div class="space-y-2">
-                <div class="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-2"><div class="text-xs w-12">09:00</div><div class="flex-1 text-sm">M. Pérez · Consulta</div><div class="text-xs text-emerald-400">✓ confirmó</div></div>
-                <div class="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-2"><div class="text-xs w-12">10:30</div><div class="flex-1 text-sm">L. Gómez · Blanqueamiento</div><div class="text-xs text-emerald-400">✓ confirmó</div></div>
-                <div class="flex items-center gap-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-2 animate-pulse-slow"><div class="text-xs w-12">12:00</div><div class="flex-1 text-sm">A. Vidal · Limpieza</div><div class="text-xs text-yellow-400">reagendó</div></div>
-                <div class="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-2"><div class="text-xs w-12">15:00</div><div class="flex-1 text-sm">R. Cruz · Endodoncia</div><div class="text-xs text-emerald-400">✓ confirmó</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================ -->
-<!-- 9. TESTIMONIAL HERO -->
-<!-- ============================================ -->
-<section class="relative py-24 lg:py-32">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="glass-card rounded-[2.5rem] p-8 sm:p-12 lg:p-16 relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-arf-primary/20 blur-[70px] pointer-events-none"></div>
-
-      <div class="relative grid lg:grid-cols-12 gap-10 items-center">
-        <div class="lg:col-span-8">
-          <div class="text-6xl text-arf-light/30 font-display leading-none mb-4">"</div>
-          <blockquote class="font-display font-bold text-2xl sm:text-3xl lg:text-4xl tracking-tight leading-[1.2]">
-            Mandábamos 15 recordatorios cada noche, uno por uno. Hoy no mandamos ninguno:
-            <span class="bg-gradient-to-r from-arf-light to-arf-primary bg-clip-text text-transparent">Juli los manda sola y los pacientes confirman desde WhatsApp.</span>
-          </blockquote>
-          <div class="mt-8 flex items-center gap-4">
-            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-arf-primary to-arf-light flex items-center justify-center font-display font-bold text-lg">SD</div>
-            <div>
-              <div class="font-semibold">Soluciones Dentales ARF</div>
-              <div class="text-sm text-white/60">El consultorio donde nació el sistema — lo usamos todos los días con nuestros pacientes</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lg:col-span-4 space-y-4 stats-section">
-          <div class="glass-card rounded-2xl p-5">
-            <div class="text-3xl font-display font-extrabold text-arf-light">−<span data-counter="50">0</span>%</div>
-            <div class="text-sm text-white/60 mt-1">de ausencias con seña + recordatorios (hasta)</div>
-          </div>
-          <div class="glass-card rounded-2xl p-5">
-            <div class="text-3xl font-display font-extrabold text-arf-light"><span data-counter="7">0</span> hs</div>
-            <div class="text-sm text-white/60 mt-1">por semana que dejamos de gastar en mensajes</div>
-          </div>
-          <div class="glass-card rounded-2xl p-5">
-            <div class="text-3xl font-display font-extrabold text-arf-light"><span data-counter="24">0</span>/7</div>
-            <div class="text-sm text-white/60 mt-1">Juli responde el WhatsApp a cualquier hora</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================ -->
-<!-- 10. PRICING + URGENCIA -->
-<!-- ============================================ -->
-<section id="precios" class="relative py-24 lg:py-32 overflow-hidden">
-  <div class="absolute inset-0 bg-gradient-to-br from-arf-primary/20 via-arf-darker to-arf-light/20"></div>
-  <div class="absolute inset-0">
-    <div class="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-arf-primary/40 blur-[80px]"></div>
-    <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-arf-light/40 blur-[80px]"></div>
-  </div>
-
-  <div class="relative max-w-5xl mx-auto px-6">
-    <div class="text-center mb-12">
-      <div class="eyebrow mx-auto">PRECIOS DE LANZAMIENTO 2026</div>
-      <h2 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tighter">
-        Empezás gratis.<br class="sm:hidden"> Crecés cuando te sirva.
-      </h2>
-      <p class="mt-4 text-base text-white/60 max-w-xl mx-auto">
-        Todos los planes pagos incluyen 30 días de Premium de prueba, sin tarjeta.
-      </p>
-    </div>
-
-    <!-- PRICING GRID — 4 planes -->
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
 
-      <!-- PLAN 0 · GRATIS -->
-      <div class="glass-card rounded-[1.5rem] p-6 border border-white/10 flex flex-col relative">
+      <!-- GRATIS -->
+      <div class="glass-card rounded-[1.5rem] p-6 border border-white/10 flex flex-col">
         <div class="text-sm uppercase tracking-widest text-arf-light mb-2">Gratis</div>
         <div class="text-xs text-white/50 mb-4">Para empezar sin pagar nada.</div>
-        <div class="flex items-baseline gap-2 mb-1">
-          <div class="font-display font-extrabold text-4xl bg-gradient-to-r from-arf-light to-white bg-clip-text text-transparent">$0</div>
-        </div>
+        <div class="font-display font-extrabold text-4xl bg-gradient-to-r from-arf-light to-white bg-clip-text text-transparent">$0</div>
         <div class="text-sm text-white/60 mb-6">/mes</div>
-
-        <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="block text-center text-sm font-semibold px-5 py-3 rounded-2xl border border-arf-light/40 text-white hover:bg-arf-light/10 transition mb-6">
-          Crear cuenta gratis
-        </a>
-
+        <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="block text-center text-sm font-semibold px-5 py-3 rounded-2xl border border-arf-light/40 text-white hover:bg-arf-light/10 transition mb-6" data-cta="signup-precios-gratis">Crear cuenta gratis</a>
         <ul class="space-y-2.5 text-sm">
           <li class="pricing-feature"><span class="check">✓</span> Agenda y gestión de turnos</li>
           <li class="pricing-feature"><span class="check">✓</span> Link de reservas + QR</li>
@@ -1716,19 +413,13 @@ tailwind.config = {
         </ul>
       </div>
 
-      <!-- PLAN 1 · ESENCIAL -->
-      <div class="glass-card rounded-[1.5rem] p-6 border border-white/10 flex flex-col relative">
+      <!-- ESENCIAL -->
+      <div class="glass-card rounded-[1.5rem] p-6 border border-white/10 flex flex-col">
         <div class="text-sm uppercase tracking-widest text-arf-light mb-2">Esencial</div>
         <div class="text-xs text-white/50 mb-4">Sin tareas administrativas.</div>
-        <div class="flex items-baseline gap-2 mb-1">
-          <div class="font-display font-extrabold text-4xl bg-gradient-to-r from-arf-light to-white bg-clip-text text-transparent">$14.990</div>
-        </div>
+        <div class="font-display font-extrabold text-4xl bg-gradient-to-r from-arf-light to-white bg-clip-text text-transparent">$14.990</div>
         <div class="text-sm text-white/60 mb-6">/mes</div>
-
-        <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="block text-center text-sm font-semibold px-5 py-3 rounded-2xl border border-arf-light/40 text-white hover:bg-arf-light/10 transition mb-6">
-          Probar 30 días gratis
-        </a>
-
+        <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="block text-center text-sm font-semibold px-5 py-3 rounded-2xl border border-arf-light/40 text-white hover:bg-arf-light/10 transition mb-6" data-cta="signup-precios-esencial">Probar 14 días gratis</a>
         <ul class="space-y-2.5 text-sm">
           <li class="pricing-feature font-medium text-white/90"><span class="check">✓</span> Todo lo del plan Gratis</li>
           <li class="pricing-feature"><span class="check">✓</span> Turnos ilimitados</li>
@@ -1736,151 +427,137 @@ tailwind.config = {
           <li class="pricing-feature"><span class="check">✓</span> Avisos por email al paciente</li>
           <li class="pricing-feature"><span class="check">✓</span> Reserva libre (sin seña)</li>
           <li class="pricing-feature"><span class="check">✓</span> Mini-FAQ en tu perfil público</li>
-          <li class="pricing-feature"><span class="check">✓</span> Programa de referidos (1 mes gratis x cada profe)</li>
+          <li class="pricing-feature"><span class="check">✓</span> Programa de referidos (1 mes gratis x profe)</li>
           <li class="pricing-feature text-arf-light"><span class="check">✓</span> <strong>2,5% comisión</strong> por reserva</li>
         </ul>
       </div>
 
-      <!-- PLAN 2 · PROFESIONAL (destacado) -->
+      <!-- PROFESIONAL -->
       <div class="glass-card rounded-[1.5rem] p-6 border-2 border-arf-light/50 flex flex-col relative overflow-hidden lg:scale-105 lg:-my-2 shadow-2xl shadow-arf-primary/20">
         <div class="absolute -top-px left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-b-xl bg-gradient-to-r from-arf-primary to-arf-light text-xs font-bold whitespace-nowrap">★ MÁS ELEGIDO</div>
         <div class="text-sm uppercase tracking-widest text-arf-light mb-2 mt-3">Profesional</div>
         <div class="text-xs text-white/50 mb-4">Tu consultorio en piloto automático.</div>
-        <div class="flex items-baseline gap-2 mb-1">
-          <div class="font-display font-extrabold text-4xl bg-gradient-to-r from-arf-light to-white bg-clip-text text-transparent">$24.990</div>
-        </div>
+        <div class="font-display font-extrabold text-4xl bg-gradient-to-r from-arf-light to-white bg-clip-text text-transparent">$24.990</div>
         <div class="text-sm text-white/60 mb-6">/mes</div>
-
-        <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="btn-gradient block text-center text-sm font-semibold px-5 py-3 rounded-2xl mb-6">
-          Probar 30 días gratis →
-        </a>
-
+        <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="btn-gradient block text-center text-sm font-semibold px-5 py-3 rounded-2xl mb-6" data-cta="signup-precios-profesional">Probar 14 días gratis →</a>
         <ul class="space-y-2.5 text-sm">
           <li class="pricing-feature font-medium text-white/90"><span class="check">✓</span> Todo lo del Esencial</li>
-          <li class="pricing-feature"><span class="check">✓</span> <strong>Juli IA</strong> — recordatorios + reagendamiento automáticos por WhatsApp</li>
+          <li class="pricing-feature"><span class="check">✓</span> <strong>Recordatorios y reagendamiento automáticos</strong> por WhatsApp</li>
           <li class="pricing-feature"><span class="check">✓</span> Planes de tratamiento + 5 mails de follow-up</li>
           <li class="pricing-feature"><span class="check">✓</span> Cobros con MercadoPago + multi-sede + reportes</li>
-          <li class="pricing-feature"><span class="check">✓</span> Chat con IA en tu página de reservas</li>
+          <li class="pricing-feature"><span class="check">✓</span> Asistente de respuestas en tu página de reservas</li>
           <li class="pricing-feature"><span class="check">✓</span> Odontograma + historia clínica + periodontograma</li>
           <li class="pricing-feature"><span class="check">✓</span> Cupones de descuento + lista de espera</li>
-          <li class="pricing-feature"><span class="check">✓</span> Envío de mails a grupos de pacientes (cumpleaños, inactivos, etc.)</li>
+          <li class="pricing-feature"><span class="check">✓</span> Mails a grupos (cumpleaños, inactivos, etc.)</li>
           <li class="pricing-feature"><span class="check">✓</span> Soporte por WhatsApp con el equipo ARF</li>
           <li class="pricing-feature text-arf-light"><span class="check">✓</span> <strong>1% comisión</strong> por reserva</li>
         </ul>
       </div>
 
-      <!-- PLAN 3 · PREMIUM -->
+      <!-- PREMIUM -->
       <div class="glass-card rounded-[1.5rem] p-6 border border-arf-light/40 flex flex-col relative">
-        <div class="absolute -top-px left-1/2 -translate-x-1/2 px-3 py-1 rounded-b-xl bg-emerald-500/20 border border-emerald-500/40 text-[10px] font-bold uppercase tracking-wider text-emerald-400 whitespace-nowrap">Marketplace incluido</div>
+        <div class="absolute -top-px left-1/2 -translate-x-1/2 px-3 py-1 rounded-b-xl bg-emerald-500/20 border border-emerald-500/40 text-[10px] font-bold uppercase tracking-wider text-emerald-400 whitespace-nowrap">0% comisión</div>
         <div class="text-sm uppercase tracking-widest text-arf-light mb-2 mt-3">Premium</div>
-        <div class="text-xs text-white/50 mb-4">Captás pacientes nuevos.</div>
-        <div class="flex items-baseline gap-2 mb-1">
-          <div class="font-display font-extrabold text-4xl bg-gradient-to-r from-arf-light to-white bg-clip-text text-transparent">$80.000</div>
-        </div>
+        <div class="text-xs text-white/50 mb-4">Todo, sin comisiones.</div>
+        <div class="font-display font-extrabold text-4xl bg-gradient-to-r from-arf-light to-white bg-clip-text text-transparent">$80.000</div>
         <div class="text-sm text-white/60 mb-6">/mes</div>
-
-        <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="block text-center text-sm font-semibold px-5 py-3 rounded-2xl border border-arf-light/40 text-white hover:bg-arf-light/10 transition mb-6">
-          Probar 30 días gratis
-        </a>
-
+        <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="block text-center text-sm font-semibold px-5 py-3 rounded-2xl border border-arf-light/40 text-white hover:bg-arf-light/10 transition mb-6" data-cta="signup-precios-premium">Probar 14 días gratis</a>
         <ul class="space-y-2.5 text-sm">
           <li class="pricing-feature font-medium text-white/90"><span class="check">✓</span> Todo lo del Profesional</li>
           <li class="pricing-feature"><span class="check">✓</span> Facturación electrónica oficial ARCA (ex AFIP)</li>
-          <li class="pricing-feature"><span class="check">✓</span> IA que escribe tus textos de Instagram e ideas para historias</li>
+          <li class="pricing-feature"><span class="check">✓</span> IA que escribe tus textos e ideas para Instagram</li>
           <li class="pricing-feature"><span class="check">✓</span> Sincronización con Google Calendar</li>
           <li class="pricing-feature"><span class="check">✓</span> Reseñas con moderación y respuesta</li>
           <li class="pricing-feature"><span class="check">✓</span> Dashboard de clínica + invitar profesionales</li>
           <li class="pricing-feature text-emerald-400"><span class="check" style="color:#10b981">✓</span> <strong>0% comisión</strong> por reserva</li>
-          <li class="pricing-feature font-semibold text-arf-light"><span class="check">★</span> <strong>Vidriera pública de pacientes</strong> <span class="text-xs text-white/50">(próximamente · entrás primero)</span></li>
+          <li class="pricing-feature font-semibold text-arf-light"><span class="check">★</span> Vidriera de pacientes <span class="text-xs text-white/50">(próximamente · entrás primero)</span></li>
         </ul>
       </div>
     </div>
 
-    <!-- Trust line -->
     <div class="mt-10 text-center text-sm text-white/60">
-      Todos los planes arrancan con <span class="text-white font-semibold">30 días gratis</span> · Sin tarjeta · Cancelás cuando quieras · Cambiás de plan en cualquier momento
+      Todos los planes arrancan con <span class="text-white font-semibold">14 días gratis</span> · Sin tarjeta · Cancelás cuando quieras · Cambiás de plan en cualquier momento
     </div>
   </div>
 </section>
 
 <!-- ============================================ -->
-<!-- 11. FAQ -->
+<!-- FAQ -->
 <!-- ============================================ -->
-<section id="faq" class="relative py-24 lg:py-32">
+<section id="faq" class="relative py-20 lg:py-28">
   <div class="max-w-3xl mx-auto px-6">
-    <div class="text-center mb-16">
-      <div class="eyebrow mx-auto">FAQ</div>
+    <div class="text-center mb-14">
+      <div class="eyebrow mb-5">FAQ</div>
       <h2 class="font-display font-extrabold text-4xl sm:text-5xl tracking-tighter">Preguntas frecuentes</h2>
     </div>
 
-    <div class="space-y-px">
+    <div class="space-y-3">
       <details class="faq-item" open>
-        <summary>¿Quién es Juli y cómo funciona?</summary>
-        <div class="faq-answer">Juli es <strong>la IA de tu agenda</strong>. Cada vez que el sistema le manda un recordatorio a tu paciente desde el WhatsApp oficial de Soluciones Dentales, Juli queda lista para responder: confirma asistencia, reagenda a otro día/hora libre, cancela y libera el lugar, o agenda turnos nuevos cuando un paciente le pide. Lo hace mirando tu agenda en tiempo real — tus días y horarios, la duración de cada servicio y los turnos que ya tenés ocupados — así que <strong>nunca te pisa turnos</strong>. Disponible desde el plan Profesional.</div>
+        <summary>¿Qué es exactamente?</summary>
+        <div class="faq-answer">Es la <strong>agenda online de tu consultorio</strong>. Tus pacientes entran a tu link, sacan, cancelan o reprograman su turno solos, y el sistema les manda los recordatorios por WhatsApp automáticamente. Vos manejás todo desde tu cuenta en la compu o el celular.</div>
       </details>
       <details class="faq-item">
-        <summary>¿Y si yo agrego un turno manual a la agenda? ¿Juli se entera?</summary>
-        <div class="faq-answer">Sí, al instante. Juli mira la misma agenda que vos editás desde tu cuenta en la compu o el celular. Si agregás un turno manual a las 15:00 que dura 1 hora, Juli automáticamente deja de ofrecer cualquier horario entre 15:00 y 16:00 a los pacientes que escriban por WhatsApp. Funciona en los dos sentidos: lo que Juli agenda lo ves vos al toque en tu agenda, y lo que vos agendás Juli lo respeta.</div>
+        <summary>¿El paciente saca y reprograma el turno solo?</summary>
+        <div class="faq-answer">Sí. Desde tu link público elige día y hora entre tus horarios libres, y puede reprogramar o cancelar cuando lo necesite, 24/7. El sistema mira tu agenda en tiempo real — tus días, horarios y la duración de cada servicio — así que <strong>nunca te pisa turnos</strong>. Disponible con recordatorios + reagendamiento automáticos desde el plan Profesional.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Y si yo agrego un turno manual? ¿Lo respeta?</summary>
+        <div class="faq-answer">Sí, al instante. El sistema mira la misma agenda que vos editás. Si cargás un turno manual de 15 a 16, deja de ofrecer ese horario a los pacientes. Funciona en los dos sentidos: lo que se reserva online lo ves al toque, y lo que cargás vos se respeta.</div>
       </details>
       <details class="faq-item">
         <summary>¿Tengo que usar mi número personal de WhatsApp?</summary>
-        <div class="faq-answer">No. Todo el ida y vuelta con el paciente pasa por el <strong>WhatsApp oficial de Soluciones Dentales</strong> — un número central administrado por nosotros, con la palomita verde de WhatsApp. Tu número personal queda fuera del trabajo. Cuando un paciente reserva por tu link, el sistema le manda automáticamente ese contacto identificado con el nombre de tu consultorio, y ya queda en contacto con Juli para confirmar, reagendar o consultar.</div>
+        <div class="faq-answer">No. Los recordatorios salen desde el <strong>WhatsApp oficial de Soluciones Dentales</strong> — un número central administrado por nosotros, con la palomita verde. Tu número personal queda fuera del trabajo.</div>
       </details>
       <details class="faq-item">
         <summary>¿Cómo funciona el cobro de la seña?</summary>
-        <div class="faq-answer">Cargás el monto de la seña por cada servicio (ej: Consulta $5.000). Tu paciente entra a tu link público, elige día y hora y paga la seña en MercadoPago. La plata entra <strong>directo a tu cuenta de MercadoPago</strong> (no a la nuestra) y el turno se agenda solo. Vos no movés un dedo.</div>
+        <div class="faq-answer">Cargás el monto de la seña por cada servicio. Tu paciente elige día y hora y la paga por MercadoPago. La plata entra <strong>directo a tu cuenta de MercadoPago</strong> (no a la nuestra) y el turno se agenda solo.</div>
       </details>
       <details class="faq-item">
-        <summary>¿Qué pasa si el paciente cancela?</summary>
-        <div class="faq-answer">Si cancela con <strong>más de 48hs antes del turno</strong>, el sistema le devuelve el 100% del anticipo automáticamente. Si cancela dentro de las 48hs o no aparece, el anticipo no se reintegra (política que el paciente acepta al pagar). Eso baja las ausencias: el paciente ya puso plata y no la quiere perder.</div>
+        <summary>¿De verdad reduce las ausencias?</summary>
+        <div class="faq-answer">Sí. El paciente ya pagó la seña — si no aparece, pierde plata. Eso solo baja las ausencias <strong>hasta un 50%</strong>. Sumando los recordatorios automáticos por WhatsApp, el efecto es todavía mayor.</div>
       </details>
       <details class="faq-item">
         <summary>¿Cuánto cobra ARF de comisión por reserva?</summary>
-        <div class="faq-answer">Depende del plan: <strong>Gratis 5%</strong>, <strong>Esencial 2,5%</strong>, <strong>Profesional 1%</strong>, <strong>Premium 0%</strong>. La comisión sale del anticipo (no de tu bolsillo), vía MercadoPago Marketplace. En Premium el 100% del cobro va a tu cuenta — sin descuentos.</div>
-      </details>
-      <details class="faq-item">
-        <summary>¿Reduce de verdad las ausencias?</summary>
-        <div class="faq-answer">Sí. El paciente ya pagó la seña — si no aparece, pierde plata. Eso solo puede bajar las ausencias <strong>hasta un 50%</strong>. Sumando los recordatorios automáticos de Juli por WhatsApp (Profesional en adelante), el efecto es todavía mayor. Es lo que vivimos todos los días en nuestro propio consultorio.</div>
+        <div class="faq-answer">Depende del plan: <strong>Gratis 5%</strong>, <strong>Esencial 2,5%</strong>, <strong>Profesional 1%</strong>, <strong>Premium 0%</strong>. La comisión sale del anticipo (no de tu bolsillo), vía MercadoPago. En Premium el 100% del cobro va a tu cuenta.</div>
       </details>
       <details class="faq-item">
         <summary>¿Y si no me gusta o no me sirve?</summary>
-        <div class="faq-answer">Empezás <strong>gratis sin tarjeta</strong>. Tenés 30 días de Premium incluidos para probar todo. Si no te gusta, no pagás nada — pasás al plan Gratis (40 turnos/mes) y seguís usando el sistema sin presión.</div>
+        <div class="faq-answer">Empezás <strong>gratis sin tarjeta</strong>. Tenés <strong>14 días de Premium</strong> para probar todo. Si no te gusta, no pagás nada — pasás al plan Gratis (40 turnos/mes) y seguís usando el sistema sin presión.</div>
       </details>
     </div>
   </div>
 </section>
 
 <!-- ============================================ -->
-<!-- 12. CTA FINAL -->
+<!-- CTA FINAL -->
 <!-- ============================================ -->
-<section class="relative py-24 lg:py-40 overflow-hidden">
+<section class="relative py-24 lg:py-36 overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-br from-arf-primary via-arf-light to-arf-primary"></div>
   <div class="absolute inset-0 bg-arf-deep/40"></div>
   <div class="absolute inset-0 grid-pattern opacity-20"></div>
 
-  <div class="relative max-w-5xl mx-auto px-6 text-center">
-    <h2 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tighter leading-[1.05]">
+  <div class="relative max-w-4xl mx-auto px-6 text-center">
+    <h2 class="font-display font-extrabold text-4xl sm:text-6xl tracking-tighter leading-[1.05]">
       Cada turno que no aparece<br>
-      <span class="text-white">ya te costó plata.</span><br>
-      <span class="text-white">El próximo, cobralo igual.</span>
+      <span class="text-white">ya te costó plata.</span>
     </h2>
-    <p class="mt-8 text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto">
-      30 días de Premium gratis. Sin tarjeta. Tu agenda lista en 2 minutos.
+    <p class="mt-7 text-xl sm:text-2xl text-white/90 max-w-2xl mx-auto">
+      14 días de Premium gratis. Sin tarjeta. Tu agenda lista en 2 minutos.
     </p>
-    <div class="mt-12">
-      <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="magnetic inline-flex items-center gap-3 bg-white text-arf-primary font-bold text-lg px-10 py-5 rounded-2xl hover:bg-white/90 transition shadow-2xl">
+    <div class="mt-10">
+      <a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="inline-flex items-center gap-3 bg-white text-arf-primary font-bold text-lg px-10 py-5 rounded-2xl hover:bg-white/90 transition shadow-2xl" data-cta="signup-cta-final">
         Crear cuenta gratis
         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
       </a>
-      <div class="text-sm text-white/70 mt-4">Empezás en el plan Gratis · 30 días Premium de prueba · Sin tarjeta · Cancelás cuando quieras</div>
+      <div class="text-sm text-white/70 mt-4">Empezás en el plan Gratis · 14 días Premium de prueba · Sin tarjeta · Cancelás cuando quieras</div>
     </div>
   </div>
 </section>
 
 <!-- ============================================ -->
-<!-- 13. FOOTER -->
+<!-- FOOTER -->
 <!-- ============================================ -->
-<footer class="relative bg-arf-darker border-t border-white/5 py-16">
+<footer class="relative bg-arf-darker border-t border-white/5 py-14">
   <div class="max-w-7xl mx-auto px-6">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
       <div class="col-span-2 md:col-span-1">
@@ -1891,36 +568,35 @@ tailwind.config = {
           </svg>
           <span class="font-display font-bold text-xl bg-gradient-to-r from-white to-arf-light bg-clip-text text-transparent">Soluciones Dentales</span>
         </div>
-        <p class="text-sm text-white/50 mb-6 max-w-xs">Agenda online con cobro automático de seña. Tus pacientes reservan, pagan y aparecen.</p>
+        <p class="text-sm text-white/50 mb-6 max-w-xs">La agenda online para odontólogos. Tus pacientes reservan, pagan la seña y aparecen.</p>
         <div class="flex gap-3">
-          <a href="#" class="social-link" aria-label="Instagram"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 011.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772 4.915 4.915 0 01-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 01-1.772-1.153 4.904 4.904 0 01-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 011.153-1.772A4.897 4.897 0 015.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm6.5-.25a1.25 1.25 0 00-2.5 0 1.25 1.25 0 002.5 0zM12 9a3 3 0 110 6 3 3 0 010-6z"/></svg></a>
-          <a href="#" class="social-link" aria-label="X"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-          <a href="#" class="social-link" aria-label="LinkedIn"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+          <a href="#" class="social-link" aria-label="Instagram"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+          <a href="#" class="social-link" aria-label="Facebook"><i data-lucide="facebook" class="w-4 h-4"></i></a>
         </div>
       </div>
 
       <div>
         <div class="text-sm font-semibold mb-4">Producto</div>
         <ul class="space-y-2 text-sm text-white/50">
-          <li><a href="#producto" class="hover:text-white transition">Funcionalidades</a></li>
-          <li><a href="#precios" class="hover:text-white transition">Precios</a></li>
           <li><a href="#como-funciona" class="hover:text-white transition">Cómo funciona</a></li>
+          <li><a href="#producto" class="hover:text-white transition">Funciones</a></li>
+          <li><a href="#precios" class="hover:text-white transition">Precios</a></li>
           <li><a href="#faq" class="hover:text-white transition">Preguntas frecuentes</a></li>
         </ul>
       </div>
 
       <div>
-        <div class="text-sm font-semibold mb-4">Producto</div>
+        <div class="text-sm font-semibold mb-4">Cuenta</div>
         <ul class="space-y-2 text-sm text-white/50">
-          <li><a href="#producto" class="hover:text-white transition">Juli IA</a></li>
-          <li><a href="#marketplace" class="hover:text-white transition">Vidriera (próximamente)</a></li>
+          <li><a href="https://crm.solucionesdentalesarf.com/auth/empezar" class="hover:text-white transition" data-cta="signup-footer">Crear cuenta gratis</a></li>
+          <li><a href="https://crm.solucionesdentalesarf.com/auth/login" class="hover:text-white transition">Iniciar sesión</a></li>
         </ul>
       </div>
 
       <div>
         <div class="text-sm font-semibold mb-4">Empresa</div>
         <ul class="space-y-2 text-sm text-white/50">
-          <li><a href="mailto:alejo@solucionesdentalesarf.com" class="hover:text-white transition">Contacto</a></li>
+          <li><a href="mailto:hola@solucionesdentalesarf.com" class="hover:text-white transition">Contacto</a></li>
           <li><a href="https://crm.solucionesdentalesarf.com/terminos" class="hover:text-white transition">Términos y condiciones</a></li>
           <li><a href="https://crm.solucionesdentalesarf.com/privacidad" class="hover:text-white transition">Política de privacidad</a></li>
         </ul>
@@ -1929,33 +605,20 @@ tailwind.config = {
 
     <div class="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="text-sm text-white/40">© 2026 Soluciones Dentales · Hecho en Argentina 🇦🇷</div>
-      <div class="text-xs text-white/30">v2026.05</div>
+      <div class="text-xs text-white/30">v2026.06</div>
     </div>
   </div>
 </footer>
 
-<!-- (sticky de urgencia eliminado jun 2026 — escasez fabricada sin sustancia
-     erosionaba confianza con un público profesional) -->
-
-<!-- (notif-container eliminado jun 2026 — mostraba registros falsos) -->
-
 <!-- ============================================ -->
-<!-- SCRIPTS -->
+<!-- SCRIPTS (autosuficientes — sin deps externas) -->
 <!-- ============================================ -->
-<script src="assets/js/animations.js"></script>
-<!-- countdown.js y notifications.js removidos jun 2026: countdown falso,
-     sticky de urgencia y toasts de "Dr. X se sumó" con personas inventadas.
-     Prueba social fabricada = riesgo de confianza (y legal) con un público
-     profesional. Cuando haya usuarios reales, volver a agregar con datos
-     reales y consentimiento. -->
-
-<script src="assets/js/counter.js"></script>
-<script src="assets/js/whatsapp-typing.js"></script>
 <script>
-  // Init Lucide icons
+  // Iconos Lucide
   if (window.lucide) lucide.createIcons();
+  document.addEventListener('DOMContentLoaded', function(){ if (window.lucide) lucide.createIcons(); });
 
-  // Mobile menu
+  // Menú móvil
   document.getElementById('hamburger')?.addEventListener('click', () => {
     document.getElementById('mobile-menu').classList.remove('translate-x-full');
   });
@@ -1966,18 +629,15 @@ tailwind.config = {
     document.getElementById('mobile-menu').classList.add('translate-x-full');
   }));
 
-  // Scroll progress + nav compact
+  // Barra de progreso + nav compacto
   window.addEventListener('scroll', () => {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    document.getElementById('scroll-progress').style.width = scrolled + '%';
-
+    const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+    const bar = document.getElementById('scroll-progress');
+    if (bar) bar.style.width = scrolled + '%';
     const nav = document.getElementById('main-nav');
-    if (winScroll > 40) nav.classList.add('nav-compact');
-    else nav.classList.remove('nav-compact');
-
-    // (sticky-urgency eliminado jun 2026 — no hay nada que mostrar acá)
+    if (nav) { if (winScroll > 40) nav.classList.add('nav-compact'); else nav.classList.remove('nav-compact'); }
   });
 </script>
 
