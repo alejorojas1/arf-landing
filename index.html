@@ -129,6 +129,29 @@ tailwind.config = {
   .tooth small{font-size:.48rem;color:#9a8aad;line-height:1}
   .tooth .crown{width:1.2rem;height:1.2rem;border-radius:.3rem;border:1.6px solid #22c55e;background:#fff}
   .odo-mid{text-align:center;font-size:.54rem;color:#c0aedb;letter-spacing:.12em;text-transform:uppercase;margin:.5rem 0;border-top:1px dashed #ece4f7;padding-top:.5rem}
+
+  /* ══ FIX MOBILE (jul 2026) ══
+     La página se veía "de costado" en el celular: algún bloque con ancho
+     mínimo intrínseco (mockup del dashboard, floats, etc.) ensanchaba el
+     layout más allá del viewport y el hero quedaba corrido y cortado.
+     Regla de oro: NADA puede ser más ancho que la pantalla. */
+  html{overflow-x:hidden;max-width:100vw}
+  body{max-width:100vw}
+  img,svg,video{max-width:100%;height:auto}
+  /* Los hijos de cualquier grid/flex pueden achicarse (min-width:auto es
+     el default que rompe: impide que el track baje del min-content). */
+  .grid > *{min-width:0;max-width:100%}
+  .app-mock{max-width:100%}
+  @media (max-width:640px){
+    /* En pantalla chica el sidebar del mockup no aporta: se oculta y el
+       mock respira. Las float-cards se achican para no tapar contenido. */
+    .app-side{display:none}
+    .app-main{padding:.8rem .7rem}
+    .app-body{min-height:300px}
+    .float-card{font-size:.62rem;padding:.4rem .55rem}
+    .float-a{right:.35rem;top:2rem}
+    .float-b{left:.35rem;bottom:1.8rem}
+  }
 </style>
 </head>
 <body class="bg-arf-deep text-white font-body antialiased overflow-x-hidden">
@@ -191,7 +214,10 @@ tailwind.config = {
     <div class="text-center lg:text-left">
       <div class="eyebrow mb-6">La agenda online para odontólogos</div>
 
-      <h1 class="font-display font-extrabold tracking-tighter leading-[0.98] text-5xl sm:text-6xl lg:text-[4.2rem]">
+      <!-- FIX mobile jul 2026: tamaño fluido con clamp — en pantallas chicas
+           el título escala con el ancho y NUNCA desborda; en desktop queda
+           igual que antes. -->
+      <h1 class="font-display font-extrabold tracking-tighter leading-[1.02] text-[clamp(2rem,9.5vw,3rem)] sm:text-6xl lg:text-[4.2rem]">
         Dejá de perder plata por
         <span class="block bg-gradient-to-r from-arf-light via-arf-primary to-arf-light bg-clip-text text-transparent">los pacientes que no aparecen</span>
       </h1>
