@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ortodoncia y brackets en Tucumán | Soluciones Dentales ARF</title>
+<meta name="description" content="Brackets metálicos y estéticos en Tucumán. Alineá tus dientes, elegí el color de las gomitas. Para vos o tu hijo/a. Escribinos por WhatsApp y agendá tu consulta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --violet:#7C1FD6; --violet-d:#3D0A6B; --violet-deep:#1A0430; --violet-ink:#12021F;
+  --magenta:#B600FF; --magenta-l:#D87DFF; --pink:#FF6BD6; --gold:#F5C56B;
+  --soft:#F7EEFE; --bg:#FBF8FE; --white:#fff; --text:#1F0538; --muted:#6B5A80;
+  --border:#EBE0F5; --wa:#25D366; --star:#FFB800;
+  --line:rgba(255,255,255,.12);
+  --g-magenta:linear-gradient(135deg,#D87DFF 0%,#B600FF 45%,#7C1FD6 100%);
+  --g-deep:linear-gradient(160deg,#3D0A6B 0%,#1A0430 70%,#12021F 100%);
+  --sh-sm:0 4px 18px rgba(124,31,214,.10);
+  --sh-md:0 14px 40px rgba(124,31,214,.16);
+  --sh-lg:0 30px 80px rgba(60,10,107,.30);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:'Playfair Display',serif;line-height:1.12;letter-spacing:-.5px}
+section{padding:110px 0;position:relative}
+img{max-width:100%;display:block}
+a{color:inherit}
+.cursor,.cursor-r{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:screen;transform:translate(-50%,-50%);will-change:transform}
+.cursor{width:8px;height:8px;background:var(--magenta-l)}
+.cursor-r{width:38px;height:38px;border:1.5px solid rgba(216,125,255,.6);transition:width .3s var(--ease),height .3s var(--ease),background .3s}
+.cursor-r.grow{width:64px;height:64px;background:rgba(182,0,255,.10);border-color:transparent}
+@media(hover:none),(pointer:coarse){.cursor,.cursor-r{display:none}}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:.74rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--magenta);margin-bottom:18px}
+.eyebrow::before{content:'';width:26px;height:1px;background:var(--magenta)}
+.eyebrow.light{color:var(--gold)}.eyebrow.light::before{background:var(--gold)}
+.h-sec{font-size:clamp(2rem,4.6vw,3.2rem);color:var(--violet);font-weight:700}
+.h-sec .it{font-style:italic;color:var(--pink)}
+.sub{font-size:1.08rem;color:var(--muted);max-width:600px;line-height:1.7}
+.center{text-align:center}.center .sub{margin-left:auto;margin-right:auto}
+.ph{position:relative}
+.ph::before{content:'foto real';position:absolute;top:8px;left:8px;z-index:6;background:rgba(255,255,255,.85);color:var(--violet);font-size:.58rem;font-weight:700;letter-spacing:.5px;padding:2px 7px;border-radius:20px;text-transform:uppercase}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:11px;padding:17px 34px;border-radius:40px;font-weight:600;font-size:1rem;text-decoration:none;border:none;cursor:pointer;transition:.35s var(--ease);overflow:hidden}
+.btn-wa{background:var(--wa);color:#fff;box-shadow:0 10px 30px rgba(37,211,102,.35)}
+.btn-wa:hover{transform:translateY(-3px);box-shadow:0 16px 44px rgba(37,211,102,.5)}
+.btn-glass{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line);backdrop-filter:blur(8px)}
+.btn-glass:hover{background:rgba(255,255,255,.16);transform:translateY(-3px)}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;transition:.4s var(--ease)}
+.nav-in{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;padding:24px 28px;transition:.4s var(--ease)}
+nav.scrolled{background:rgba(251,248,254,.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+nav.scrolled .nav-in{padding:14px 28px}
+.logo{display:flex;align-items:center;gap:12px;font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--violet)}
+.logo-icon{width:44px;height:44px;background:var(--g-magenta);border-radius:13px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.82rem;font-weight:800;font-family:'Inter',sans-serif;box-shadow:0 6px 18px rgba(182,0,255,.4)}
+.nav-links{display:flex;gap:34px;align-items:center}
+.nav-links a{text-decoration:none;font-size:.9rem;font-weight:500;color:var(--text);position:relative;transition:.2s}
+.nav-links a:not(.nav-cta)::after{content:'';position:absolute;left:0;bottom:-5px;width:0;height:2px;background:var(--magenta);transition:.3s var(--ease)}
+.nav-links a:not(.nav-cta):hover::after{width:100%}
+.nav-cta{background:var(--wa);color:#fff !important;padding:11px 22px;border-radius:30px;font-weight:600 !important}
+.menu-t{display:none;background:none;border:none;font-size:1.5rem;color:var(--violet);cursor:pointer}
+.hero{background:var(--g-deep);color:#fff;padding:180px 0 120px;overflow:hidden;min-height:100vh;display:flex;align-items:center}
+.hero .wrap{position:relative;z-index:3}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);z-index:1;will-change:transform}
+.blob.b1{top:-8%;right:-6%;width:520px;height:520px;background:radial-gradient(circle,rgba(182,0,255,.5),transparent 68%)}
+.blob.b2{bottom:-18%;left:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(124,31,214,.42),transparent 70%)}
+.blob.b3{top:36%;left:44%;width:340px;height:340px;background:radial-gradient(circle,rgba(255,107,214,.28),transparent 70%)}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:60px;align-items:center;position:relative;z-index:3}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid var(--line);backdrop-filter:blur(10px);padding:9px 18px;border-radius:30px;font-size:.82rem;font-weight:500;color:#F0E4FB;margin-bottom:28px}
+.hero-badge .dot{width:8px;height:8px;background:var(--wa);border-radius:50%;box-shadow:0 0 0 0 rgba(37,211,102,.6);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}70%{box-shadow:0 0 0 10px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+.hero h1{font-size:clamp(2.6rem,6vw,4.4rem);font-weight:800;margin-bottom:24px;color:#fff}
+.hero h1 .it{font-style:italic;background:linear-gradient(120deg,#FF6BD6,#D87DFF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p.lead{font-size:1.18rem;color:#DCCBEF;max-width:540px;margin-bottom:38px}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:44px;margin-top:56px;padding-top:34px;border-top:1px solid var(--line);flex-wrap:wrap}
+.st-num{font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:700;color:#fff;line-height:1}
+.st-num .u{color:var(--pink)}
+.st-lab{font-size:.8rem;color:#B79ED6;margin-top:6px;letter-spacing:.3px}
+.hero-card{position:relative;aspect-ratio:4/5;border-radius:28px;background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.03));border:1px solid var(--line);backdrop-filter:blur(14px);box-shadow:var(--sh-lg);display:flex;align-items:center;justify-content:center;text-align:center;color:#D9C6F0;font-size:.92rem;padding:30px;overflow:hidden}
+.hero-card .ph-t{opacity:.75;line-height:1.7}
+.pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:56px}
+.pain{background:var(--white);border:1px solid var(--border);border-radius:22px;padding:32px 30px;box-shadow:var(--sh-sm);transition:.4s var(--ease);position:relative;overflow:hidden}
+.pain::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--g-magenta);transform:scaleX(0);transform-origin:left;transition:.4s var(--ease)}
+.pain:hover{transform:translateY(-8px);box-shadow:var(--sh-md);border-color:transparent}
+.pain:hover::before{transform:scaleX(1)}
+.pain .q{font-family:'Playfair Display',serif;font-weight:600;color:var(--violet-d);font-size:1.18rem;margin-bottom:12px;font-style:italic}
+.pain .a{color:var(--muted);font-size:.96rem}
+.pain .a b{color:var(--text);font-weight:600}
+.ba-sec{background:var(--g-deep);color:#fff;overflow:hidden}
+.ba-sec .h-sec{color:#fff}.ba-sec .sub{color:#CDB8E8}
+.ba-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:26px;margin-top:56px}
+.ba-card{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:22px;overflow:hidden;transition:.4s var(--ease)}
+.ba-card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg);border-color:rgba(216,125,255,.35)}
+.ba-slider{position:relative;aspect-ratio:4/3;overflow:hidden;cursor:ew-resize;user-select:none;touch-action:none;background:#241040;--pos:50%}
+.ba-lyr{position:absolute;inset:0;background-size:cover;background-position:center}
+.ba-antes{clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+.ba-tag{position:absolute;top:12px;padding:4px 12px;border-radius:20px;font-size:.66rem;font-weight:700;letter-spacing:1px;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);color:#fff;z-index:3}
+.ba-tag.l{left:12px}.ba-tag.r{right:12px}
+.ba-handle{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;background:#fff;transform:translateX(-1px);pointer-events:none;z-index:4;box-shadow:0 0 14px rgba(255,255,255,.6)}
+.ba-handle::after{content:'⇄';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;background:#fff;color:var(--magenta);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.ba-hint{text-align:center;font-size:.72rem;color:#B79ED6;padding:11px 0 0;letter-spacing:.5px}
+.ba-meta{padding:14px 22px 20px}
+.ba-meta .svc{font-weight:700;font-size:1.02rem}
+.ba-meta .by{font-size:.78rem;color:#B79ED6;margin-top:4px}
+.mq-sec{padding:80px 0;background:var(--white);overflow:hidden}
+.mq-head{text-align:center;margin-bottom:44px}
+.marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.mq-track{display:flex;gap:18px;width:max-content;animation:mq 48s linear infinite}
+.marquee:hover .mq-track{animation-play-state:paused}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 9px))}}
+.mq-item{width:230px;height:300px;border-radius:20px;background-size:cover;background-position:center;flex-shrink:0;box-shadow:var(--sh-sm);position:relative;overflow:hidden}
+.mq-item::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(26,4,48,.5))}
+.rev-sec{background:var(--soft)}
+.rev-grid{columns:3;column-gap:22px;margin-top:56px}
+.rev{break-inside:avoid;background:#fff;border:1px solid var(--border);border-radius:18px;padding:22px;margin-bottom:22px;box-shadow:var(--sh-sm);transition:.35s var(--ease)}
+.rev:hover{transform:translateY(-5px);box-shadow:var(--sh-md)}
+.rev .top{display:flex;align-items:center;gap:11px;margin-bottom:13px}
+.rev .av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0}
+.rev .av.c1{background:#FCE7F3;color:#BE185D}.rev .av.c2{background:#D1FAE5;color:#047857}
+.rev .av.c3{background:#E0F2FE;color:#0369A1}.rev .av.c4{background:#FEF3C7;color:#B45309}
+.rev .nm{font-weight:700;font-size:.86rem;color:var(--violet-d);text-transform:capitalize;line-height:1.2}
+.rev .dt{font-size:.7rem;color:var(--muted)}
+.rev .stars{margin-left:auto;color:var(--star);font-size:.82rem;letter-spacing:1px;flex-shrink:0}
+.rev .txt{font-size:.93rem;color:rgba(31,5,56,.85);line-height:1.6}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:28px;margin-top:56px}
+.step{text-align:center;padding:14px}
+.step-n{width:72px;height:72px;border-radius:50%;background:var(--g-magenta);color:#fff;font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 12px 30px rgba(182,0,255,.3)}
+.step h3{font-size:1.3rem;color:var(--violet);margin-bottom:10px}
+.step p{color:var(--muted);font-size:.94rem}
+.faq-sec{background:var(--soft)}
+.faq{max-width:800px;margin:56px auto 0}
+.fa{background:#fff;border:1px solid var(--border);border-radius:16px;margin-bottom:16px;overflow:hidden;transition:.3s}
+.fa[open]{box-shadow:var(--sh-md);border-color:var(--magenta-l)}
+.fa summary{padding:24px 28px;font-weight:600;color:var(--violet-d);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:1.05rem;list-style:none;font-family:'Playfair Display',serif}
+.fa summary::-webkit-details-marker{display:none}
+.fa summary::after{content:'+';font-size:1.7rem;color:var(--magenta);font-weight:300;transition:.3s var(--ease)}
+.fa[open] summary::after{transform:rotate(135deg)}
+.fa .ans{padding:0 28px 24px;color:var(--muted);font-size:.97rem}
+.cta-sec{padding:0 0 110px}
+.cta{position:relative;background:var(--g-deep);color:#fff;text-align:center;border-radius:36px;padding:80px 40px;max-width:1040px;margin:0 auto;overflow:hidden;box-shadow:var(--sh-lg)}
+.cta h2{font-size:clamp(1.9rem,4.5vw,3rem);margin-bottom:18px;position:relative;z-index:2}
+.cta p{opacity:.9;max-width:540px;margin:0 auto 32px;font-size:1.1rem;position:relative;z-index:2;color:#DCCBEF}
+.cta .btn-wa{position:relative;z-index:2;background:#fff;color:var(--violet)}
+footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
+.foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:44px;margin-bottom:44px}
+.f-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:11px}
+.f-disc{font-size:.86rem;line-height:1.8;max-width:440px}
+.f-col h4{color:#fff;font-size:.95rem;margin-bottom:16px}
+.f-col a{display:block;color:#B79ED6;text-decoration:none;font-size:.88rem;margin-bottom:11px;transition:.2s}
+.f-col a:hover{color:var(--pink);padding-left:4px}
+.f-bot{border-top:1px solid var(--line);padding-top:26px;font-size:.8rem;text-align:center;color:#7E6699}
+.wa-float{position:fixed;bottom:26px;right:26px;z-index:250;background:var(--wa);color:#fff;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 10px 30px rgba(37,211,102,.5);text-decoration:none;transition:.3s var(--ease)}
+.wa-float:hover{transform:scale(1.1) rotate(6deg)}
+.wa-float::before{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid var(--wa);animation:ring 2s infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.5);opacity:0}}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:44px}.hero-card{display:none}
+  .nav-links{display:none}.menu-t{display:block}
+  .rev-grid{columns:1}.foot{grid-template-columns:1fr;gap:30px}
+  section{padding:72px 0}.hero{min-height:auto;padding:150px 0 90px}
+}
+@media(max-width:1150px) and (min-width:901px){.rev-grid{columns:2}}
+</style>
+</head>
+<body data-landing="ortodoncia">
+<div class="cursor"></div><div class="cursor-r"></div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <div class="logo"><span class="logo-icon">ARF</span> Soluciones Dentales</div>
+    <div class="nav-links">
+      <a href="#dolores">¿Te pasa?</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#resenas">Lo que sentís</a>
+      <a href="#faq">Preguntas</a>
+      <a class="nav-cta" href="https://wa.me/5493816373965" target="_blank">Escribinos</a>
+    </div>
+    <button class="menu-t">☰</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="blob b1" data-par="0.10"></div>
+  <div class="blob b2" data-par="0.16"></div>
+  <div class="blob b3" data-par="0.22"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge rv"><span class="dot"></span> Ortodoncia · Respondemos por WhatsApp</div>
+        <h1 class="rv d1">Alineá tus dientes y <span class="it">reíte sin vergüenza</span></h1>
+        <p class="lead rv d2">Brackets metálicos y estéticos, a tu medida. Para vos o para tu hijo/a — y sí, elegís el color de las gomitas. La primera consulta la coordinás por WhatsApp en un minuto.</p>
+        <div class="hero-cta rv d3">
+          <a class="btn btn-wa" href="https://wa.me/5493816373965" target="_blank">💬 Quiero mi consulta</a>
+          <a class="btn btn-glass" href="#resultados">Ver resultados</a>
+        </div>
+        <div class="hero-stats rv d4">
+          <div><div class="st-num ph" style="display:inline-block"><span data-count="500">0</span><span class="u">+</span></div><div class="st-lab">pacientes atendidos</div></div>
+          <div><div class="st-num"><span data-count="4.9" data-dec="1">0</span><span class="u">★</span></div><div class="st-lab">opiniones reales</div></div>
+          <div><div class="st-num">Tucumán</div><div class="st-lab">varios puntos de atención</div></div>
+        </div>
+      </div>
+      <div class="hero-card ph rv d2"><div class="ph-t">Foto real de un paciente<br>con brackets sonriendo<br><span style="opacity:.6">(o el UGC de HeyGen)</span></div></div>
+    </div>
+  </div>
+</header>
+
+<section id="dolores">
+  <div class="wrap center">
+    <span class="eyebrow rv">Te entendemos</span>
+    <h2 class="h-sec rv d1">¿Alguna de estas <span class="it">te suena</span>?</h2>
+    <p class="sub rv d2">Si dijiste que sí a una sola, es momento de verlo. La mayoría llegó igual — y hoy se ríe en todas las fotos.</p>
+    <div class="pains" style="text-align:left">
+      <div class="pain rv d1"><div class="q">"Tengo los dientes chuecos o amontonados"</div><div class="a">Los brackets los <b>alinean de a poco</b>, mes a mes, hasta la sonrisa que querés.</div></div>
+      <div class="pain rv d2"><div class="q">"Me da vergüenza reírme en las fotos"</div><div class="a">Salir serio cansa. La ortodoncia te devuelve <b>la sonrisa que escondés</b>.</div></div>
+      <div class="pain rv d3"><div class="q">"Mi hijo/a tiene la mordida despareja"</div><div class="a">Cuanto antes se trata, mejor. Evaluamos <b>a chicos y adultos</b> y armamos el plan.</div></div>
+      <div class="pain rv d1"><div class="q">"En el colegio se burlaban de mí"</div><div class="a">Le pasa a muchísima gente. Acá te escuchamos <b>sin juzgar</b> y te mostramos opciones.</div></div>
+      <div class="pain rv d2"><div class="q">"Pienso que es carísimo"</div><div class="a">Hay <b>planes y cuotas</b>, y precio diferenciado por sector. Preguntá sin compromiso.</div></div>
+      <div class="pain rv d3"><div class="q">"No sé cuánto dura ni si duele"</div><div class="a">En la consulta el profesional te da un <b>tiempo real</b> para tu caso. Molesta poco y se acostumbra rápido.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="resultados" class="ba-sec">
+  <div class="blob b3" data-par="0.08" style="top:10%;right:5%"></div>
+  <div class="wrap center" style="position:relative;z-index:2">
+    <span class="eyebrow light rv">Resultados</span>
+    <h2 class="h-sec rv d1">Antes y <span class="it">después</span></h2>
+    <p class="sub rv d2">Casos de ortodoncia de pacientes atendidos por los profesionales que trabajan con nosotros.</p>
+    <div class="ba-grid">
+      <div class="ba-card rv d1"><div class="ba-slider"><div class="ba-lyr ba-despues" style="background-image:linear-gradient(135deg,#37155E,#4a1f7a),url('../img/orto-despues-1.jpg')"></div><div class="ba-lyr ba-antes" style="background-image:linear-gradient(135deg,#241040,#3a1560),url('../img/orto-antes-1.jpg')"></div><span class="ba-tag l">ANTES</span><span class="ba-tag r">DESPUÉS</span><div class="ba-handle"></div></div><div class="ba-hint">↔ Arrastrá para ver el cambio</div><div class="ba-meta"><div class="svc">Apiñamiento severo</div><div class="by">Realizado por profesional de la red</div></div></div>
+      <div class="ba-card rv d2"><div class="ba-slider"><div class="ba-lyr ba-despues" style="background-image:linear-gradient(135deg,#37155E,#4a1f7a),url('../img/orto-despues-2.jpg')"></div><div class="ba-lyr ba-antes" style="background-image:linear-gradient(135deg,#241040,#3a1560),url('../img/orto-antes-2.jpg')"></div><span class="ba-tag l">ANTES</span><span class="ba-tag r">DESPUÉS</span><div class="ba-handle"></div></div><div class="ba-hint">↔ Arrastrá para ver el cambio</div><div class="ba-meta"><div class="svc">Mordida despareja</div><div class="by">Realizado por profesional de la red</div></div></div>
+      <div class="ba-card rv d3"><div class="ba-slider"><div class="ba-lyr ba-despues" style="background-image:linear-gradient(135deg,#37155E,#4a1f7a),url('../img/orto-despues-3.jpg')"></div><div class="ba-lyr ba-antes" style="background-image:linear-gradient(135deg,#241040,#3a1560),url('../img/orto-antes-3.jpg')"></div><span class="ba-tag l">ANTES</span><span class="ba-tag r">DESPUÉS</span><div class="ba-handle"></div></div><div class="ba-hint">↔ Arrastrá para ver el cambio</div><div class="ba-meta"><div class="svc">Diente salido</div><div class="by">Realizado por profesional de la red</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="mq-sec">
+  <div class="wrap mq-head">
+    <span class="eyebrow rv">Nuestra gente</span>
+    <h2 class="h-sec rv d1">Sonrisas que <span class="it">ya cambiaron</span></h2>
+  </div>
+  <div class="marquee"><div class="mq-track">
+    <div class="mq-item ph" style="background-image:linear-gradient(160deg,#5a2a8a,#2a1050),url('../img/orto-galeria-1.jpg')"></div>
+    <div class="mq-item ph" style="background-image:linear-gradient(160deg,#7a2f9a,#341560),url('../img/orto-galeria-2.jpg')"></div>
+    <div class="mq-item ph" style="background-image:linear-gradient(160deg,#4a2080,#20103f),url('../img/orto-galeria-3.jpg')"></div>
+    <div class="mq-item ph" style="background-image:linear-gradient(160deg,#8a35a5,#3a1866),url('../img/orto-galeria-4.jpg')"></div>
+    <div class="mq-item ph" style="background-image:linear-gradient(160deg,#5a2a8a,#2a1050),url('../img/orto-galeria-5.jpg')"></div>
+    <div class="mq-item ph" style="background-image:linear-gradient(160deg,#7a2f9a,#341560),url('../img/orto-galeria-6.jpg')"></div>
+    <div class="mq-item ph" style="background-image:linear-gradient(160deg,#4a2080,#20103f),url('../img/orto-galeria-7.jpg')"></div>
+    <div class="mq-item ph" style="background-image:linear-gradient(160deg,#8a35a5,#3a1866),url('../img/orto-galeria-8.jpg')"></div>
+    <div class="mq-item" style="background-image:linear-gradient(160deg,#5a2a8a,#2a1050),url('../img/orto-galeria-1.jpg')"></div>
+    <div class="mq-item" style="background-image:linear-gradient(160deg,#7a2f9a,#341560),url('../img/orto-galeria-2.jpg')"></div>
+    <div class="mq-item" style="background-image:linear-gradient(160deg,#4a2080,#20103f),url('../img/orto-galeria-3.jpg')"></div>
+    <div class="mq-item" style="background-image:linear-gradient(160deg,#8a35a5,#3a1866),url('../img/orto-galeria-4.jpg')"></div>
+    <div class="mq-item" style="background-image:linear-gradient(160deg,#5a2a8a,#2a1050),url('../img/orto-galeria-5.jpg')"></div>
+    <div class="mq-item" style="background-image:linear-gradient(160deg,#7a2f9a,#341560),url('../img/orto-galeria-6.jpg')"></div>
+    <div class="mq-item" style="background-image:linear-gradient(160deg,#4a2080,#20103f),url('../img/orto-galeria-7.jpg')"></div>
+    <div class="mq-item" style="background-image:linear-gradient(160deg,#8a35a5,#3a1866),url('../img/orto-galeria-8.jpg')"></div>
+  </div></div>
+</section>
+
+<section id="resenas" class="rev-sec">
+  <div class="wrap center">
+    <span class="eyebrow rv">Lo que sabemos que te pasa</span>
+    <h2 class="h-sec rv d1">Lo que sentís… y lo que <span class="it">te frena</span></h2>
+    <p class="sub rv d2">Estas son las cosas que más nos dicen los pacientes que llegan. Si te suena alguna, escribinos — te entendemos y te acompañamos sin apuro.</p>
+    <div class="rev-grid" style="text-align:left">
+      <div class="rev rv d1"><div class="top"><div class="av c1">😔</div><div style="min-width:0"><div class="nm" style="text-transform:none">Lo que sentís</div></div></div><div class="txt">"Tengo los dientes chuecos y me da vergüenza reírme en las fotos."</div><div style="margin-top:11px;font-size:.86rem;color:var(--violet-d);font-weight:600">La ortodoncia los alinea de a poco. En unos meses vas a querer salir en todas.</div></div>
+      <div class="rev rv d2"><div class="top"><div class="av c3">🤔</div><div style="min-width:0"><div class="nm" style="text-transform:none">Lo que te preguntás</div></div></div><div class="txt">"Siento que ya soy grande para ponerme brackets."</div><div style="margin-top:11px;font-size:.86rem;color:var(--violet-d);font-weight:600">No hay edad. Se trata a adultos todos los días, y hoy hay opciones estéticas discretas.</div></div>
+      <div class="rev rv d3"><div class="top"><div class="av c4">💸</div><div style="min-width:0"><div class="nm" style="text-transform:none">Lo que te frena</div></div></div><div class="txt">"Pienso que es carísimo y no voy a llegar."</div><div style="margin-top:11px;font-size:.86rem;color:var(--violet-d);font-weight:600">Hay planes y cuotas, y precio por sector. Preguntá el valor exacto sin compromiso.</div></div>
+      <div class="rev rv d1"><div class="top"><div class="av c2">😬</div><div style="min-width:0"><div class="nm" style="text-transform:none">Lo que arrastrás</div></div></div><div class="txt">"De chico se burlaban de mis dientes y todavía me pesa."</div><div style="margin-top:11px;font-size:.86rem;color:var(--violet-d);font-weight:600">Le pasa a muchísima gente. Acá te escuchamos sin juzgar y te mostramos opciones.</div></div>
+      <div class="rev rv d2"><div class="top"><div class="av c1">⏳</div><div style="min-width:0"><div class="nm" style="text-transform:none">Lo que te preguntás</div></div></div><div class="txt">"No sé cuánto dura el tratamiento ni si duele."</div><div style="margin-top:11px;font-size:.86rem;color:var(--violet-d);font-weight:600">En la consulta te dan un tiempo real para tu caso. Molesta poco y se acostumbra rápido.</div></div>
+      <div class="rev rv d3"><div class="top"><div class="av c3">😁</div><div style="min-width:0"><div class="nm" style="text-transform:none">Lo que querés</div></div></div><div class="txt">"Quiero una sonrisa pareja pero no sé por dónde empezar."</div><div style="margin-top:11px;font-size:.86rem;color:var(--violet-d);font-weight:600">Empezás por una consulta de evaluación. Sin compromiso, y salís sabiendo tu plan.</div></div>
+    </div>
+    <p class="sub center rv d2" style="margin:38px auto 0;font-size:.9rem;opacity:.8">Cuando tengas mensajes reales de pacientes (WhatsApp, Google, Instagram), los sumamos acá con su nombre.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap center">
+    <span class="eyebrow rv">Simple</span>
+    <h2 class="h-sec rv d1">Empezar es <span class="it">fácil</span></h2>
+    <div class="steps">
+      <div class="step rv d1"><div class="step-n">1</div><h3>Escribinos</h3><p>Contanos qué necesitás por WhatsApp. Te respondemos y despejamos tus dudas.</p></div>
+      <div class="step rv d2"><div class="step-n">2</div><h3>Consulta de evaluación</h3><p>El profesional te revisa, te explica el plan y el tiempo estimado para tu caso.</p></div>
+      <div class="step rv d3"><div class="step-n">3</div><h3>Empezás el tratamiento</h3><p>Te colocan los brackets y vas viendo cómo tus dientes se acomodan mes a mes.</p></div>
+    </div>
+    <div class="rv d3" style="margin-top:46px"><a class="btn btn-wa" href="https://wa.me/5493816373965" target="_blank">💬 Quiero empezar</a></div>
+  </div>
+</section>
+
+<section id="faq" class="faq-sec">
+  <div class="wrap center">
+    <span class="eyebrow rv">Preguntas frecuentes</span>
+    <h2 class="h-sec rv d1">Sacate las <span class="it">dudas</span></h2>
+    <div class="faq" style="text-align:left">
+      <details class="fa rv d1"><summary>¿Desde qué edad se pueden poner brackets?</summary><div class="ans">Se evalúa tanto a chicos como a adultos. En chicos a veces conviene empezar temprano; en la consulta el profesional te dice qué es lo mejor para el caso.</div></details>
+      <details class="fa rv d1"><summary>¿Cuánto sale? ¿Hay cuotas?</summary><div class="ans">El precio es por sector (arriba o abajo) y hay ofertas y planes en cuotas. Escribinos y te pasamos el valor exacto según tu caso.</div></details>
+      <details class="fa rv d1"><summary>¿Puedo elegir el color de las gomitas?</summary><div class="ans">Sí. En cada control elegís el color que quieras. Es parte de lo divertido del tratamiento.</div></details>
+      <details class="fa rv d1"><summary>¿Cuánto dura el tratamiento?</summary><div class="ans">Depende de cada caso. En la consulta el profesional te da un tiempo estimado real. Los brackets se ajustan en controles periódicos.</div></details>
+      <details class="fa rv d1"><summary>¿Dónde atienden?</summary><div class="ans">Trabajamos con profesionales en varios puntos de atención de Tucumán. Al agendar te pasamos la dirección exacta del que te toque.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta-sec">
+  <div class="cta rv">
+    <div class="blob b1" data-par="0.06" style="top:-40%;right:-10%;width:400px;height:400px"></div>
+    <h2>Tu sonrisa nueva <span style="font-style:italic;color:var(--pink)">arranca hoy</span></h2>
+    <p>Escribinos por WhatsApp. Te respondemos, despejamos tus dudas y coordinamos tu consulta de ortodoncia. Sin compromiso.</p>
+    <a class="btn btn-wa" href="https://wa.me/5493816373965" target="_blank">💬 Mandanos un mensaje ahora</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="f-logo"><span class="logo-icon">ARF</span> Soluciones Dentales</div>
+        <p class="f-disc">Soluciones Dentales ARF conecta pacientes con profesionales de la odontología en Tucumán. Los tratamientos son realizados por los profesionales matriculados que trabajan con nosotros, en sus respectivos puntos de atención.</p>
+      </div>
+      <div class="f-col">
+        <h4>Tratamientos</h4>
+        <a href="/ortodoncia">Ortodoncia</a><a href="/protesis">Prótesis</a><a href="/">Todos los servicios</a>
+      </div>
+      <div class="f-col">
+        <h4>Contacto</h4>
+        <a href="https://wa.me/5493816373965" target="_blank">WhatsApp</a>
+        <a href="/software">¿Sos profesional? Conocé la plataforma</a>
+        <a href="#faq">Preguntas frecuentes</a>
+      </div>
+    </div>
+    <div class="f-bot">© 2026 Soluciones Dentales ARF · San Miguel de Tucumán, Argentina</div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5493816373965" target="_blank" aria-label="WhatsApp">💬</a>
+<script>
+(function(){
+  var dot=document.querySelector('.cursor'), ring=document.querySelector('.cursor-r');
+  if(!dot||window.matchMedia('(pointer:coarse)').matches) return;
+  var rx=0,ry=0,x=0,y=0;
+  document.addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;dot.style.transform='translate('+x+'px,'+y+'px) translate(-50%,-50%)';});
+  (function loop(){rx+=(x-rx)*.18;ry+=(y-ry)*.18;ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button,.pain,.ba-card,.rev,.ba-slider,.mq-item').forEach(function(el){
+    el.addEventListener('mouseenter',function(){ring.classList.add('grow');});
+    el.addEventListener('mouseleave',function(){ring.classList.remove('grow');});
+  });
+})();
+var nav=document.getElementById('nav');
+if(nav){window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>40);});}
+var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+function animate(el){
+  var end=parseFloat(el.dataset.count), dec=parseInt(el.dataset.dec||'0'), t0=null, dur=1600;
+  function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);var e=1-Math.pow(1-p,3);var v=end*e;el.textContent=dec?v.toFixed(dec):Math.floor(v);if(p<1)requestAnimationFrame(step);else el.textContent=dec?end.toFixed(dec):end;}
+  requestAnimationFrame(step);
+}
+var cio=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){animate(e.target);cio.unobserve(e.target);}});},{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el);});
+var blobs=document.querySelectorAll('[data-par]');
+window.addEventListener('scroll',function(){var y=window.scrollY;blobs.forEach(function(b){var s=parseFloat(b.dataset.par);b.style.transform='translateY('+(y*s)+'px)';});});
+document.addEventListener('mousemove',function(e){var mx=(e.clientX/window.innerWidth-.5),my=(e.clientY/window.innerHeight-.5);document.querySelectorAll('.hero .blob').forEach(function(b,i){var f=(i+1)*14;b.style.marginLeft=(mx*f)+'px';b.style.marginTop=(my*f)+'px';});});
+document.querySelectorAll('.ba-slider').forEach(function(s){
+  function set(x){var r=s.getBoundingClientRect();var p=Math.max(0,Math.min(100,(x-r.left)/r.width*100));s.style.setProperty('--pos',p+'%');}
+  var drag=false;
+  s.addEventListener('pointerdown',function(e){drag=true;if(s.setPointerCapture){s.setPointerCapture(e.pointerId);}set(e.clientX);});
+  s.addEventListener('pointermove',function(e){if(drag)set(e.clientX);});
+  s.addEventListener('pointerup',function(){drag=false;});
+  s.addEventListener('pointercancel',function(){drag=false;});
+});
+// Cargar fotos reales del panel del CRM (manifest en Supabase)
+(function(){
+  var landing = document.body.getAttribute('data-landing');
+  if(!landing) return;
+  var BASE = 'https://jamvwqtnaoottdgbztuw.supabase.co/storage/v1/object/public/professional-portfolio/landings/';
+  fetch(BASE + landing + '/manifest.json?t=' + Date.now())
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(m){
+      if(!m) return;
+      if(m.hero){
+        var hc = document.querySelector('.hero-card');
+        if(hc){ hc.classList.remove('ph'); hc.innerHTML=''; hc.style.backgroundImage="url('"+m.hero+"')"; hc.style.backgroundSize='cover'; hc.style.backgroundPosition='center'; }
+      }
+      var cards = document.querySelectorAll('.ba-card');
+      (m.before_after||[]).forEach(function(row){
+        var card = cards[(row.idx||1)-1];
+        if(!card) return;
+        var ant = card.querySelector('.ba-antes'), des = card.querySelector('.ba-despues');
+        if(row.antes && ant){ ant.classList.remove('ph'); ant.style.backgroundImage="url('"+row.antes+"')"; }
+        if(row.despues && des){ des.classList.remove('ph'); des.style.backgroundImage="url('"+row.despues+"')"; }
+      });
+      var gal = (m.gallery||[]).filter(function(g){ return g.url; });
+      if(gal.length){
+        var track = document.querySelector('.mq-track');
+        if(track){
+          var html='';
+          for(var pass=0; pass<2; pass++){
+            gal.forEach(function(g){ html += '<div class="mq-item" style="background-image:url(\''+g.url+'\');background-size:cover;background-position:center"></div>'; });
+          }
+          track.innerHTML = html;
+        }
+      }
+    })
+    .catch(function(){});
+})();
+</script>
+</body>
+</html>
