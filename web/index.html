@@ -533,6 +533,19 @@ document.addEventListener('click',function(e){
   var a=e.target.closest?e.target.closest('a[href*="wa.me"]'):null;
   if(a&&window.fbq){fbq('track','Lead');}
 },true);
+// Atribucion: prellena el WhatsApp con origen (web) + codigo de campana (utm).
+// Asi en el CRM se distingue "landing" vs anuncio de Mensajes.
+(function(){
+  var MSG='Hola! Quiero más información de lo que vi en la página';
+  var p=new URLSearchParams(location.search);
+  var code=p.get('utm_campaign')||p.get('utm_content')||p.get('utm_source')||'';
+  if(code) MSG+=' ['+code+']';
+  var enc=encodeURIComponent(MSG);
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function(a){
+    var base=a.getAttribute('href').split('?')[0];
+    a.setAttribute('href', base+'?text='+enc);
+  });
+})();
 </script>
 
 </body>
