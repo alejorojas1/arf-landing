@@ -217,6 +217,15 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
   section{padding:72px 0}.hero{min-height:auto;padding:150px 0 90px}
   .scroll-cue{display:none}
 }
+@media(max-width:900px){
+  nav.scrolled{background:rgba(251,248,254,.97);backdrop-filter:none;-webkit-backdrop-filter:none}
+  .blob{will-change:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .mq-track{animation:none}
+  .rv{transition:none;opacity:1;transform:none}
+  .cursor,.cursor-r{display:none}
+}
 @media(max-width:1150px) and (min-width:901px){.rev-grid{columns:2}}
 </style>
 </head>
@@ -234,7 +243,7 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
       <a href="#resultados">Resultados</a>
       <a href="#resenas">Lo que sentís</a>
       <a href="#faq">Preguntas</a>
-      <a class="nav-cta" href="https://wa.me/5493816373965" target="_blank">Escribinos</a>
+      <a class="nav-cta" href="https://wa.me/5493815477474" target="_blank">Escribinos</a>
     </div>
     <button class="menu-t">☰</button>
   </div>
@@ -252,7 +261,7 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
         <h1 class="rv d1">Volvé a reírte <span class="it">sin taparte<br>la boca</span></h1>
         <p class="lead rv d2">Prótesis, ortodoncia, blanqueamiento, implantes y más. Trabajamos con profesionales en <b>distintos puntos de atención de Tucumán</b> — te asignamos el más cómodo según lo que necesites. La primera consulta la coordinás por WhatsApp en un minuto.</p>
         <div class="hero-cta rv d3">
-          <a class="btn btn-wa" href="https://wa.me/5493816373965" target="_blank">💬 Agendá tu consulta</a>
+          <a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank">💬 Agendá tu consulta</a>
           <a class="btn btn-glass" href="#resultados">Ver resultados</a>
         </div>
         <div class="hero-stats rv d4">
@@ -405,7 +414,7 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
       <div class="step rv d2"><div class="step-n">2</div><h3>Agendás tu consulta</h3><p>Coordinamos día y punto de atención según la prestación. Sin vueltas.</p></div>
       <div class="step rv d3"><div class="step-n">3</div><h3>Recuperás tu sonrisa</h3><p>El profesional te arma el plan a tu medida y arrancás el tratamiento.</p></div>
     </div>
-    <div class="rv d3" style="margin-top:46px"><a class="btn btn-wa" href="https://wa.me/5493816373965" target="_blank">💬 Quiero empezar</a></div>
+    <div class="rv d3" style="margin-top:46px"><a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank">💬 Quiero empezar</a></div>
   </div>
 </section>
 
@@ -430,7 +439,7 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
     <div class="blob b1" data-par="0.06" style="top:-40%;right:-10%;width:400px;height:400px"></div>
     <h2>Tu sonrisa no puede <span style="font-style:italic;color:var(--pink)">esperar más</span></h2>
     <p>Escribinos ahora por WhatsApp. Te respondemos, despejamos tus dudas y coordinamos tu consulta. Sin compromiso.</p>
-    <a class="btn btn-wa" href="https://wa.me/5493816373965" target="_blank">💬 Mandanos un mensaje ahora</a>
+    <a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank">💬 Mandanos un mensaje ahora</a>
   </div>
 </section>
 
@@ -448,7 +457,7 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
       </div>
       <div class="f-col">
         <h4>Contacto</h4>
-        <a href="https://wa.me/5493816373965" target="_blank">WhatsApp</a>
+        <a href="https://wa.me/5493815477474" target="_blank">WhatsApp</a>
         <a href="/software">¿Sos profesional? Conocé la plataforma</a>
         <a href="#faq">Preguntas frecuentes</a>
       </div>
@@ -457,7 +466,7 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/5493816373965" target="_blank" aria-label="WhatsApp">💬</a>
+<a class="wa-float" href="https://wa.me/5493815477474" target="_blank" aria-label="WhatsApp">💬</a>
 
 <script>
 // ---- custom cursor ----
@@ -491,9 +500,9 @@ var cio=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isInte
 document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el);});
 
 // ---- parallax blobs ----
-var blobs=document.querySelectorAll('[data-par]');
-window.addEventListener('scroll',function(){var y=window.scrollY;blobs.forEach(function(b){var s=parseFloat(b.dataset.par);b.style.transform='translateY('+(y*s)+'px)';});});
-document.addEventListener('mousemove',function(e){var mx=(e.clientX/window.innerWidth-.5),my=(e.clientY/window.innerHeight-.5);document.querySelectorAll('.hero .blob').forEach(function(b,i){var f=(i+1)*14;b.style.marginLeft=(mx*f)+'px';b.style.marginTop=(my*f)+'px';});});
+// Parallax de blobs DESACTIVADO: al transformar los blobs borrosos en cada
+// scroll el scroll se trababa y ademas podia "crecer solo" (baja y no para).
+// Los blobs quedan estaticos = scroll fluido y estable en todas las paginas.
 
 // ---- before/after slider ----
 document.querySelectorAll('.ba-slider').forEach(function(s){
