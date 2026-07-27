@@ -15,6 +15,13 @@ fbq('track','PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1645020536728297&ev=PageView&noscript=1"/></noscript>
 <!-- End Meta Pixel -->
+<!-- Microsoft Clarity — mapa de calor + grabaciones + scroll depth -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xt8lthqnvx");
+</script>
+<!-- End Clarity -->
 <title>Ortodoncia para chicos en Tucumán | La sonrisa de tu hijo/a — Soluciones Dentales ARF</title>
 <meta name="description" content="Brackets para tu hijo/a en Tucumán. Corregí la sonrisa a tiempo, sin que sufra burlas. Profesionales que atienden con paciencia a los chicos. Escribinos por WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -186,6 +193,16 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
   .cursor,.cursor-r{display:none}
 }
 @media(max-width:1150px) and (min-width:901px){.rev-grid{columns:2}}
+.inline-cta{margin-top:46px}
+.mobile-bar{position:fixed;left:0;right:0;bottom:0;z-index:260;display:none;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);backdrop-filter:blur(10px);border-top:1px solid var(--border);box-shadow:0 -6px 22px rgba(124,31,214,.14)}
+.mobile-bar .btn{width:100%;padding:15px 20px;font-size:1.04rem}
+@media(max-width:900px){
+  .mobile-bar{display:block}
+  .wa-float{display:none}
+  .hero-cta{flex-direction:column}
+  .hero-cta .btn,.inline-cta .btn,.cta .btn-wa{width:100%}
+  body{padding-bottom:78px}
+}
 </style>
 </head>
 <body data-landing="ortodoncia-ninos">
@@ -243,6 +260,7 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
       <div class="pain rv d2"><div class="q">"Me da miedo que le duela o que no colabore"</div><div class="a">Se atiende a los chicos con <b>mucha paciencia</b>. Molesta poco, se acostumbran rápido, y encima eligen el color de las gomitas (les encanta).</div></div>
       <div class="pain rv d3"><div class="q">"¿Voy a poder pagarlo?"</div><div class="a">Hay <b>planes y cuotas</b>, y precio diferenciado por sector. Preguntá sin compromiso y vemos cómo hacerlo posible.</div></div>
     </div>
+    <div class="inline-cta rv d2"><a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank">💬 Contanos qué te preocupa</a></div>
   </div>
 </section>
 
@@ -307,6 +325,7 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
       <div class="rev rv d2"><div class="top"><div class="av c2">DB</div><div style="min-width:0"><div class="nm">Daniela Bustos</div><div class="dt">23 años · Estudiante de Educación Física</div></div><div class="stars">★★★★★</div></div><div class="txt">Pensaba que a mi edad ya era tarde o muy complicado arreglarme los dientes, pero me explicaron que no hay edad para la ortodoncia. El seguimiento paso a paso y la buena onda del equipo hicieron que todo el proceso fuera re ameno. Mi sonrisa quedó perfecta.</div></div>
       <div class="rev rv d3"><div class="top"><div class="av c3">IM</div><div style="min-width:0"><div class="nm">Ignacio Montes</div><div class="dt">29 años · Arquitecto</div></div><div class="stars">★★★★★</div></div><div class="txt">Tenía un diente atrapado que no terminaba de bajar y me desalineaba toda la arcada superior. El plan de tratamiento que armaron fue súper minucioso. Lograron traer el diente a su lugar y dejar la arcada impecable. La diferencia en las fotos de antes y después es impresionante.</div></div>
     </div>
+    <div class="inline-cta rv d2"><a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank">💬 Quiero esto para mi hijo/a</a></div>
   </div>
 </section>
 
@@ -369,6 +388,7 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
   </div>
 </footer>
 
+<div class="mobile-bar"><a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank">💬 Escribir por WhatsApp</a></div>
 <a class="wa-float" href="https://wa.me/5493815477474" target="_blank" aria-label="WhatsApp">💬</a>
 <script>
 (function(){
@@ -458,6 +478,32 @@ document.addEventListener('click',function(e){
     var base=a.getAttribute('href').split('?')[0];
     a.setAttribute('href', base+'?text='+enc);
   });
+})();
+// Embudo: profundidad de scroll + vista de secciones -> Pixel + Clarity.
+// Asi se ve DONDE se cae la gente antes de tocar el boton de WhatsApp.
+(function(){
+  var fired={};
+  function fire(name){
+    if(fired[name])return; fired[name]=1;
+    if(window.fbq){try{fbq('trackCustom',name);}catch(e){}}
+    if(window.clarity){try{clarity('event',name);}catch(e){}}
+  }
+  var marks=[[25,'Scroll25'],[50,'Scroll50'],[75,'Scroll75'],[90,'Scroll100']];
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement, den=(h.scrollHeight-h.clientHeight);
+    if(den<=0)return;
+    var pct=h.scrollTop/den*100;
+    marks.forEach(function(m){ if(pct>=m[0]) fire(m[1]); });
+  },{passive:true});
+  var secMap=[['dolores','VioDolores'],['resultados','VioResultados'],['resenas','VioResenas'],['faq','VioFAQ']];
+  if('IntersectionObserver' in window){
+    var so=new IntersectionObserver(function(en){en.forEach(function(e){
+      if(e.isIntersecting){var id=e.target.id;secMap.forEach(function(s){if(s[0]===id)fire(s[1]);});}
+    });},{threshold:.4});
+    secMap.forEach(function(s){var el=document.getElementById(s[0]); if(el)so.observe(el);});
+    var cta=document.querySelector('.cta-sec');
+    if(cta){var co=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting)fire('LlegoAlCierre');});},{threshold:.3});co.observe(cta);}
+  }
 })();
 </script>
 </body>
