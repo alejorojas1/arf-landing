@@ -438,7 +438,7 @@ document.querySelectorAll('.ba-slider').forEach(function(s){
 // Meta Pixel — dispara "Lead" al tocar cualquier boton/enlace de WhatsApp
 document.addEventListener('click',function(e){
   var a=e.target.closest?e.target.closest('a[href*="wa.me"]'):null;
-  if(a&&window.fbq){fbq('track','Lead');}
+  if(a&&window.fbq){fbq('track','Lead',{},{eventID:(window.__arfRef||undefined)});}
 },true);
 // Atribucion: prellena el WhatsApp con servicio + origen (web) + codigo de
 // campana (utm). Asi en el CRM se distingue "landing" vs anuncio de Mensajes.
@@ -447,6 +447,9 @@ document.addEventListener('click',function(e){
   var p=new URLSearchParams(location.search);
   var code=p.get('utm_campaign')||p.get('utm_content')||p.get('utm_source')||'';
   if(code) MSG+=' ['+code+']';
+  // token corto por pageview -> eventID del pixel + [ref:] en el texto (dedup con CAPI)
+  window.__arfRef=(Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)).replace(/[^a-z0-9]/g,'').slice(0,8).toUpperCase();
+  MSG+=' [ref:'+window.__arfRef+']';
   var enc=encodeURIComponent(MSG);
   document.querySelectorAll('a[href*="wa.me"]').forEach(function(a){
     var base=a.getAttribute('href').split('?')[0];
