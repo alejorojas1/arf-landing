@@ -88,7 +88,13 @@ nav.scrolled .nav-in{padding:14px 28px}
 .blob.b1{top:-8%;right:-6%;width:520px;height:520px;background:radial-gradient(circle,rgba(182,0,255,.5),transparent 68%)}
 .blob.b2{bottom:-18%;left:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(124,31,214,.42),transparent 70%)}
 .blob.b3{top:36%;left:44%;width:340px;height:340px;background:radial-gradient(circle,rgba(255,107,214,.28),transparent 70%)}
-.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:60px;align-items:center;position:relative;z-index:3}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;column-gap:60px;row-gap:0;align-items:start;position:relative;z-index:3;
+  grid-template-areas:"badge ba" "h1 ba" "lead ba" "cta ba" "stats ba"}
+.ha-badge{grid-area:badge}.ha-h1{grid-area:h1}.ha-ba{grid-area:ba;align-self:stretch}
+.ha-lead{grid-area:lead}.ha-cta{grid-area:cta}.ha-stats{grid-area:stats}
+.hero-ba{width:100%;display:flex;flex-direction:column;justify-content:center}
+.hero-ba .ba-slider{flex:1 1 auto;min-height:360px;max-height:600px;border-radius:26px;border:1px solid var(--line);box-shadow:var(--sh-lg)}
+.hero-ba .ba-hint{color:#B79ED6}
 .hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid var(--line);backdrop-filter:blur(10px);padding:9px 18px;border-radius:30px;font-size:.82rem;font-weight:500;color:#F0E4FB;margin-bottom:28px}
 .hero-badge .dot{width:8px;height:8px;background:var(--wa);border-radius:50%;box-shadow:0 0 0 0 rgba(37,211,102,.6);animation:pulse 2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}70%{box-shadow:0 0 0 10px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
@@ -178,10 +184,13 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
 .wa-float::before{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid var(--wa);animation:ring 2s infinite}
 @keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.5);opacity:0}}
 @media(max-width:900px){
-  .hero-grid{grid-template-columns:1fr;gap:44px}.hero-card{display:none}
+  .hero-grid{grid-template-columns:1fr;column-gap:0;row-gap:18px;
+    grid-template-areas:"badge" "h1" "ba" "lead" "cta" "stats"}
+  .ha-h1{margin-bottom:2px}.ha-lead{margin-bottom:4px}.ha-stats{margin-top:8px}
+  .hero-ba .ba-slider{flex:initial;height:auto;min-height:0;aspect-ratio:16/11;border-radius:20px}
   .nav-links{display:none}.menu-t{display:block}
   .rev-grid{columns:1}.foot{grid-template-columns:1fr;gap:30px}
-  section{padding:72px 0}.hero{min-height:auto;padding:150px 0 90px}
+  section{padding:72px 0}.hero{min-height:auto;padding:96px 0 40px}
 }
 @media(max-width:900px){
   nav.scrolled{background:rgba(251,248,254,.97);backdrop-filter:none;-webkit-backdrop-filter:none}
@@ -228,21 +237,26 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
   <div class="blob b3" data-par="0.22"></div>
   <div class="wrap">
     <div class="hero-grid">
-      <div>
-        <div class="hero-badge rv"><span class="dot"></span> Ortodoncia para chicos · Te respondemos por WhatsApp</div>
-        <h1 class="rv d1">Que tu hijo/a <span class="it">vuelva a sonreír</span> sin taparse la boca</h1>
-        <p class="lead rv d2">Si notás que sus dientes están torcidos o amontonados, o que le da vergüenza reírse, es el momento de verlo. Los brackets corrigen a tiempo — y los profesionales que trabajan con nosotros atienden a los chicos con paciencia. La consulta la coordinás por WhatsApp en un minuto.</p>
-        <div class="hero-cta rv d3">
-          <a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank">💬 Quiero una consulta para mi hijo/a</a>
-          <a class="btn btn-glass" href="#resultados">Ver resultados</a>
+      <div class="hero-badge rv ha-badge"><span class="dot"></span> Ortodoncia para chicos · Te respondemos por WhatsApp</div>
+      <h1 class="rv d1 ha-h1">Que tu hijo/a <span class="it">vuelva a sonreír</span> sin taparse la boca</h1>
+      <div class="hero-ba rv d2 ha-ba">
+        <div class="ba-slider">
+          <div class="ba-lyr ba-despues ph" style="background-image:linear-gradient(135deg,#4a1f7a,#37155E)"></div>
+          <div class="ba-lyr ba-antes ph" style="background-image:linear-gradient(135deg,#3a1560,#241040)"></div>
+          <span class="ba-tag l">ANTES</span><span class="ba-tag r">DESPUÉS</span>
+          <div class="ba-handle"></div>
         </div>
-        <div class="hero-stats rv d4">
-          <div><div class="st-num" style="display:inline-block"><span data-count="500">0</span><span class="u">+</span></div><div class="st-lab">pacientes atendidos</div></div>
-          <div><div class="st-num"><span data-count="4.9" data-dec="1">0</span><span class="u">★</span></div><div class="st-lab">opiniones de mamás</div></div>
-          <div><div class="st-num">Tucumán</div><div class="st-lab">varios puntos de atención</div></div>
-        </div>
+        <div class="ba-hint">↔ Arrastrá para ver el cambio real</div>
       </div>
-      <div class="hero-card ph rv d2"><div class="ph-t">Foto de un chico/a<br>con brackets sonriendo</div></div>
+      <p class="lead rv d2 ha-lead">Los brackets corrigen a tiempo. Coordinás la consulta por WhatsApp en un minuto.</p>
+      <div class="hero-cta rv d3 ha-cta">
+        <a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank">💬 Quiero la consulta para mi hijo/a</a>
+      </div>
+      <div class="hero-stats rv d4 ha-stats">
+        <div><div class="st-num"><span data-count="4.9" data-dec="1">0</span><span class="u">★</span></div><div class="st-lab">opiniones de mamás</div></div>
+        <div><div class="st-num" style="display:inline-block"><span data-count="500">0</span><span class="u">+</span></div><div class="st-lab">pacientes atendidos</div></div>
+        <div><div class="st-num">Tucumán</div><div class="st-lab">varios puntos de atención</div></div>
+      </div>
     </div>
   </div>
 </header>
@@ -445,6 +459,15 @@ document.querySelectorAll('.ba-slider').forEach(function(s){
         if(row.antes && ant){ ant.classList.remove('ph'); ant.style.backgroundImage="url('"+row.antes+"')"; }
         if(row.despues && des){ des.classList.remove('ph'); des.style.backgroundImage="url('"+row.despues+"')"; }
       });
+      // Hero: antes/despues real (primer par del manifest). Wrapper propio
+      // (.hero-ba), NO es una .ba-card -> no altera el indice de las tarjetas.
+      var hpair = (m.before_after||[])[0];
+      var hba = document.querySelector('.hero-ba');
+      if(hpair && hba){
+        var ha = hba.querySelector('.ba-antes'), hd = hba.querySelector('.ba-despues');
+        if(hpair.antes && ha){ ha.classList.remove('ph'); ha.style.backgroundImage="url('"+hpair.antes+"')"; }
+        if(hpair.despues && hd){ hd.classList.remove('ph'); hd.style.backgroundImage="url('"+hpair.despues+"')"; }
+      }
       var gal = (m.gallery||[]).filter(function(g){ return g.url; });
       if(gal.length){
         var track = document.querySelector('.mq-track');
