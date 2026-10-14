@@ -15,4 +15,7 @@ COPY web/ /usr/share/nginx/html/
 COPY index.html /usr/share/nginx/html/software/index.html
 COPY assets /usr/share/nginx/html/software/assets
 
+# --- nginx: default + proxy /api/public/turnero/ al CRM (turnero web, oct 2026) ---
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 80
