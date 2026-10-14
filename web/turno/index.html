@@ -21,6 +21,15 @@ fbq('track','PageView');
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/arf.css">
+<style>
+/* turnero: ayuda "no sé qué tengo" + bonificación (oct 2026) */
+.ayuda{display:flex;flex-direction:column;gap:8px}
+.ayuda .mot{min-height:52px}
+.hint{background:#F0EBF5;border-radius:14px;padding:12px 14px;font-size:.92rem;line-height:1.45;margin:0 0 12px;color:var(--text)}
+.lnk{background:none;border:0;padding:0;margin-left:4px;color:var(--violet);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer}
+.bonif{background:rgba(120,220,170,.14);color:#9FE6C2;border-radius:14px;padding:10px 14px;font-size:.86rem;margin:16px 0 0}
+.bonif b{color:#fff}
+</style>
 </head>
 <body>
 
@@ -53,7 +62,16 @@ fbq('track','PageView');
   var qs = new URLSearchParams(location.search);
   var DIAS = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
   var DIAS_L = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
-  var st = {cfg:null, motivo:qs.get('motivo')||'', slots:null, day:null, slot:null, loadingSlots:false, error:'', sending:false};
+  var st = {cfg:null, motivo:qs.get('motivo')||'', slots:null, day:null, slot:null, loadingSlots:false, error:'', sending:false, revisar:false, hint:''};
+  // "No sé qué tengo": ayuda para elegir la consulta. motivo null = que la revisen (consulta de evaluación).
+  var AYUDA = [
+    {t:'Me faltan dientes o uso dentadura', m:'protesis'},
+    {t:'Aprieto o rechino los dientes, me duele la mandíbula', m:'placa_relajacion'},
+    {t:'Terminé los brackets y no quiero que se muevan', m:'placa_contencion'},
+    {t:'Tengo los dientes torcidos o separados', m:'ortodoncia'},
+    {t:'Me duele una muela, tengo una caries o se me rompió un diente', m:null},
+    {t:'Otra cosa / prefiero que me revisen', m:null}
+  ];
 
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
   function money(n){ return '$' + Number(n||0).toLocaleString('es-AR'); }
@@ -75,16 +93,26 @@ fbq('track','PageView');
   });
 
   var FALLBACK_MOTIVOS = [
-    {id:'protesis',label:'Consulta de prótesis',desc:'Fija o removible, o cambio de la que tenés',available:true},
-    {id:'placa_relajacion',label:'Consulta por placa de relajación',desc:'Bruxismo, dolor de mandíbula, desgaste',available:true},
-    {id:'placa_contencion',label:'Consulta por placa de contención',desc:'Para después de la ortodoncia',available:true},
-    {id:'ortodoncia',label:'Consulta de ortodoncia',desc:'Brackets para chicos y adultos',available:true}
+    {id:'protesis',label:'Consulta de prótesis',desc:'Fija o removible, o cambio de la que tenés',available:true,bonificable:true},
+    {id:'placa_relajacion',label:'Consulta por placa de relajación',desc:'Bruxismo, dolor de mandíbula, desgaste',available:true,bonificable:true},
+    {id:'placa_contencion',label:'Consulta por placa de contención',desc:'Para después de la ortodoncia',available:true,bonificable:true},
+    {id:'ortodoncia',label:'Consulta de ortodoncia',desc:'Brackets para chicos y adultos',available:true},
+    {id:'no_se',label:'Consulta de evaluación',desc:'No sé qué tengo: me revisan y me dicen qué necesito',available:false}
   ];
 
-  function pick(id){
-    st.motivo=id; st.slots=null; st.day=null; st.slot=null; st.error='';
+  function pick(id, hint){
+    st.motivo=id; st.slots=null; st.day=null; st.slot=null; st.error=''; st.hint=hint||'';
+    st.revisar = false;
+    if (id === 'no_se') { render(); scrollCol2(); return; }
     if (st.cfg.enabled && mot(id) && mot(id).available) loadSlots(); else render();
-    if (window.innerWidth < 1060) { setTimeout(function(){ var c=document.getElementById('col2'); if(c) c.scrollIntoView({behavior:'smooth',block:'start'}); },60); }
+    scrollCol2();
+  }
+  function scrollCol2(){ if (window.innerWidth < 1060) { setTimeout(function(){ var c=document.getElementById('col2'); if(c) c.scrollIntoView({behavior:'smooth',block:'start'}); },60); } }
+  // eligio "que me revisen" dentro de la ayuda -> consulta de evaluacion
+  function revisar(){
+    st.revisar = true; st.hint=''; st.slots=null; st.day=null; st.slot=null; st.error='';
+    var m = mot('no_se');
+    if (st.cfg.enabled && m && m.available) loadSlots(); else render();
   }
 
   function loadSlots(){
@@ -111,15 +139,18 @@ fbq('track','PageView');
     h += '<div class="tn-col"><h2>¿Por qué querés consultar?</h2><div class="mot-list" role="radiogroup" aria-label="Motivo de consulta">';
     cfg.motivos.forEach(function(x){
       var on = x.id===st.motivo;
-      h += '<button class="mot'+(x.available?'':' off')+'" role="radio" aria-checked="'+on+'" data-mot="'+esc(x.id)+'"><span><b>'+esc(x.label)+'</b><small>'+esc(x.desc)+'</small></span>'+
-           (x.available?'<span class="dot"></span>':'<span class="soon">No disponible por ahora</span>')+'</button>';
+      h += '<button class="mot'+((x.available||x.id==='no_se')?'':' off')+'" role="radio" aria-checked="'+on+'" data-mot="'+esc(x.id)+'"><span><b>'+esc(x.label)+'</b><small>'+esc(x.desc)+'</small></span>'+
+           ((x.available||x.id==='no_se')?'<span class="dot"></span>':'<span class="soon">No disponible por ahora</span>')+'</button>';
     });
     h += '</div></div>';
 
     // col 2
     h += '<div class="tn-col" id="col2">';
+    if (m && st.hint) h += '<div class="hint">Por lo que nos contás (<i>'+esc(st.hint.toLowerCase())+'</i>), te conviene la <b>'+esc(m.label)+'</b>. <button class="lnk" data-mot="no_se">Cambiar</button></div>';
     if (!m) {
       h += '<div class="card empty"><p style="margin:0">Elegí un motivo de consulta para ver la profesional, la sede y los horarios disponibles.</p></div>';
+    } else if (m.id === 'no_se' && !st.revisar) {
+      h += ayudaCard();
     } else if (!m.available) {
       h += noDisponible(m);
     } else if (!cfg.enabled) {
@@ -142,7 +173,21 @@ fbq('track','PageView');
     bind();
   }
 
+  function ayudaCard(){
+    var h = '<div class="card"><span class="k-label">No sé qué tengo</span><h3 style="font-size:1.4rem;margin-bottom:6px">¿Qué te pasa?</h3>';
+    h += '<p class="mini" style="font-size:.95rem;margin-bottom:16px">Elegí lo que más se parezca y te decimos qué consulta sacar.</p><div class="ayuda">';
+    AYUDA.forEach(function(a, i){ h += '<button class="mot" data-ayuda="'+i+'"><span><b>'+esc(a.t)+'</b></span><span class="dot"></span></button>'; });
+    h += '</div><p class="mini" style="margin:16px 0 0">Si tenés dolor fuerte, hinchazón o sangrado, <a data-wa-msg href="'+esc(ARF.waUrl('Hola! Tengo una urgencia dental'))+'" target="_blank" rel="noopener"><b>escribinos directo por WhatsApp</b></a>.</p></div>';
+    return h;
+  }
+
   function noDisponible(m){
+    if (m.id === 'no_se') {
+      return '<div class="card"><span class="k-label">'+esc(m.label)+'</span><h3 style="font-size:1.4rem;margin-bottom:8px">Por ahora lo vemos por WhatsApp</h3>'+
+        '<p class="mini" style="font-size:.95rem;margin-bottom:18px">Contanos qué te pasa y te decimos qué consulta te conviene y con quién.</p>'+
+        '<a class="btn btn-wa" data-wa-msg href="'+esc(ARF.waUrl('Hola! No sé qué tengo y quería que me revisen'))+'" target="_blank" rel="noopener">Contanos por WhatsApp</a>'+
+        '<p class="mini" style="margin:16px 0 0"><button class="lnk" data-mot="no_se">Volver a las opciones</button></p></div>';
+    }
     var act = activeMotivos();
     var h = '<div class="card empty"><div class="em-ic"><svg class="ic"><use href="#i-calx"/></svg></div>';
     h += '<span class="soon">'+esc(m.label)+'</span><h3 style="margin-top:12px">No disponible por ahora</h3>';
@@ -204,6 +249,7 @@ fbq('track','PageView');
     h += '<div class="r"><span>Consulta</span><span style="color:#fff">'+money(cfg.consulta_ars)+'</span></div>';
     h += '<div class="r"><span>Pagás en la consulta</span><span style="color:#fff">'+money(resto)+'</span></div>';
     h += '<div class="r" style="align-items:baseline"><b>Seña hoy</b><span class="big">'+money(cfg.deposit_ars)+'</span></div>';
+    if (m.bonificable) h += '<div class="bonif">Si en esa consulta arrancás tu '+(m.id==='protesis'?'prótesis':'placa')+', la consulta te queda <b>bonificada</b>.</div>';
     h += '<div class="hold">Al continuar te guardamos el horario '+(cfg.hold_minutes||15)+' minutos mientras pagás.</div>';
     h += '</div>';
     h += '<form class="card form" id="frm" novalidate style="margin-top:14px">';
@@ -220,6 +266,11 @@ fbq('track','PageView');
 
   function bind(){
     app.querySelectorAll('[data-mot]').forEach(function(b){ b.addEventListener('click', function(){ pick(b.getAttribute('data-mot')); }); });
+    app.querySelectorAll('[data-ayuda]').forEach(function(b){ b.addEventListener('click', function(){
+      var a = AYUDA[+b.getAttribute('data-ayuda')];
+      track('ViewContent', {content_name: 'ayuda: '+a.t});
+      if (a.m && mot(a.m)) pick(a.m, a.t); else revisar();
+    }); });
     app.querySelectorAll('[data-day]').forEach(function(b){ b.addEventListener('click', function(){ st.day=b.getAttribute('data-day'); st.slot=null; render(); }); });
     app.querySelectorAll('[data-slot]').forEach(function(b){ b.addEventListener('click', function(){
       st.slot = st.slots[+b.getAttribute('data-slot')]; st.error=''; render();
@@ -277,7 +328,8 @@ fbq('track','PageView');
       '<div class="card"><span class="k-label">'+esc(b.motivo)+'</span>'+
       '<p><b>'+esc(whenLabel(b.scheduled_at))+'</b><br><span class="mini">Llegá 10 minutos antes</span></p>'+
       '<p style="margin-top:10px"><b>'+esc(b.profesional||'')+'</b> · '+esc(b.sede||'')+'</p>'+
-      '<p class="mini" style="margin-top:10px">Abonás en la consulta: <b>'+money(resto)+'</b></p></div>'+
+      '<p class="mini" style="margin-top:10px">Abonás en la consulta: <b>'+money(resto)+'</b></p>'+
+      (b.bonificable?'<p class="mini" style="margin-top:6px">Si ese día arrancás tu tratamiento de prótesis o placa, la consulta te queda bonificada.</p>':'')+'</div>'+
       '<a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank" rel="noopener">Hablar con ARF por WhatsApp</a></div>';
     ARF.decorate(app);
   }
