@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Meta Pixel — audiencia PACIENTES (mismo pixel en todas las landings de la clinica) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','951637091057163');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=951637091057163&ev=PageView&noscript=1"/></noscript>
+<title>Sacá tu turno | Soluciones Dentales ARF</title>
+<meta name="description" content="Elegí qué necesitás, mirá con qué profesional, en qué sede y qué horarios hay, y confirmá tu consulta con una seña por Mercado Pago.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#1A0430">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/arf.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-calx" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9.5 14.5l5 5M14.5 14.5l-5 5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></symbol>
+</svg>
+
+<nav id="nav" class="light" aria-label="Principal">
+  <div class="nav-in">
+    <a class="logo" href="/">ARF <small>Soluciones Dentales</small></a>
+    <div class="nav-links"><a href="/#faq">Preguntas</a><a href="https://wa.me/5493815477474" target="_blank" rel="noopener">¿Dudas? WhatsApp</a></div>
+  </div>
+</nav>
+
+<main class="tn" id="app" aria-live="polite">
+  <div class="spinner" role="status" aria-label="Cargando"></div>
+</main>
+
+<a class="wa-float" href="https://wa.me/5493815477474" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg></a>
+
+<script src="/assets/arf.js"></script>
+<script>
+(function(){
+  var app = document.getElementById('app');
+  var qs = new URLSearchParams(location.search);
+  var DIAS = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  var DIAS_L = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  var st = {cfg:null, motivo:qs.get('motivo')||'', slots:null, day:null, slot:null, loadingSlots:false, error:'', sending:false};
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function money(n){ return '$' + Number(n||0).toLocaleString('es-AR'); }
+  function parts(iso){ var d=iso.slice(0,10).split('-'), t=iso.slice(11,16); return {y:+d[0],m:+d[1],d:+d[2],t:t,key:iso.slice(0,10)}; }
+  function dow(p){ return new Date(p.y,p.m-1,p.d).getDay(); }
+  function whenLabel(iso){ var p=parts(iso); return DIAS_L[dow(p)]+' '+p.d+'/'+p.m+' · '+p.t+' h'; }
+  function mot(id){ var l=(st.cfg&&st.cfg.motivos)||[]; for(var i=0;i<l.length;i++){ if(l[i].id===id) return l[i]; } return null; }
+  function activeMotivos(){ return ((st.cfg&&st.cfg.motivos)||[]).filter(function(m){return m.available;}); }
+  function track(ev,data,id){ try{ if(window.fbq) fbq('track',ev,data||{},id?{eventID:id}:undefined); }catch(e){} }
+
+  // ---------- vuelta de Mercado Pago ----------
+  if (qs.get('estado') && qs.get('ref')) { return resultado(qs.get('estado'), qs.get('ref'), 0); }
+
+  ARF.motivos().then(function(cfg){
+    st.cfg = cfg || {enabled:false, motivos:[], deposit_ars:15000, consulta_ars:30000};
+    if (!st.cfg.motivos || !st.cfg.motivos.length) st.cfg.motivos = FALLBACK_MOTIVOS;
+    if (st.motivo && !mot(st.motivo)) st.motivo = '';
+    if (st.motivo && st.cfg.enabled) loadSlots(); else render();
+  });
+
+  var FALLBACK_MOTIVOS = [
+    {id:'protesis',label:'Consulta de prótesis',desc:'Fija o removible, o cambio de la que tenés',available:true},
+    {id:'placa_relajacion',label:'Consulta por placa de relajación',desc:'Bruxismo, dolor de mandíbula, desgaste',available:true},
+    {id:'placa_contencion',label:'Consulta por placa de contención',desc:'Para después de la ortodoncia',available:true},
+    {id:'ortodoncia',label:'Consulta de ortodoncia',desc:'Brackets para chicos y adultos',available:true}
+  ];
+
+  function pick(id){
+    st.motivo=id; st.slots=null; st.day=null; st.slot=null; st.error='';
+    if (st.cfg.enabled && mot(id) && mot(id).available) loadSlots(); else render();
+    if (window.innerWidth < 1060) { setTimeout(function(){ var c=document.getElementById('col2'); if(c) c.scrollIntoView({behavior:'smooth',block:'start'}); },60); }
+  }
+
+  function loadSlots(){
+    st.loadingSlots=true; st.slotsError=''; render();
+    ARF.api('/slots?motivo='+encodeURIComponent(st.motivo)).then(function(r){
+      st.slots = r.options || [];
+      st.day = st.slots.length ? parts(st.slots[0].slot_iso).key : null;
+    }).catch(function(e){ st.slots=[]; st.slotsError='No pudimos traer los horarios. Probá de nuevo o escribinos por WhatsApp.'; })
+    .then(function(){ st.loadingSlots=false; render(); });
+  }
+
+  // ---------- render ----------
+  function render(){
+    var cfg=st.cfg, m=mot(st.motivo);
+    var stepOn = st.slot ? 3 : (st.motivo ? 2 : 1);
+    var h = '';
+    h += '<div class="tn-steps" aria-hidden="true"><span class="on"></span><span class="'+(stepOn>=2?'on':'')+'"></span><span class="'+(stepOn>=3?'on':'')+'"></span></div>';
+    h += '<div class="tn-kicker">Paso '+stepOn+' de 3</div>';
+    h += '<h1>Sacá tu turno</h1>';
+    h += '<p class="tn-lead">Siempre empezás con una consulta de <b>'+money(cfg.consulta_ars)+'</b>. Según el motivo, te asignamos la profesional y la sede que corresponden, y ves todo antes de pagar.</p>';
+    h += '<div class="tn-grid">';
+
+    // col 1: motivos
+    h += '<div class="tn-col"><h2>¿Por qué querés consultar?</h2><div class="mot-list" role="radiogroup" aria-label="Motivo de consulta">';
+    cfg.motivos.forEach(function(x){
+      var on = x.id===st.motivo;
+      h += '<button class="mot'+(x.available?'':' off')+'" role="radio" aria-checked="'+on+'" data-mot="'+esc(x.id)+'"><span><b>'+esc(x.label)+'</b><small>'+esc(x.desc)+'</small></span>'+
+           (x.available?'<span class="dot"></span>':'<span class="soon">No disponible por ahora</span>')+'</button>';
+    });
+    h += '</div></div>';
+
+    // col 2
+    h += '<div class="tn-col" id="col2">';
+    if (!m) {
+      h += '<div class="card empty"><p style="margin:0">Elegí un motivo de consulta para ver la profesional, la sede y los horarios disponibles.</p></div>';
+    } else if (!m.available) {
+      h += noDisponible(m);
+    } else if (!cfg.enabled) {
+      h += porWhatsApp(m);
+    } else if (st.loadingSlots) {
+      h += '<div class="card"><div class="spinner" role="status" aria-label="Buscando horarios"></div></div>';
+    } else if (st.slotsError) {
+      h += '<div class="card"><div class="err">'+esc(st.slotsError)+'</div></div>';
+    } else if (!st.slots || !st.slots.length) {
+      h += '<div class="card empty"><div class="em-ic"><svg class="ic"><use href="#i-calx"/></svg></div><h3>No hay horarios libres en los próximos días</h3><p>Escribinos y te avisamos apenas se libere un turno para '+esc(m.label.toLowerCase())+'.</p><a class="btn btn-wa" data-wa-msg href="'+esc(ARF.waUrl('Hola! Quiero sacar turno para '+m.label+' y no encontré horarios en la web'))+'" target="_blank" rel="noopener">Escribinos por WhatsApp</a></div>';
+    } else {
+      h += slotsCard();
+    }
+    h += '</div>';
+
+    // col 3: resumen
+    h += '<div class="tn-col" id="col3">' + (st.slot && cfg.enabled ? resumen() : '') + '</div>';
+    h += '</div>';
+    app.innerHTML = h;
+    bind();
+  }
+
+  function noDisponible(m){
+    var act = activeMotivos();
+    var h = '<div class="card empty"><div class="em-ic"><svg class="ic"><use href="#i-calx"/></svg></div>';
+    h += '<span class="soon">'+esc(m.label)+'</span><h3 style="margin-top:12px">No disponible por ahora</h3>';
+    h += '<p>En este momento no tenemos una profesional activa para este servicio. Escribinos y te avisamos apenas abramos turnos.</p>';
+    h += '<a class="btn btn-wa" data-wa-msg href="'+esc(ARF.waUrl('Hola! Quiero que me avisen cuando haya turnos para '+m.label))+'" target="_blank" rel="noopener">Avisame por WhatsApp</a>';
+    if (act.length) {
+      h += '<p class="mini" style="margin:22px 0 0">Mientras tanto, podés sacar turno para</p><div class="chips">';
+      act.forEach(function(x){ h += '<button class="chip" data-mot="'+esc(x.id)+'">'+esc(x.label.replace(/^Consulta (de |por |para )/,''))+'</button>'; });
+      h += '</div>';
+    }
+    return h + '</div>';
+  }
+
+  function porWhatsApp(m){
+    return '<div class="card"><span class="k-label">'+esc(m.label)+'</span><h3 style="font-size:1.4rem;margin-bottom:8px">Coordinamos tu turno por WhatsApp</h3>'+
+      '<p class="mini" style="font-size:.95rem;margin-bottom:18px">Te respondemos con la profesional, la sede y los horarios disponibles para tu consulta.</p>'+
+      '<a class="btn btn-wa" data-wa-msg href="'+esc(ARF.waUrl('Hola! Quiero sacar turno para '+m.label))+'" target="_blank" rel="noopener">Pedir turno por WhatsApp</a></div>';
+  }
+
+  function slotsCard(){
+    var first = st.slots[0];
+    var profs = {}, sedes = {};
+    st.slots.forEach(function(s){ profs[s.profesional]=1; sedes[s.sede]=1; });
+    var multi = Object.keys(profs).length>1 || Object.keys(sedes).length>1;
+    var h = '<div class="card">';
+    if (!multi) {
+      h += '<span class="k-label">Te asignamos</span><div class="assign">'+
+        '<div class="a"><span class="bub"><svg class="ic"><use href="#i-user"/></svg></span><div><b>'+esc(first.profesional)+'</b><small>Profesional asignada</small></div></div>'+
+        '<div class="a"><span class="bub"><svg class="ic"><use href="#i-pin"/></svg></span><div><b>'+esc(first.sede)+'</b><small>San Miguel de Tucumán</small></div></div></div>';
+    } else {
+      h += '<span class="k-label">Te asignamos según el horario</span><p class="mini" style="margin:-4px 0 16px">Cada horario muestra con qué profesional y en qué sede.</p>';
+    }
+    // dias
+    var days = [], seen = {};
+    st.slots.forEach(function(s){ var p=parts(s.slot_iso); if(!seen[p.key]){ seen[p.key]=1; days.push(p); } });
+    h += '<span class="k-label">Elegí día</span><div class="days" role="radiogroup" aria-label="Día">';
+    days.forEach(function(p){ h += '<button class="day" role="radio" aria-checked="'+(st.day===p.key)+'" data-day="'+p.key+'"><small>'+DIAS[dow(p)]+'</small><b>'+p.d+'/'+p.m+'</b></button>'; });
+    h += '</div><span class="k-label">Horarios disponibles</span><div class="slots" role="radiogroup" aria-label="Horario">';
+    st.slots.forEach(function(s, i){
+      if (parts(s.slot_iso).key !== st.day) return;
+      var on = st.slot && st.slot.slot_iso===s.slot_iso && st.slot.profesional===s.profesional;
+      h += '<button class="slot" role="radio" aria-checked="'+on+'" data-slot="'+i+'">'+parts(s.slot_iso).t+'</button>';
+    });
+    h += '</div>';
+    if (multi) {
+      var cur = st.slot || null;
+      h += cur ? '<p class="slot-meta">'+esc(cur.profesional)+' · '+esc(cur.sede)+'</p>' : '<p class="slot-meta">Elegí un horario para ver la profesional y la sede.</p>';
+    }
+    return h + '</div>';
+  }
+
+  function resumen(){
+    var m = mot(st.motivo), s = st.slot, cfg = st.cfg;
+    var resto = Math.max(0, (cfg.consulta_ars||0) - (cfg.deposit_ars||0));
+    var h = '<div class="sum"><span class="k-label">Resumen</span><h3>'+esc(m.label)+'</h3>';
+    h += '<div class="r"><span>Con</span><b>'+esc(s.profesional)+'</b></div>';
+    h += '<div class="r"><span>Dónde</span><b>'+esc(s.sede)+'</b></div>';
+    h += '<div class="r"><span>Cuándo</span><b>'+esc(whenLabel(s.slot_iso))+'</b></div><hr>';
+    h += '<div class="r"><span>Consulta</span><span style="color:#fff">'+money(cfg.consulta_ars)+'</span></div>';
+    h += '<div class="r"><span>Pagás en la consulta</span><span style="color:#fff">'+money(resto)+'</span></div>';
+    h += '<div class="r" style="align-items:baseline"><b>Seña hoy</b><span class="big">'+money(cfg.deposit_ars)+'</span></div>';
+    h += '<div class="hold">Al continuar te guardamos el horario '+(cfg.hold_minutes||15)+' minutos mientras pagás.</div>';
+    h += '</div>';
+    h += '<form class="card form" id="frm" novalidate style="margin-top:14px">';
+    h += '<label>Nombre y apellido *<input type="text" name="n" autocomplete="name" required placeholder="Como figura en tu DNI"></label>';
+    h += '<div class="two"><label>WhatsApp *<input type="tel" name="p" autocomplete="tel" inputmode="tel" required placeholder="381 ..."></label>';
+    h += '<label>Email *<input type="email" name="e" autocomplete="email" required placeholder="tu@mail.com"></label></div>';
+    h += '<p class="mini">Te mandamos la confirmación y el comprobante por mail, y un recordatorio por WhatsApp antes del turno.</p>';
+    h += '<label class="chk"><input type="checkbox" name="ok" required><span>Entiendo que la seña de '+money(cfg.deposit_ars)+' es la mitad de la consulta y se descuenta de ella.</span></label>';
+    if (st.error) h += '<div class="err" role="alert">'+esc(st.error)+'</div>';
+    h += '<button class="btn btn-solid" type="submit"'+(st.sending?' disabled':'')+'><svg class="ic"><use href="#i-lock"/></svg>'+(st.sending?'Generando el pago…':'Pagar '+money(cfg.deposit_ars)+' con Mercado Pago')+'</button>';
+    h += '<p class="mini" style="text-align:center">Te llevamos a Mercado Pago para pagar de forma segura.</p></form>';
+    return h;
+  }
+
+  function bind(){
+    app.querySelectorAll('[data-mot]').forEach(function(b){ b.addEventListener('click', function(){ pick(b.getAttribute('data-mot')); }); });
+    app.querySelectorAll('[data-day]').forEach(function(b){ b.addEventListener('click', function(){ st.day=b.getAttribute('data-day'); st.slot=null; render(); }); });
+    app.querySelectorAll('[data-slot]').forEach(function(b){ b.addEventListener('click', function(){
+      st.slot = st.slots[+b.getAttribute('data-slot')]; st.error=''; render();
+      if (window.innerWidth < 1060) { var c=document.getElementById('col3'); if(c) c.scrollIntoView({behavior:'smooth',block:'start'}); }
+    }); });
+    var f = document.getElementById('frm');
+    if (f) f.addEventListener('submit', submit);
+    ARF.decorate(app);
+  }
+
+  function submit(e){
+    e.preventDefault();
+    var f = e.target, n=f.n.value.trim(), p=f.p.value.trim(), em=f.e.value.trim();
+    var err = '';
+    if (n.length < 3) err = 'Ingresá tu nombre y apellido.';
+    else if (p.replace(/\D/g,'').length < 10) err = 'Ingresá tu WhatsApp con característica (ej: 381 555 1234).';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) err = 'Ingresá un email válido.';
+    else if (!f.ok.checked) err = 'Confirmá que entendés cómo funciona la seña.';
+    if (err) { st.error = err; render(); restore(n,p,em,f.ok.checked); return; }
+    st.error=''; st.sending=true; render(); restore(n,p,em,true);
+    ARF.api('/reserve', {method:'POST', body:{
+      motivo: st.motivo, slot_iso: st.slot.slot_iso, profesional: st.slot.profesional,
+      patient_name: n, patient_phone: p, patient_email: em
+    }}).then(function(r){
+      track('InitiateCheckout', {value: st.cfg.deposit_ars, currency:'ARS', content_name: mot(st.motivo).label}, r.booking_id);
+      location.href = r.init_point;
+    }).catch(function(e2){
+      st.sending=false;
+      st.error = e2.message || 'No pudimos generar el pago. Probá de nuevo.';
+      if (e2.status === 409) { st.slot=null; loadSlots(); return; }
+      render(); restore(n,p,em,true);
+    });
+  }
+  function restore(n,p,em,ok){ var f=document.getElementById('frm'); if(!f)return; f.n.value=n; f.p.value=p; f.e.value=em; f.ok.checked=!!ok; }
+
+  // ---------- pantalla de vuelta de MP ----------
+  function resultado(estado, ref, intento){
+    ARF.api('/estado/'+encodeURIComponent(ref)).then(function(b){
+      if (b.status === 'paid') return pintarOk(b, ref);
+      if (b.status === 'paid_conflict') return pintarMsg('Recibimos tu pago','El horario se ocupó mientras pagabas. Te escribimos por WhatsApp para darte otro turno. No perdés la seña.', true);
+      if (estado === 'error' || b.status === 'cancelled') return pintarMsg('El pago no se completó','No se te cobró la seña. Podés intentar de nuevo o elegir otro horario.', false, true);
+      if (b.status === 'expired' && estado !== 'ok') return pintarMsg('El horario se liberó','Pasaron más de 15 minutos sin pago. Elegí un horario de nuevo.', false, true);
+      if (intento < 12) { pintarEspera(); setTimeout(function(){ resultado(estado, ref, intento+1); }, 3000); return; }
+      pintarMsg('Estamos confirmando tu pago','Mercado Pago todavía no nos avisó. Apenas se acredite te llega la confirmación por mail. Si tenés dudas, escribinos.', true);
+    }).catch(function(){
+      pintarMsg('Estamos confirmando tu pago','Si ya pagaste, te llega la confirmación por mail. Ante cualquier duda escribinos por WhatsApp.', true);
+    });
+  }
+  function pintarEspera(){ app.innerHTML = '<div class="res"><div class="spinner" role="status"></div><h1>Confirmando tu pago…</h1><p class="tn-lead" style="margin:8px auto 0">Esto tarda unos segundos.</p></div>'; }
+  function pintarOk(b, ref){
+    if (!sessionStorage.getItem('arf_p_'+ref)) { track('Purchase', {value: b.deposit_ars, currency:'ARS', content_name: b.motivo}, ref); try{ sessionStorage.setItem('arf_p_'+ref,'1'); }catch(e){} }
+    var resto = Math.max(0,(b.consulta_ars||0)-(b.deposit_ars||0));
+    app.innerHTML = '<div class="res"><div class="ok-ic"><svg class="ic"><use href="#i-check"/></svg></div>'+
+      '<h1>¡Turno <span class="it">confirmado</span>!</h1><p class="tn-lead" style="margin:8px auto 0">Recibimos tu seña de '+money(b.deposit_ars)+'. Te mandamos la confirmación y el comprobante por mail, y un recordatorio por WhatsApp antes del turno.</p>'+
+      '<div class="card"><span class="k-label">'+esc(b.motivo)+'</span>'+
+      '<p><b>'+esc(whenLabel(b.scheduled_at))+'</b><br><span class="mini">Llegá 10 minutos antes</span></p>'+
+      '<p style="margin-top:10px"><b>'+esc(b.profesional||'')+'</b> · '+esc(b.sede||'')+'</p>'+
+      '<p class="mini" style="margin-top:10px">Abonás en la consulta: <b>'+money(resto)+'</b></p></div>'+
+      '<a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank" rel="noopener">Hablar con ARF por WhatsApp</a></div>';
+    ARF.decorate(app);
+  }
+  function pintarMsg(t, p, wa, retry){
+    app.innerHTML = '<div class="res"><div class="em-ic" style="width:76px;height:76px;border-radius:50%;background:#F0EBF5;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:var(--muted)"><svg class="ic" style="width:32px;height:32px"><use href="#i-alert"/></svg></div>'+
+      '<h1>'+esc(t)+'</h1><p class="tn-lead" style="margin:8px auto 24px">'+esc(p)+'</p>'+
+      (retry?'<a class="btn btn-solid" href="/turno/">Elegir horario de nuevo</a> ':'')+
+      (wa?'<a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank" rel="noopener">Escribinos por WhatsApp</a>':'')+'</div>';
+    ARF.decorate(app);
+  }
+})();
+</script>
+</body>
+</html>
