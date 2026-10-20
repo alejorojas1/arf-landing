@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trabajá con nosotros | Soluciones Dentales ARF</title>
+<meta name="description" content="Buscamos técnico/a protesista con experiencia para martes y jueves en San Miguel de Tucumán. Postulate en 3 minutos.">
+<meta name="robots" content="noindex,follow">
+<meta name="theme-color" content="#1A0430">
+<meta property="og:title" content="Buscamos técnico/a protesista | Soluciones Dentales ARF">
+<meta property="og:description" content="Martes y jueves en San Miguel de Tucumán. Postulate en 3 minutos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/arf.css">
+<style>
+/* postulaciones laborales (oct 2026) */
+.pz{max-width:640px;margin:0 auto;padding:22px 16px 120px}
+.pz-hero{background:var(--g-deep);color:#fff;border-radius:24px;padding:26px 22px;margin-bottom:22px;box-shadow:var(--sh-md)}
+.pz-hero .eyebrow{color:var(--gold);margin-bottom:8px}
+.pz-hero h1{font-size:clamp(1.7rem,6vw,2.4rem);margin-bottom:12px}
+.pz-hero h1 .it{color:var(--magenta-l)}
+.pz-hero ul{list-style:none;display:flex;flex-direction:column;gap:6px;font-size:.95rem;color:rgba(255,255,255,.88)}
+.pz-hero li{display:flex;gap:8px;align-items:flex-start}
+.pz-hero li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--magenta-l);margin-top:.6em;flex-shrink:0}
+.pz-hero .tiempo{margin-top:14px;font-size:.84rem;color:var(--gold);font-weight:600}
+.prog{display:flex;gap:6px;margin:0 0 6px}
+.prog i{flex:1;height:5px;border-radius:5px;background:var(--border);transition:.3s}
+.prog i.on{background:var(--violet)}
+.prog-t{font-size:.82rem;color:var(--muted);margin-bottom:14px}
+.paso{padding:0}
+.paso h2{font-size:1.45rem;margin-bottom:4px}
+.paso .sub{font-size:.95rem;margin-bottom:18px}
+.q{background:#fff;border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:12px}
+.q>label,.q>.ql{display:block;font-weight:600;font-size:.98rem;margin-bottom:4px}
+.q .ayuda{display:block;font-size:.84rem;color:var(--muted);margin-bottom:10px;font-weight:400}
+.q .opc{font-weight:400;color:var(--muted);font-size:.84rem}
+.q input[type=text],.q input[type=tel],.q input[type=email],.q input[type=number],.q textarea{width:100%;border:1px solid #DCCBEF;border-radius:12px;padding:12px 14px;font:inherit;font-size:1rem;color:var(--text);background:#fff;margin-top:6px}
+.q textarea{min-height:96px;resize:vertical}
+.q input:focus,.q textarea:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,31,214,.12)}
+.ops{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.ops.fila{flex-direction:row;flex-wrap:wrap}
+.op{position:relative}
+.op input{position:absolute;opacity:0;pointer-events:none}
+.op span{display:flex;align-items:center;gap:10px;min-height:48px;padding:10px 14px;border:1px solid var(--border);border-radius:14px;background:#fff;cursor:pointer;transition:.15s;font-size:.96rem}
+.ops.fila .op span{min-width:118px;justify-content:center}
+.op span::before{content:"";width:18px;height:18px;border:2px solid #CDB8E6;border-radius:50%;flex-shrink:0;transition:.15s}
+.op input[type=checkbox]+span::before{border-radius:6px}
+.op input:checked+span{border-color:var(--violet);background:var(--soft);font-weight:600}
+.op input:checked+span::before{background:var(--violet);border-color:var(--violet);box-shadow:inset 0 0 0 3px #fff}
+.op input:focus-visible+span{outline:2px solid var(--violet);outline-offset:2px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.grid2 .op span{justify-content:flex-start}
+.archivos{margin-top:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.archivos div{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--soft)}
+.archivos img{width:100%;height:100%;object-fit:cover}
+.archivos button{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(18,2,31,.7);color:#fff;font-size:15px;cursor:pointer}
+.q>label.subir,.subir{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border:1.5px dashed #CDB8E6;border-radius:14px;color:var(--violet);font-weight:600;cursor:pointer;margin-top:8px;background:#fff}
+.subir input{display:none}
+.archivo-n{margin-top:8px;font-size:.88rem;color:var(--text);display:flex;gap:8px;align-items:center}
+.archivo-n button{border:0;background:none;color:var(--violet);font-weight:600;cursor:pointer;text-decoration:underline}
+.err{background:#FFF0F3;color:#B4123C;border:1px solid #FFC9D5;border-radius:12px;padding:10px 14px;font-size:.9rem;margin:6px 0 12px}
+.q.mal{border-color:#FF8FA9}
+.nav-pasos{display:flex;gap:10px;margin-top:18px}
+.nav-pasos .btn{flex:1;padding:14px 18px}
+.btn-volver{background:#fff;border:1px solid var(--border);color:var(--text)}
+.btn-main[disabled]{opacity:.6;cursor:wait;transform:none}
+.q>label.consent,.consent{display:flex;font-weight:400;margin:0;gap:10px;align-items:flex-start;font-size:.86rem;color:var(--muted);cursor:pointer}
+.consent input{width:20px;height:20px;margin-top:2px;accent-color:var(--violet);flex-shrink:0}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.ok{text-align:center;background:#fff;border:1px solid var(--border);border-radius:24px;padding:34px 22px;box-shadow:var(--sh-sm)}
+.ok .tilde{width:64px;height:64px;border-radius:50%;background:var(--g-magenta);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.ok .tilde svg{width:32px;height:32px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.ok h2{font-size:1.6rem;margin-bottom:8px}
+.ok p{color:var(--muted)}
+.oculto{display:none!important}
+@media(max-width:380px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav id="nav" class="light" aria-label="Principal">
+  <div class="nav-in">
+    <a class="logo" href="/">ARF <small>Soluciones Dentales</small></a>
+  </div>
+</nav>
+
+<main class="pz">
+  <header class="pz-hero" id="hero">
+    <span class="eyebrow">Trabajá con nosotros</span>
+    <h1>Buscamos <span class="it">técnico/a protesista</span> con experiencia</h1>
+    <ul>
+      <li>Martes y jueves</li>
+      <li>San Miguel de Tucumán, zona Parque 9 de Julio</li>
+      <li>Trabajo independiente, con la agenda organizada por nosotros</li>
+    </ul>
+    <p class="tiempo">Completás el formulario en unos 3 minutos.</p>
+  </header>
+
+  <form id="f" novalidate>
+    <div class="prog" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <p class="prog-t" id="prog-t"></p>
+    <div id="error" class="err oculto" role="alert"></div>
+
+    <!-- PASO 1 -->
+    <section class="paso" data-paso="1">
+      <h2>Sobre vos</h2>
+      <p class="sub">Para poder contactarte.</p>
+      <div class="q" data-q="nombre"><label for="nombre">Nombre y apellido</label>
+        <input id="nombre" name="nombre" type="text" autocomplete="name" maxlength="120"></div>
+      <div class="q" data-q="whatsapp"><label for="whatsapp">WhatsApp</label>
+        <span class="ayuda">Con código de área, por ejemplo 381 5477474.</span>
+        <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" maxlength="30"></div>
+      <div class="q" data-q="email"><label for="email">Email <span class="opc">(opcional)</span></label>
+        <input id="email" name="email" type="email" autocomplete="email" maxlength="200"></div>
+      <div class="q" data-q="edad"><label for="edad">Edad</label>
+        <input id="edad" name="edad" type="number" inputmode="numeric" min="18" max="80"></div>
+      <div class="q" data-q="sexo"><span class="ql">Sexo</span>
+        <div class="ops fila" data-radio="sexo"></div></div>
+      <div class="q" data-q="localidad"><label for="localidad">Barrio o localidad donde vivís</label>
+        <input id="localidad" name="localidad" type="text" maxlength="120" placeholder="Ej: Barrio Norte, Yerba Buena, Banda del Río Salí"></div>
+    </section>
+
+    <!-- PASO 2 -->
+    <section class="paso oculto" data-paso="2">
+      <h2>Tu experiencia</h2>
+      <p class="sub">Contanos qué hacés y cómo trabajás.</p>
+      <div class="q" data-q="titulo"><span class="ql">Título</span>
+        <div class="ops" data-radio="titulo"></div>
+        <input id="titulo_otro" name="titulo_otro" type="text" maxlength="120" class="oculto" placeholder="¿Cuál?"></div>
+      <div class="q" data-q="donde_estudio"><label for="donde_estudio">¿Dónde estudiaste? <span class="opc">(opcional)</span></label>
+        <input id="donde_estudio" name="donde_estudio" type="text" maxlength="200"></div>
+      <div class="q" data-q="matricula"><span class="ql">¿Tenés matrícula o registro en Tucumán? <span class="opc">(opcional)</span></span>
+        <div class="ops fila" data-radio="matricula"></div></div>
+      <div class="q" data-q="experiencia"><span class="ql">Años de experiencia</span>
+        <div class="grid2" data-radio="experiencia"></div></div>
+      <div class="q" data-q="donde_trabajo"><span class="ql">¿Dónde trabajaste? <span class="opc">(podés marcar varias)</span></span>
+        <div class="ops" data-check="donde_trabajo"></div></div>
+      <div class="q" data-q="tecnicas"><span class="ql">¿Qué sabés hacer?</span>
+        <span class="ayuda">Marcá todo lo que hacés.</span>
+        <div class="ops" data-check="tecnicas"></div></div>
+      <div class="q" data-q="etapas"><span class="ql">¿Qué etapas del trabajo realizás?</span>
+        <span class="ayuda">Marcá todas las que hacés habitualmente.</span>
+        <div class="ops" data-check="etapas"></div></div>
+      <div class="q" data-q="trato"><span class="ql">¿Cómo te sentís con el trato directo con las personas?</span>
+        <div class="ops" data-radio="trato"></div></div>
+      <div class="q" data-q="equipo"><span class="ql">¿Tenés laboratorio o equipo propio? <span class="opc">(opcional)</span></span>
+        <div class="ops" data-radio="equipo"></div></div>
+      <div class="q" data-q="entrega_dias"><span class="ql">Normalmente, ¿en cuánto tiempo entregás una prótesis? <span class="opc">(opcional)</span></span>
+        <div class="grid2" data-radio="entrega_dias"></div></div>
+    </section>
+
+    <!-- PASO 3 -->
+    <section class="paso oculto" data-paso="3">
+      <h2>Disponibilidad</h2>
+      <p class="sub">Buscamos cubrir martes y jueves.</p>
+      <div class="q" data-q="disponibilidad"><span class="ql">¿Qué horarios podés?</span>
+        <div class="grid2" data-check="disponibilidad"></div></div>
+      <div class="q" data-q="otros_dias"><span class="ql">¿Podrías otros días, eventualmente? <span class="opc">(opcional)</span></span>
+        <div class="ops fila" data-radio="otros_dias"></div></div>
+      <div class="q" data-q="inicio"><span class="ql">¿Cuándo podrías empezar? <span class="opc">(opcional)</span></span>
+        <div class="ops" data-radio="inicio"></div></div>
+      <div class="q" data-q="traslado"><span class="ql">¿Podés trasladarte a nuestro espacio de trabajo?</span>
+        <span class="ayuda">Queda en San Miguel de Tucumán, zona Parque 9 de Julio, en un primer piso por escalera.</span>
+        <div class="ops fila" data-radio="traslado"></div></div>
+      <div class="q" data-q="monotributo"><span class="ql">¿Sos monotributista? <span class="opc">(opcional)</span></span>
+        <div class="ops" data-radio="monotributo"></div></div>
+      <div class="q" data-q="modalidad"><span class="ql">¿Te interesa trabajar de forma independiente, cobrando por trabajo realizado? <span class="opc">(opcional)</span></span>
+        <div class="ops" data-radio="modalidad"></div></div>
+      <div class="q" data-q="agenda_online"><span class="ql">¿Te resulta cómodo recibir tu agenda en el celular? <span class="opc">(opcional)</span></span>
+        <div class="ops" data-radio="agenda_online"></div></div>
+    </section>
+
+    <!-- PASO 4 -->
+    <section class="paso oculto" data-paso="4">
+      <h2>Para conocerte</h2>
+      <p class="sub">Todo opcional, pero suma mucho.</p>
+      <div class="q" data-q="fotos"><span class="ql">Fotos de trabajos tuyos <span class="opc">(hasta 6)</span></span>
+        <label class="subir"><input id="fotos" type="file" accept="image/*" multiple>+ Agregar fotos</label>
+        <div class="archivos" id="fotos-prev"></div></div>
+      <div class="q" data-q="aranceles"><span class="ql">Tus aranceles <span class="opc">(si tenés)</span></span>
+        <span class="ayuda">Subí tu lista (foto o PDF) o escribila acá abajo.</span>
+        <label class="subir"><input id="aranceles" type="file" accept="image/*,application/pdf">+ Subir lista</label>
+        <div class="archivo-n oculto" id="aranceles-n"></div>
+        <textarea id="aranceles_texto" name="aranceles_texto" maxlength="3000" placeholder="Ej: prótesis acrílica completa $..., flexible $..., compostura $..."></textarea></div>
+      <div class="q" data-q="motivacion"><label for="motivacion">Contanos en pocas líneas por qué te interesa el puesto</label>
+        <textarea id="motivacion" name="motivacion" maxlength="1500"></textarea></div>
+      <div class="q" data-q="fuente"><span class="ql">¿Cómo te enteraste?</span>
+        <div class="ops fila" data-radio="fuente"></div></div>
+      <div class="hp" aria-hidden="true"><label>Sitio web <input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+      <div class="q" data-q="consentimiento">
+        <label class="consent"><input id="consentimiento" type="checkbox">
+        <span>Acepto que Soluciones Dentales ARF guarde estos datos solo para evaluar mi postulación y contactarme (Ley 25.326). Puedo pedir que los borren cuando quiera.</span></label></div>
+    </section>
+
+    <div class="nav-pasos">
+      <button type="button" class="btn btn-volver oculto" id="volver">Volver</button>
+      <button type="submit" class="btn btn-main" id="seguir">Seguir</button>
+    </div>
+  </form>
+
+  <div class="ok oculto" id="ok" role="status">
+    <div class="tilde"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+    <h2 id="ok-t">¡Listo!</h2>
+    <p>Recibimos tu postulación. Si tu perfil encaja con lo que buscamos, te escribimos por WhatsApp.</p>
+  </div>
+</main>
+
+<script>
+(function(){
+  var OPC = {
+    sexo: [['femenino','Femenino'],['masculino','Masculino']],
+    titulo: [['tecnico_protesista','Técnico/a protesista'],['tecnico_dental','Técnico/a dental'],['mecanico_dental','Mecánico/a dental'],['otro','Otro']],
+    matricula: [['si','Sí'],['en_tramite','En trámite'],['no','No']],
+    experiencia: [['menos_1','Menos de 1 año'],['1_3','1 a 3 años'],['3_5','3 a 5 años'],['mas_5','Más de 5 años']],
+    donde_trabajo: [['laboratorio_propio','En mi propio laboratorio'],['laboratorio_tercero','En el laboratorio de un tercero'],['consultorio','En un consultorio o clínica'],['otro','Otro']],
+    tecnicas: [['acrilica','Prótesis acrílica'],['flexible','Prótesis flexible (Deflex o similar)'],['esqueletico','Esquelético / cromo-cobalto'],['reparaciones','Reparaciones y composturas'],['rebasados','Rebasados'],['placas','Placas de relajación']],
+    etapas: [['impresiones','Toma de impresiones'],['mordida','Registro de mordida'],['enfilado','Prueba de enfilado'],['entrega','Entrega y ajustes'],['solo_laboratorio','Solo trabajo de laboratorio (recibo el modelo y entrego el trabajo)']],
+    trato: [['siempre','Me encanta, lo hago siempre'],['prefiere_lab','Lo hago, pero prefiero el laboratorio'],['no','No lo hago']],
+    equipo: [['completo','Sí, completo'],['parcial','Sí, una parte'],['terceriza','No, tercerizo']],
+    entrega_dias: [['menos_1','Menos de 1 semana'],['1_2','1 a 2 semanas'],['2_3','2 a 3 semanas'],['mas_3','Más de 3 semanas']],
+    disponibilidad: [['martes_manana','Martes a la mañana'],['martes_tarde','Martes a la tarde'],['jueves_manana','Jueves a la mañana'],['jueves_tarde','Jueves a la tarde']],
+    otros_dias: [['si','Sí'],['no','No']],
+    inicio: [['inmediato','Ya mismo'],['2_semanas','En 2 semanas'],['1_mes','En un mes o más']],
+    traslado: [['si','Sí'],['no','No']],
+    monotributo: [['si','Sí, facturo'],['puede_alta','No, pero puedo darme de alta'],['no','No']],
+    modalidad: [['independiente','Sí, me interesa'],['sueldo','Prefiero sueldo fijo'],['charlar','Lo charlamos']],
+    agenda_online: [['si','Sí, sin problema'],['aprende','Nunca usé, pero aprendo'],['no','No']],
+    fuente: [['instagram','Instagram'],['facebook','Facebook'],['recomendacion','Recomendación'],['otro','Otro']]
+  };
+  // requeridas por paso: [clave, mensaje]
+  var REQ = {
+    1: [['nombre','Escribí tu nombre y apellido.'],['whatsapp','Dejanos tu WhatsApp.'],['edad','Contanos tu edad.'],['sexo','Elegí una opción en Sexo.'],['localidad','Contanos tu barrio o localidad.']],
+    2: [['titulo','Elegí tu título.'],['experiencia','Elegí tus años de experiencia.'],['tecnicas','Marcá qué sabés hacer.'],['etapas','Marcá las etapas que realizás.'],['trato','Contanos cómo te sentís con el trato con las personas.']],
+    3: [['disponibilidad','Marcá al menos un horario.'],['traslado','Contanos si podés trasladarte.']],
+    4: []
+  };
+  var TOTAL = 4, paso = 1, fotos = [], aranceles = null, enviando = false, cargando = 0;
+  var f = document.getElementById('f'), errBox = document.getElementById('error');
+
+  function el(t, a, h){ var e=document.createElement(t); for(var k in (a||{})) e.setAttribute(k,a[k]); if(h!=null) e.textContent=h; return e; }
+  document.querySelectorAll('[data-radio],[data-check]').forEach(function(box){
+    var radio = box.hasAttribute('data-radio'), key = box.getAttribute(radio?'data-radio':'data-check');
+    OPC[key].forEach(function(o){
+      var lab = el('label',{'class':'op'}), inp = el('input',{type:radio?'radio':'checkbox',name:key,value:o[0]});
+      lab.appendChild(inp); lab.appendChild(el('span',null,o[1])); box.appendChild(lab);
+    });
+  });
+
+  function val(k){
+    var box = document.querySelector('[data-radio="'+k+'"],[data-check="'+k+'"]');
+    if(box){
+      var on = [].map.call(box.querySelectorAll('input:checked'), function(i){return i.value;});
+      return box.hasAttribute('data-check') ? on : (on[0]||'');
+    }
+    var i = document.getElementById(k); return i ? i.value.trim() : '';
+  }
+  function vacio(v){ return Array.isArray(v) ? !v.length : !v; }
+
+  // "Otro" título muestra el campo; "solo laboratorio" no convive con etapas con personas
+  f.addEventListener('change', function(e){
+    var t = e.target;
+    if(t.name==='titulo') document.getElementById('titulo_otro').classList.toggle('oculto', t.value!=='otro');
+    if(t.name==='etapas' && t.checked){
+      document.querySelectorAll('input[name=etapas]').forEach(function(i){
+        if(t.value==='solo_laboratorio' ? i.value!=='solo_laboratorio' : i.value==='solo_laboratorio') i.checked=false;
+      });
+    }
+    var q = t.closest('.q'); if(q) q.classList.remove('mal');
+  });
+  f.addEventListener('input', function(e){ var q=e.target.closest('.q'); if(q) q.classList.remove('mal'); });
+
+  function error(msg, clave){
+    errBox.textContent = msg; errBox.classList.toggle('oculto', !msg);
+    if(clave){ var q=document.querySelector('[data-q="'+clave+'"]'); if(q){ q.classList.add('mal'); q.scrollIntoView({behavior:'smooth',block:'center'}); } }
+    else if(msg) errBox.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+
+  function validarPaso(n){
+    var r = REQ[n];
+    for(var i=0;i<r.length;i++){ if(vacio(val(r[i][0]))){ error(r[i][1], r[i][0]); return false; } }
+    if(n===1){
+      var w = val('whatsapp').replace(/\D/g,''); if(w.length<10){ error('El WhatsApp tiene que tener el código de área, por ejemplo 381 5477474.','whatsapp'); return false; }
+      var ed = +val('edad'); if(!/^\d+$/.test(val('edad')) || !(ed>=18 && ed<=80)){ error('La edad tiene que estar entre 18 y 80.','edad'); return false; }
+      var em = val('email'); if(em && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){ error('Revisá el email.','email'); return false; }
+    }
+    if(n===4 && !document.getElementById('consentimiento').checked){ error('Para enviar tenés que aceptar el uso de tus datos.','consentimiento'); return false; }
+    error(''); return true;
+  }
+
+  function mostrar(n){
+    paso = n;
+    document.querySelectorAll('.paso').forEach(function(s){ s.classList.toggle('oculto', +s.getAttribute('data-paso')!==n); });
+    document.querySelectorAll('.prog i').forEach(function(b,i){ b.classList.toggle('on', i<n); });
+    document.getElementById('prog-t').textContent = 'Paso '+n+' de '+TOTAL;
+    document.getElementById('volver').classList.toggle('oculto', n===1);
+    document.getElementById('seguir').textContent = n===TOTAL ? 'Enviar' : 'Seguir';
+    document.getElementById('hero').classList.toggle('oculto', n>1);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  // el botón atrás del celular vuelve un paso en vez de salir de la página
+  document.getElementById('volver').addEventListener('click', function(){ history.back(); });
+  window.addEventListener('popstate', function(e){
+    var n = (e.state && e.state.paso) || 1;
+    if(document.getElementById('ok').classList.contains('oculto')){ error(''); mostrar(n); }
+  });
+  function avanzar(n){ history.pushState({paso:n}, ''); mostrar(n); }
+
+  // fotos: se achican en el celular antes de subir (más rápido con datos móviles)
+  function achicar(file){
+    return new Promise(function(ok){
+      if(!/^image\/(jpeg|png|webp)$/.test(file.type)) return ok(file);
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onload = function(){
+        var m = 1600, w = img.naturalWidth, h = img.naturalHeight, r = Math.min(1, m/Math.max(w,h));
+        var c = document.createElement('canvas'); c.width = Math.round(w*r); c.height = Math.round(h*r);
+        c.getContext('2d').drawImage(img,0,0,c.width,c.height); URL.revokeObjectURL(url);
+        c.toBlob(function(b){ ok(b && b.size < file.size ? new File([b], file.name.replace(/\.\w+$/,'')+'.jpg', {type:'image/jpeg'}) : file); }, 'image/jpeg', .85);
+      };
+      img.onerror = function(){ URL.revokeObjectURL(url); ok(file); };
+      img.src = url;
+    });
+  }
+  function pintarFotos(){
+    var box = document.getElementById('fotos-prev'); box.innerHTML='';
+    fotos.forEach(function(file, i){
+      var d = el('div'), im = el('img',{alt:'Foto '+(i+1)}), x = el('button',{type:'button','aria-label':'Quitar foto'},'×');
+      im.src = URL.createObjectURL(file); x.onclick = function(){ fotos.splice(i,1); pintarFotos(); };
+      d.appendChild(im); d.appendChild(x); box.appendChild(d);
+    });
+  }
+  document.getElementById('fotos').addEventListener('change', function(e){
+    var nuevas = [].slice.call(e.target.files||[]); e.target.value='';
+    if(fotos.length + nuevas.length > 6){ error('Podés subir hasta 6 fotos.'); nuevas = nuevas.slice(0, 6-fotos.length); }
+    cargando++;
+    Promise.all(nuevas.map(achicar)).then(function(fs){ cargando--;
+      fs.forEach(function(x){ if(x.size > 10*1024*1024) error('Cada foto puede pesar hasta 10 MB.'); else fotos.push(x); });
+      pintarFotos();
+    });
+  });
+  document.getElementById('aranceles').addEventListener('change', function(e){
+    var file = (e.target.files||[])[0]; e.target.value=''; if(!file) return;
+    var n = document.getElementById('aranceles-n');
+    cargando++;
+    (file.type==='application/pdf' ? Promise.resolve(file) : achicar(file)).then(function(x){ cargando--;
+      if(x.size > 10*1024*1024){ error('El archivo puede pesar hasta 10 MB.'); return; }
+      aranceles = x; n.innerHTML=''; n.appendChild(el('span',null,'📎 '+x.name));
+      var q = el('button',{type:'button'},'Quitar'); q.onclick=function(){ aranceles=null; n.classList.add('oculto'); }; n.appendChild(q);
+      n.classList.remove('oculto');
+    });
+  });
+
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(enviando || !validarPaso(paso)) return;
+    if(paso < TOTAL) return avanzar(paso+1);
+    if(cargando){ error('Esperá un segundo: todavía se están cargando las fotos.'); return; }
+    var datos = {consentimiento: true};
+    Object.keys(OPC).forEach(function(k){ datos[k] = val(k); });
+    ['nombre','whatsapp','email','edad','localidad','titulo_otro','donde_estudio','aranceles_texto','motivacion'].forEach(function(k){ datos[k] = val(k); });
+    var fd = new FormData();
+    fd.append('datos', JSON.stringify(datos));
+    fd.append('puesto', 'tecnico_protesista');
+    fd.append('website', document.getElementById('website').value);
+    fotos.forEach(function(x){ fd.append('fotos', x, x.name); });
+    if(aranceles) fd.append('aranceles', aranceles, aranceles.name);
+    enviando = true; var b = document.getElementById('seguir'); b.disabled = true; b.textContent = 'Enviando…';
+    fetch('/api/public/postulaciones', {method:'POST', body:fd}).then(function(r){
+      return r.json().catch(function(){return {};}).then(function(j){ return {ok:r.ok, status:r.status, j:j}; });
+    }).then(function(res){
+      if(res.ok){
+        f.classList.add('oculto'); document.getElementById('hero').classList.add('oculto');
+        document.getElementById('ok-t').textContent = '¡Listo, ' + (val('nombre').split(' ')[0] || '') + '!';
+        document.getElementById('ok').classList.remove('oculto'); window.scrollTo({top:0});
+        return;
+      }
+      var msg = res.status===429 ? 'Recibimos varios envíos seguidos. Esperá unos minutos y volvé a intentar.'
+        : res.status===413 ? 'Los archivos pesan demasiado. Probá con menos fotos.'
+        : (typeof res.j.detail==='string' ? res.j.detail : 'No pudimos enviar la postulación. Probá de nuevo.');
+      var pasoErr = /WhatsApp|nombre|Nombre|edad|Edad|email|Sexo|localidad/.test(msg) ? 1
+        : /Título|experiencia|sabe hacer|Etapas|trato|Trato/.test(msg) ? 2
+        : /Disponibilidad|trasladarse|horario/.test(msg) ? 3 : 0;
+      if(pasoErr && pasoErr !== paso){ mostrar(pasoErr); history.pushState({paso:pasoErr}, ''); }
+      error(msg);
+    }).catch(function(){
+      error('No pudimos enviar la postulación: revisá tu conexión y probá de nuevo.');
+    }).then(function(){ enviando=false; b.disabled=false; if(paso===TOTAL) b.textContent='Enviar'; });
+  });
+
+  history.replaceState({paso:1}, '');
+  mostrar(1);
+})();
+</script>
+</body>
+</html>
