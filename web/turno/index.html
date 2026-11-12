@@ -42,6 +42,24 @@ fbq('track','PageView');
 @media (hover:hover){.car.has-prev .car-btn.prev,.car.has-next .car-btn.next{display:block}}
 .car.has-next::after{content:"";position:absolute;right:0;top:0;bottom:6px;width:34px;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,0),#fff)}
 .car-hint{font-size:.8rem;color:var(--muted);margin:-10px 0 16px}
+/* turnero: quién atiende, dónde queda y dudas antes de pagar (12/11/2026, Alejo) */
+.tn-pts{list-style:none;padding:0;margin:-8px 0 22px;display:flex;flex-wrap:wrap;gap:8px 10px;max-width:760px}
+.tn-pts li{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:7px 13px;font-size:.88rem;color:var(--text)}
+.tn-pts .ic{width:15px;height:15px;color:var(--violet);flex-shrink:0}
+.sede{display:flex;gap:12px;align-items:flex-start;background:var(--soft);border-radius:16px;padding:14px;margin-bottom:12px}
+.sede .bub{width:44px;height:44px;border-radius:50%;background:#fff;color:var(--violet);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sede b{display:block;font-size:1.08rem}
+.sede small{display:block;color:var(--muted);font-size:.86rem;line-height:1.4}
+.sede a{display:inline-block;margin-top:6px;color:var(--violet);font-weight:600;font-size:.88rem;text-decoration:underline}
+.quien{display:flex;gap:12px;align-items:center;background:var(--soft);border-radius:16px;padding:14px;margin-bottom:22px}
+.quien .bub{width:44px;height:44px;border-radius:50%;background:#fff;color:var(--violet);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.quien b{display:block}.quien small{color:var(--muted);font-size:.82rem}
+.franja{font-size:.9rem;font-weight:600;color:var(--text);margin:0 0 8px}
+.franja span{color:var(--muted);font-weight:500}
+.sum .r small{display:block;font-weight:400;opacity:.75;font-size:.8rem;text-align:right}
+.sum .mapa{color:#fff;text-decoration:underline;font-size:.8rem;font-weight:500}
+.poli{background:rgba(255,255,255,.08);border-radius:14px;padding:10px 14px;font-size:.86rem;margin:12px 0 0;line-height:1.45}
+.poli b{color:#fff}
 </style>
 </head>
 <body>
@@ -113,6 +131,30 @@ fbq('track','PageView');
     {id:'no_se',label:'Consulta de evaluación',desc:'No sé qué tengo: me revisan y me dicen qué necesito',available:false}
   ];
 
+  // Sedes: referencia para llegar y link al mapa (12/11/2026, Alejo: "la gente no lee").
+  var SEDES = [
+    {k:/hait/i, n:'Haití 26', ref:'A la altura de Av. Avellaneda al 500, cerca del parque 9 de Julio.', nota:'Primer piso por escalera.', q:'Haití 26, San Miguel de Tucumán'},
+    {k:/vittalia|santiago\s*157/i, n:'Torre Vittalia · Santiago 157', ref:'Entre Balcarce y Monteagudo.', nota:'', q:'Santiago del Estero 157, San Miguel de Tucumán'}
+  ];
+  function sedeInfo(nombre){
+    for (var i=0;i<SEDES.length;i++){ if (SEDES[i].k.test(nombre||'')) return SEDES[i]; }
+    return {n: nombre||'', ref:'', nota:'', q:(nombre||'')+', San Miguel de Tucumán'};
+  }
+  function mapaUrl(si){ return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(si.q); }
+  function rolDe(m){
+    if (!m) return 'Profesional';
+    if (m.id==='protesis') return 'Profesional de prótesis';
+    if (m.id==='placa_relajacion' || m.id==='placa_contencion') return 'Profesional de placas';
+    if (m.id==='ortodoncia') return 'Profesional de ortodoncia';
+    return 'Profesional';
+  }
+  function sedeCard(nombre){
+    var si = sedeInfo(nombre);
+    return '<div class="sede"><span class="bub"><svg class="ic"><use href="#i-pin"/></svg></span><div><b>'+esc(si.n)+'</b>'+
+      '<small>San Miguel de Tucumán'+(si.ref?' · '+esc(si.ref):'')+(si.nota?' '+esc(si.nota):'')+'</small>'+
+      '<a href="'+esc(mapaUrl(si))+'" target="_blank" rel="noopener">Ver en el mapa</a></div></div>';
+  }
+
   function pick(id, hint){
     st.motivo=id; st.slots=null; st.day=null; st.slot=null; st.error=''; st.hint=hint||'';
     st.revisar = false;
@@ -172,6 +214,11 @@ fbq('track','PageView');
     h += '<div class="tn-kicker">Paso '+stepOn+' de 3</div>';
     h += '<h1>Sacá tu turno</h1>';
     h += '<p class="tn-lead">Siempre empezás con una consulta de <b>'+money(cfg.consulta_ars)+'</b>. Según el motivo, te asignamos la profesional y la sede que corresponden, y ves todo antes de pagar.</p>';
+    h += '<ul class="tn-pts">'+
+      '<li><svg class="ic"><use href="#i-pin"/></svg>Atendemos en San Miguel de Tucumán</li>'+
+      '<li><svg class="ic"><use href="#i-check"/></svg>La profesional te revisa y te dice qué necesitás y cuánto sale</li>'+
+      '<li><svg class="ic"><use href="#i-check"/></svg>Si ese día arrancás tu prótesis o tu placa, los '+money(cfg.consulta_ars)+' se descuentan del tratamiento</li>'+
+      '</ul>';
     h += '<div class="tn-grid">';
 
     // col 1: motivos
@@ -251,13 +298,18 @@ fbq('track','PageView');
     var profs = {}, sedes = {};
     st.slots.forEach(function(s){ profs[s.profesional]=1; sedes[s.sede]=1; });
     var multi = Object.keys(profs).length>1 || Object.keys(sedes).length>1;
+    var m = mot(st.motivo);
+    var nProfs = Object.keys(profs).length, nSedes = Object.keys(sedes).length;
     var h = '<div class="card">';
-    if (!multi) {
-      h += '<span class="k-label">Te asignamos</span><div class="assign">'+
-        '<div class="a"><span class="bub"><svg class="ic"><use href="#i-user"/></svg></span><div><b>'+esc(first.profesional)+'</b><small>Profesional asignada</small></div></div>'+
-        '<div class="a"><span class="bub"><svg class="ic"><use href="#i-pin"/></svg></span><div><b>'+esc(first.sede)+'</b><small>San Miguel de Tucumán</small></div></div></div>';
+    // Dónde queda: lo primero que se ve, antes de los días.
+    h += '<span class="k-label">Dónde te atendemos</span>';
+    if (nSedes === 1) h += sedeCard(first.sede);
+    else h += '<p class="mini" style="margin:-4px 0 12px">En San Miguel de Tucumán. Cada horario muestra en qué sede.</p>';
+    // Quién atiende
+    if (nProfs === 1) {
+      h += '<div class="quien"><span class="bub"><svg class="ic"><use href="#i-user"/></svg></span><div><b>Te atiende '+esc(first.profesional)+'</b><small>'+esc(rolDe(m))+'</small></div></div>';
     } else {
-      h += '<span class="k-label">Te asignamos según el horario</span><p class="mini" style="margin:-4px 0 16px">Cada horario muestra con qué profesional y en qué sede.</p>';
+      h += '<div style="height:10px"></div>';
     }
     // dias
     var days = [], seen = {};
@@ -266,18 +318,30 @@ fbq('track','PageView');
     days.forEach(function(p){ h += '<button class="day" role="radio" aria-checked="'+(st.day===p.key)+'" data-day="'+p.key+'"><small>'+DIAS[dow(p)]+'</small><b>'+p.d+'/'+p.m+'</b></button>'; });
     var nDia = st.slots.filter(function(s){ return parts(s.slot_iso).key === st.day; }).length;
     h += '</div><button type="button" class="car-btn next" aria-label="Más días">›</button></div>';
-    h += '<span class="k-label">Horarios disponibles'+(nDia?' · '+nDia:'')+'</span><div class="car" data-car="slots"><button type="button" class="car-btn prev" aria-label="Horarios anteriores">‹</button><div class="slots" role="radiogroup" aria-label="Horario">';
+    h += '<span class="k-label">Horarios disponibles'+(nDia?' · '+nDia:'')+'</span>';
+    // Una fila por profesional: la persona ve quién la atiende antes de elegir.
+    var grupos = [], gi = {};
     st.slots.forEach(function(s, i){
       if (parts(s.slot_iso).key !== st.day) return;
-      var on = st.slot && st.slot.slot_iso===s.slot_iso && st.slot.profesional===s.profesional;
-      h += '<button class="slot" role="radio" aria-checked="'+on+'" data-slot="'+i+'">'+parts(s.slot_iso).t+'</button>';
+      var k = s.profesional + '|' + s.sede;
+      if (gi[k] == null) { gi[k] = grupos.length; grupos.push({prof:s.profesional, sede:s.sede, items:[]}); }
+      grupos[gi[k]].items.push({s:s, i:i});
     });
-    h += '</div><button type="button" class="car-btn next" aria-label="Más horarios">›</button></div>';
-    if (nDia > 4) h += '<p class="car-hint">Deslizá para ver todos los horarios.</p>';
-    if (multi) {
-      var cur = st.slot || null;
-      h += cur ? '<p class="slot-meta">'+esc(cur.profesional)+' · '+esc(cur.sede)+'</p>' : '<p class="slot-meta">Elegí un horario para ver la profesional y la sede.</p>';
-    }
+    var masDe4 = false;
+    grupos.forEach(function(g, n){
+      if (nProfs > 1 || nSedes > 1) {
+        var hh = +parts(g.items[0].s.slot_iso).t.slice(0,2);
+        h += '<p class="franja">'+(hh < 13 ? 'Mañana' : 'Tarde')+' <span>· te atiende '+esc(g.prof)+(nSedes>1?' en '+esc(sedeInfo(g.sede).n):'')+'</span></p>';
+      }
+      if (g.items.length > 4) masDe4 = true;
+      h += '<div class="car" data-car="slots-'+n+'"><button type="button" class="car-btn prev" aria-label="Horarios anteriores">‹</button><div class="slots" role="radiogroup" aria-label="Horario con '+esc(g.prof)+'">';
+      g.items.forEach(function(it){
+        var on = st.slot && st.slot.slot_iso===it.s.slot_iso && st.slot.profesional===it.s.profesional;
+        h += '<button class="slot" role="radio" aria-checked="'+on+'" data-slot="'+it.i+'">'+parts(it.s.slot_iso).t+'</button>';
+      });
+      h += '</div><button type="button" class="car-btn next" aria-label="Más horarios">›</button></div>';
+    });
+    if (masDe4) h += '<p class="car-hint">Deslizá para ver todos los horarios.</p>';
     return h + '</div>';
   }
 
@@ -285,8 +349,9 @@ fbq('track','PageView');
     var m = mot(st.motivo), s = st.slot, cfg = st.cfg;
     var resto = Math.max(0, (cfg.consulta_ars||0) - (cfg.deposit_ars||0));
     var h = '<div class="sum"><span class="k-label">Resumen</span><h3>'+esc(m.label)+'</h3>';
-    h += '<div class="r"><span>Con</span><b>'+esc(s.profesional)+'</b></div>';
-    h += '<div class="r"><span>Dónde</span><b>'+esc(s.sede)+'</b></div>';
+    var si = sedeInfo(s.sede);
+    h += '<div class="r"><span>Te atiende</span><b>'+esc(s.profesional)+'<small>'+esc(rolDe(m))+'</small></b></div>';
+    h += '<div class="r"><span>Dónde</span><b>'+esc(si.n)+'<small>San Miguel de Tucumán · <a class="mapa" href="'+esc(mapaUrl(si))+'" target="_blank" rel="noopener">ver mapa</a></small></b></div>';
     h += '<div class="r"><span>Cuándo</span><b>'+esc(whenLabel(s.slot_iso))+'</b></div><hr>';
     h += '<div class="r"><span>Consulta</span><span style="color:#fff">'+money(cfg.consulta_ars)+'</span></div>';
     // 12/11/2026 (Alejo): se paga la consulta completa al reservar. Si el CRM
@@ -298,6 +363,7 @@ fbq('track','PageView');
       h += '<div class="r" style="align-items:baseline"><b>Pagás hoy</b><span class="big">'+money(cfg.deposit_ars)+'</span></div>';
     }
     if (m.bonificable) h += '<div class="bonif">Si en esa consulta arrancás tu '+(m.id==='protesis'?'prótesis':'placa')+', estos '+money(cfg.consulta_ars)+' se <b>descuentan del tratamiento</b>: la consulta te sale gratis.</div>';
+    h += '<div class="poli"><b>¿Y si no podés ir?</b> Reprogramás sin costo, una vez. Para cancelar con devolución, avisanos hasta 48 h antes del turno.</div>';
     h += '<div class="hold">Al continuar te guardamos el horario '+(cfg.hold_minutes||15)+' minutos mientras pagás.</div>';
     h += '</div>';
     h += '<form class="card form" id="frm" novalidate style="margin-top:14px">';
@@ -305,7 +371,7 @@ fbq('track','PageView');
     h += '<div class="two"><label>WhatsApp *<input type="tel" name="p" autocomplete="tel" inputmode="tel" required placeholder="381 ..."></label>';
     h += '<label>Email *<input type="email" name="e" autocomplete="email" required placeholder="tu@mail.com"></label></div>';
     h += '<p class="mini">Te mandamos la confirmación y el comprobante por mail, y un recordatorio por WhatsApp antes del turno.</p>';
-    h += '<label class="chk"><input type="checkbox" name="ok" required><span>'+(resto > 0 ? 'Entiendo que la seña de '+money(cfg.deposit_ars)+' se descuenta de la consulta.' : 'Entiendo que pago la consulta completa de '+money(cfg.deposit_ars)+' al reservar.')+'</span></label>';
+    h += '<label class="chk"><input type="checkbox" name="ok" required><span>'+(resto > 0 ? 'Entiendo que la seña de '+money(cfg.deposit_ars)+' se descuenta de la consulta.' : 'Entiendo que pago la consulta completa de '+money(cfg.deposit_ars)+' al reservar, que puedo reprogramar una vez sin costo y que la cancelación con devolución se pide hasta 48 h antes del turno.')+'</span></label>';
     if (st.error) h += '<div class="err" role="alert">'+esc(st.error)+'</div>';
     h += '<button class="btn btn-solid" type="submit"'+(st.sending?' disabled':'')+'><svg class="ic"><use href="#i-lock"/></svg>'+(st.sending?'Generando el pago…':'Pagar '+money(cfg.deposit_ars)+' con Mercado Pago')+'</button>';
     h += '<p class="mini" style="text-align:center">Te llevamos a Mercado Pago para pagar de forma segura.</p></form>';
