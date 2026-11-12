@@ -15,7 +15,7 @@ fbq('track','PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=951637091057163&ev=PageView&noscript=1"/></noscript>
 <title>Sacá tu turno | Soluciones Dentales ARF</title>
-<meta name="description" content="Elegí qué necesitás, mirá con qué profesional, en qué sede y qué horarios hay, y confirmá tu consulta con una seña por Mercado Pago.">
+<meta name="description" content="Elegí qué necesitás, mirá con qué profesional, en qué sede y qué horarios hay, y confirmá tu consulta pagándola por Mercado Pago.">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#1A0430">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,7 +86,7 @@ fbq('track','PageView');
   if (qs.get('estado') && qs.get('ref')) { return resultado(qs.get('estado'), qs.get('ref'), 0); }
 
   ARF.motivos().then(function(cfg){
-    st.cfg = cfg || {enabled:false, motivos:[], deposit_ars:15000, consulta_ars:30000};
+    st.cfg = cfg || {enabled:false, motivos:[], deposit_ars:30000, consulta_ars:30000};
     if (!st.cfg.motivos || !st.cfg.motivos.length) st.cfg.motivos = FALLBACK_MOTIVOS;
     if (st.motivo && !mot(st.motivo)) st.motivo = '';
     if (st.motivo && st.cfg.enabled) loadSlots(); else render();
@@ -247,8 +247,14 @@ fbq('track','PageView');
     h += '<div class="r"><span>Dónde</span><b>'+esc(s.sede)+'</b></div>';
     h += '<div class="r"><span>Cuándo</span><b>'+esc(whenLabel(s.slot_iso))+'</b></div><hr>';
     h += '<div class="r"><span>Consulta</span><span style="color:#fff">'+money(cfg.consulta_ars)+'</span></div>';
-    h += '<div class="r"><span>Pagás en la consulta</span><span style="color:#fff">'+money(resto)+'</span></div>';
-    h += '<div class="r" style="align-items:baseline"><b>Seña hoy</b><span class="big">'+money(cfg.deposit_ars)+'</span></div>';
+    // 12/11/2026 (Alejo): se paga la consulta completa al reservar. Si el CRM
+    // volviera a cobrar menos que la consulta (resto > 0), vuelven los textos de seña.
+    if (resto > 0) {
+      h += '<div class="r"><span>Pagás en la consulta</span><span style="color:#fff">'+money(resto)+'</span></div>';
+      h += '<div class="r" style="align-items:baseline"><b>Seña hoy</b><span class="big">'+money(cfg.deposit_ars)+'</span></div>';
+    } else {
+      h += '<div class="r" style="align-items:baseline"><b>Pagás hoy</b><span class="big">'+money(cfg.deposit_ars)+'</span></div>';
+    }
     if (m.bonificable) h += '<div class="bonif">Si en esa consulta arrancás tu '+(m.id==='protesis'?'prótesis':'placa')+', la consulta te queda <b>bonificada</b>.</div>';
     h += '<div class="hold">Al continuar te guardamos el horario '+(cfg.hold_minutes||15)+' minutos mientras pagás.</div>';
     h += '</div>';
@@ -257,7 +263,7 @@ fbq('track','PageView');
     h += '<div class="two"><label>WhatsApp *<input type="tel" name="p" autocomplete="tel" inputmode="tel" required placeholder="381 ..."></label>';
     h += '<label>Email *<input type="email" name="e" autocomplete="email" required placeholder="tu@mail.com"></label></div>';
     h += '<p class="mini">Te mandamos la confirmación y el comprobante por mail, y un recordatorio por WhatsApp antes del turno.</p>';
-    h += '<label class="chk"><input type="checkbox" name="ok" required><span>Entiendo que la seña de '+money(cfg.deposit_ars)+' es la mitad de la consulta y se descuenta de ella.</span></label>';
+    h += '<label class="chk"><input type="checkbox" name="ok" required><span>'+(resto > 0 ? 'Entiendo que la seña de '+money(cfg.deposit_ars)+' se descuenta de la consulta.' : 'Entiendo que pago la consulta completa de '+money(cfg.deposit_ars)+' al reservar.')+'</span></label>';
     if (st.error) h += '<div class="err" role="alert">'+esc(st.error)+'</div>';
     h += '<button class="btn btn-solid" type="submit"'+(st.sending?' disabled':'')+'><svg class="ic"><use href="#i-lock"/></svg>'+(st.sending?'Generando el pago…':'Pagar '+money(cfg.deposit_ars)+' con Mercado Pago')+'</button>';
     h += '<p class="mini" style="text-align:center">Te llevamos a Mercado Pago para pagar de forma segura.</p></form>';
@@ -288,7 +294,7 @@ fbq('track','PageView');
     if (n.length < 3) err = 'Ingresá tu nombre y apellido.';
     else if (p.replace(/\D/g,'').length < 10) err = 'Ingresá tu WhatsApp con característica (ej: 381 555 1234).';
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) err = 'Ingresá un email válido.';
-    else if (!f.ok.checked) err = 'Confirmá que entendés cómo funciona la seña.';
+    else if (!f.ok.checked) err = 'Marcá la casilla para confirmar el pago de la consulta.';
     if (err) { st.error = err; render(); restore(n,p,em,f.ok.checked); return; }
     st.error=''; st.sending=true; render(); restore(n,p,em,true);
     ARF.api('/reserve', {method:'POST', body:{
@@ -310,8 +316,8 @@ fbq('track','PageView');
   function resultado(estado, ref, intento){
     ARF.api('/estado/'+encodeURIComponent(ref)).then(function(b){
       if (b.status === 'paid') return pintarOk(b, ref);
-      if (b.status === 'paid_conflict') return pintarMsg('Recibimos tu pago','El horario se ocupó mientras pagabas. Te escribimos por WhatsApp para darte otro turno. No perdés la seña.', true);
-      if (estado === 'error' || b.status === 'cancelled') return pintarMsg('El pago no se completó','No se te cobró la seña. Podés intentar de nuevo o elegir otro horario.', false, true);
+      if (b.status === 'paid_conflict') return pintarMsg('Recibimos tu pago','El horario se ocupó mientras pagabas. Te escribimos por WhatsApp para darte otro turno. No perdés tu pago.', true);
+      if (estado === 'error' || b.status === 'cancelled') return pintarMsg('El pago no se completó','No se te cobró nada. Podés intentar de nuevo o elegir otro horario.', false, true);
       if (b.status === 'expired' && estado !== 'ok') return pintarMsg('El horario se liberó','Pasaron más de 15 minutos sin pago. Elegí un horario de nuevo.', false, true);
       if (intento < 12) { pintarEspera(); setTimeout(function(){ resultado(estado, ref, intento+1); }, 3000); return; }
       pintarMsg('Estamos confirmando tu pago','Mercado Pago todavía no nos avisó. Apenas se acredite te llega la confirmación por mail. Si tenés dudas, escribinos.', true);
@@ -324,11 +330,11 @@ fbq('track','PageView');
     if (!sessionStorage.getItem('arf_p_'+ref)) { track('Purchase', {value: b.deposit_ars, currency:'ARS', content_name: b.motivo}, ref); try{ sessionStorage.setItem('arf_p_'+ref,'1'); }catch(e){} }
     var resto = Math.max(0,(b.consulta_ars||0)-(b.deposit_ars||0));
     app.innerHTML = '<div class="res"><div class="ok-ic"><svg class="ic"><use href="#i-check"/></svg></div>'+
-      '<h1>¡Turno <span class="it">confirmado</span>!</h1><p class="tn-lead" style="margin:8px auto 0">Recibimos tu seña de '+money(b.deposit_ars)+'. Te mandamos la confirmación y el comprobante por mail, y un recordatorio por WhatsApp antes del turno.</p>'+
+      '<h1>¡Turno <span class="it">confirmado</span>!</h1><p class="tn-lead" style="margin:8px auto 0">Recibimos tu '+(resto > 0 ? 'seña' : 'pago')+' de '+money(b.deposit_ars)+'. Te mandamos la confirmación y el comprobante por mail, y un recordatorio por WhatsApp antes del turno.</p>'+
       '<div class="card"><span class="k-label">'+esc(b.motivo)+'</span>'+
       '<p><b>'+esc(whenLabel(b.scheduled_at))+'</b><br><span class="mini">Llegá 10 minutos antes</span></p>'+
       '<p style="margin-top:10px"><b>'+esc(b.profesional||'')+'</b> · '+esc(b.sede||'')+'</p>'+
-      '<p class="mini" style="margin-top:10px">Abonás en la consulta: <b>'+money(resto)+'</b></p>'+
+      (resto > 0 ? '<p class="mini" style="margin-top:10px">Abonás en la consulta: <b>'+money(resto)+'</b></p>' : '<p class="mini" style="margin-top:10px">La consulta ya está paga: ese día no abonás nada.</p>')+
       (b.bonificable?'<p class="mini" style="margin-top:6px">Si ese día arrancás tu tratamiento de prótesis o placa, la consulta te queda bonificada.</p>':'')+'</div>'+
       '<a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank" rel="noopener">Hablar con ARF por WhatsApp</a></div>';
     ARF.decorate(app);
