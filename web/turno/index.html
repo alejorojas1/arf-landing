@@ -127,7 +127,7 @@ fbq('track','PageView');
     {id:'protesis',label:'Consulta de prótesis',desc:'Fija o removible, o cambio de la que tenés',available:true,bonificable:true},
     {id:'placa_relajacion',label:'Consulta por placa de relajación',desc:'Bruxismo, dolor de mandíbula, desgaste',available:true,bonificable:true},
     {id:'placa_contencion',label:'Consulta por placa de contención',desc:'Para después de la ortodoncia',available:true,bonificable:true},
-    {id:'ortodoncia',label:'Consulta de ortodoncia',desc:'Brackets para chicos y adultos',available:true},
+    {id:'ortodoncia',label:'Consulta de ortodoncia',desc:'Brackets para chicos y adultos',available:true,bonificable:true},
     {id:'no_se',label:'Consulta de evaluación',desc:'No sé qué tengo: me revisan y me dicen qué necesito',available:false}
   ];
 
@@ -217,7 +217,7 @@ fbq('track','PageView');
     h += '<ul class="tn-pts">'+
       '<li><svg class="ic"><use href="#i-pin"/></svg>Atendemos en San Miguel de Tucumán</li>'+
       '<li><svg class="ic"><use href="#i-check"/></svg>La profesional te revisa y te dice qué necesitás y cuánto sale</li>'+
-      '<li><svg class="ic"><use href="#i-check"/></svg>Si ese día arrancás tu prótesis o tu placa, los '+money(cfg.consulta_ars)+' se descuentan del tratamiento</li>'+
+      '<li><svg class="ic"><use href="#i-check"/></svg>Si ese día arrancás tu tratamiento, los '+money(cfg.consulta_ars)+' se descuentan</li>'+
       '</ul>';
     h += '<div class="tn-grid">';
 
@@ -362,7 +362,7 @@ fbq('track','PageView');
     } else {
       h += '<div class="r" style="align-items:baseline"><b>Pagás hoy</b><span class="big">'+money(cfg.deposit_ars)+'</span></div>';
     }
-    if (m.bonificable) h += '<div class="bonif">Si en esa consulta arrancás tu '+(m.id==='protesis'?'prótesis':'placa')+', estos '+money(cfg.consulta_ars)+' se <b>descuentan del tratamiento</b>: la consulta te sale gratis.</div>';
+    if (m.bonificable) h += '<div class="bonif">Si en esa consulta arrancás tu tratamiento, estos '+money(cfg.consulta_ars)+' se <b>descuentan del tratamiento</b>: la consulta te sale gratis.</div>';
     h += '<div class="poli"><b>¿Y si no podés ir?</b> Reprogramás sin costo, una vez. Para cancelar con devolución, avisanos hasta 48 h antes del turno.</div>';
     h += '<div class="hold">Al continuar te guardamos el horario '+(cfg.hold_minutes||15)+' minutos mientras pagás.</div>';
     h += '</div>';
@@ -444,7 +444,7 @@ fbq('track','PageView');
       '<p><b>'+esc(whenLabel(b.scheduled_at))+'</b><br><span class="mini">Llegá 10 minutos antes</span></p>'+
       '<p style="margin-top:10px"><b>'+esc(b.profesional||'')+'</b> · '+esc(b.sede||'')+'</p>'+
       (resto > 0 ? '<p class="mini" style="margin-top:10px">Abonás en la consulta: <b>'+money(resto)+'</b></p>' : '<p class="mini" style="margin-top:10px">La consulta ya está paga: ese día no abonás nada.</p>')+
-      (b.bonificable?'<p class="mini" style="margin-top:6px">Si ese día arrancás tu tratamiento de prótesis o placa, los '+money(b.consulta_ars)+' que pagaste se descuentan del tratamiento: la consulta te sale gratis.</p>':'')+'</div>'+
+      (b.bonificable?'<p class="mini" style="margin-top:6px">Si ese día arrancás tu tratamiento, los '+money(b.consulta_ars)+' que pagaste se descuentan del tratamiento: la consulta te sale gratis.</p>':'')+'</div>'+
       '<a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank" rel="noopener">Hablar con ARF por WhatsApp</a></div>';
     ARF.decorate(app);
   }
