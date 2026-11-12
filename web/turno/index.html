@@ -29,6 +29,19 @@ fbq('track','PageView');
 .lnk{background:none;border:0;padding:0;margin-left:4px;color:var(--violet);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer}
 .bonif{background:rgba(120,220,170,.14);color:#9FE6C2;border-radius:14px;padding:10px 14px;font-size:.86rem;margin:16px 0 0}
 .bonif b{color:#fff}
+/* turnero: días y horarios en carrusel (12/11/2026, Alejo): se ven todos los
+   horarios libres deslizando, 4 o 5 a la vista. */
+.tn-col,.tn-col>.card{min-width:0}
+.car{position:relative;margin-bottom:18px;min-width:0;max-width:100%}
+.car .days,.car .slots{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 2px 6px;margin:0;grid-template-columns:none}
+.car .days::-webkit-scrollbar,.car .slots::-webkit-scrollbar{display:none}
+.car .day,.car .slot{scroll-snap-align:start;flex:0 0 calc((100% - 32px)/4.5);min-width:64px}
+.car .slot{font-variant-numeric:tabular-nums}
+.car-btn{display:none;position:absolute;top:50%;transform:translateY(-60%);width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:#fff;box-shadow:0 2px 8px rgba(40,10,70,.14);cursor:pointer;color:var(--text);font-size:1.1rem;line-height:1;z-index:2}
+.car-btn.prev{left:-12px}.car-btn.next{right:-12px}
+@media (hover:hover){.car.has-prev .car-btn.prev,.car.has-next .car-btn.next{display:block}}
+.car.has-next::after{content:"";position:absolute;right:0;top:0;bottom:6px;width:34px;pointer-events:none;background:linear-gradient(90deg,rgba(255,255,255,0),#fff)}
+.car-hint{font-size:.8rem;color:var(--muted);margin:-10px 0 16px}
 </style>
 </head>
 <body>
@@ -125,7 +138,33 @@ fbq('track','PageView');
   }
 
   // ---------- render ----------
+  function carState(){
+    var o = {day: st.day};
+    app.querySelectorAll('[data-car]').forEach(function(c){ var t=c.querySelector('.days,.slots'); if(t) o[c.getAttribute('data-car')] = t.scrollLeft; });
+    return o;
+  }
+  function carInit(prev){
+    app.querySelectorAll('[data-car]').forEach(function(c){
+      var k = c.getAttribute('data-car'), t = c.querySelector('.days,.slots');
+      if (!t) return;
+      function upd(){
+        c.classList.toggle('has-prev', t.scrollLeft > 4);
+        c.classList.toggle('has-next', t.scrollLeft + t.clientWidth < t.scrollWidth - 4);
+      }
+      if (prev && prev[k] != null && (k === 'days' || prev.day === st.day)) t.scrollLeft = prev[k];
+      else {
+        var on = t.querySelector('[aria-checked="true"]');
+        if (on) t.scrollLeft = Math.max(0, on.offsetLeft - t.offsetLeft - 8);
+      }
+      t.addEventListener('scroll', upd, {passive:true});
+      c.querySelectorAll('.car-btn').forEach(function(b){ b.addEventListener('click', function(){
+        t.scrollBy({left: (b.classList.contains('next')?1:-1) * Math.max(120, t.clientWidth*0.8), behavior:'smooth'});
+      }); });
+      upd();
+    });
+  }
   function render(){
+    var _car = carState();
     var cfg=st.cfg, m=mot(st.motivo);
     var stepOn = st.slot ? 3 : (st.motivo ? 2 : 1);
     var h = '';
@@ -170,7 +209,7 @@ fbq('track','PageView');
     h += '<div class="tn-col" id="col3">' + (st.slot && cfg.enabled ? resumen() : '') + '</div>';
     h += '</div>';
     app.innerHTML = h;
-    bind();
+    bind(_car);
   }
 
   function ayudaCard(){
@@ -223,15 +262,18 @@ fbq('track','PageView');
     // dias
     var days = [], seen = {};
     st.slots.forEach(function(s){ var p=parts(s.slot_iso); if(!seen[p.key]){ seen[p.key]=1; days.push(p); } });
-    h += '<span class="k-label">Elegí día</span><div class="days" role="radiogroup" aria-label="Día">';
+    h += '<span class="k-label">Elegí día</span><div class="car" data-car="days"><button type="button" class="car-btn prev" aria-label="Días anteriores">‹</button><div class="days" role="radiogroup" aria-label="Día">';
     days.forEach(function(p){ h += '<button class="day" role="radio" aria-checked="'+(st.day===p.key)+'" data-day="'+p.key+'"><small>'+DIAS[dow(p)]+'</small><b>'+p.d+'/'+p.m+'</b></button>'; });
-    h += '</div><span class="k-label">Horarios disponibles</span><div class="slots" role="radiogroup" aria-label="Horario">';
+    var nDia = st.slots.filter(function(s){ return parts(s.slot_iso).key === st.day; }).length;
+    h += '</div><button type="button" class="car-btn next" aria-label="Más días">›</button></div>';
+    h += '<span class="k-label">Horarios disponibles'+(nDia?' · '+nDia:'')+'</span><div class="car" data-car="slots"><button type="button" class="car-btn prev" aria-label="Horarios anteriores">‹</button><div class="slots" role="radiogroup" aria-label="Horario">';
     st.slots.forEach(function(s, i){
       if (parts(s.slot_iso).key !== st.day) return;
       var on = st.slot && st.slot.slot_iso===s.slot_iso && st.slot.profesional===s.profesional;
       h += '<button class="slot" role="radio" aria-checked="'+on+'" data-slot="'+i+'">'+parts(s.slot_iso).t+'</button>';
     });
-    h += '</div>';
+    h += '</div><button type="button" class="car-btn next" aria-label="Más horarios">›</button></div>';
+    if (nDia > 4) h += '<p class="car-hint">Deslizá para ver todos los horarios.</p>';
     if (multi) {
       var cur = st.slot || null;
       h += cur ? '<p class="slot-meta">'+esc(cur.profesional)+' · '+esc(cur.sede)+'</p>' : '<p class="slot-meta">Elegí un horario para ver la profesional y la sede.</p>';
@@ -270,7 +312,7 @@ fbq('track','PageView');
     return h;
   }
 
-  function bind(){
+  function bind(prevCar){
     app.querySelectorAll('[data-mot]').forEach(function(b){ b.addEventListener('click', function(){ pick(b.getAttribute('data-mot')); }); });
     app.querySelectorAll('[data-ayuda]').forEach(function(b){ b.addEventListener('click', function(){
       var a = AYUDA[+b.getAttribute('data-ayuda')];
@@ -285,6 +327,7 @@ fbq('track','PageView');
     var f = document.getElementById('frm');
     if (f) f.addEventListener('submit', submit);
     ARF.decorate(app);
+    carInit(prevCar);
   }
 
   function submit(e){
