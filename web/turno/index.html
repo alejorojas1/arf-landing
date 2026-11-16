@@ -163,7 +163,7 @@ fbq('track','PageView');
 
   function pick(id, hint){
     st.motivo=id; st.slots=null; st.day=null; st.slot=null; st.error=''; st.hint=hint||'';
-    st.revisar = false;
+    st.revisar = false; st.abierto = false;
     // Embudo del pixel: eligio motivo (una vez por motivo y por visita).
     if (mot(id) && mot(id).available) trackUnaVez('ViewContent', 'm_'+id, {content_name: mot(id).label, content_category: 'turnero'});
     if (id === 'no_se') { render(); scrollCol2(); return; }
@@ -231,12 +231,18 @@ fbq('track','PageView');
 
     // col 1: motivos
     h += '<div class="tn-col"><h2>¿Por qué querés consultar?</h2><div class="mot-list" role="radiogroup" aria-label="Motivo de consulta">';
+    // 16/11/2026: con el motivo elegido la lista se pliega (queda el elegido y
+    // "Cambiar"), asi los horarios quedan a la vista sin bajar.
+    var plegada = !!m && !st.abierto;
     cfg.motivos.forEach(function(x){
       var on = x.id===st.motivo;
+      if (plegada && !on) return;
       h += '<button class="mot'+((x.available||x.id==='no_se')?'':' off')+'" role="radio" aria-checked="'+on+'" data-mot="'+esc(x.id)+'"><span><b>'+esc(x.label)+'</b><small>'+esc(x.desc)+'</small></span>'+
            ((x.available||x.id==='no_se')?'<span class="dot"></span>':'<span class="soon">No disponible por ahora</span>')+'</button>';
     });
-    h += '</div></div>';
+    h += '</div>';
+    if (plegada && cfg.motivos.length > 1) h += '<p class="mini" style="margin:10px 2px 0"><button class="lnk" data-cambiar>Cambiar motivo de consulta</button></p>';
+    h += '</div>';
 
     // col 2
     h += '<div class="tn-col" id="col2">';
@@ -387,6 +393,7 @@ fbq('track','PageView');
   }
 
   function bind(prevCar){
+    app.querySelectorAll('[data-cambiar]').forEach(function(b){ b.addEventListener('click', function(){ st.abierto = true; render(); var c=document.querySelector('.mot-list'); if(c && window.innerWidth < 1060) c.scrollIntoView({behavior:'smooth',block:'center'}); }); });
     app.querySelectorAll('[data-mot]').forEach(function(b){ b.addEventListener('click', function(){ pick(b.getAttribute('data-mot')); }); });
     app.querySelectorAll('[data-ayuda]').forEach(function(b){ b.addEventListener('click', function(){
       var a = AYUDA[+b.getAttribute('data-ayuda')];
