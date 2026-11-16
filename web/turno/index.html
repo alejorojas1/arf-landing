@@ -111,6 +111,8 @@ fbq('track','PageView');
   function whenLabel(iso){ var p=parts(iso); return DIAS_L[dow(p)]+' '+p.d+'/'+p.m+' · '+p.t+' h'; }
   function mot(id){ var l=(st.cfg&&st.cfg.motivos)||[]; for(var i=0;i<l.length;i++){ if(l[i].id===id) return l[i]; } return null; }
   function activeMotivos(){ return ((st.cfg&&st.cfg.motivos)||[]).filter(function(m){return m.available;}); }
+  var _yaEnviado = {};
+  function trackUnaVez(ev,clave,data){ if (_yaEnviado[clave]) return; _yaEnviado[clave]=1; track(ev,data); }
   function track(ev,data,id){ try{ if(window.fbq) fbq('track',ev,data||{},id?{eventID:id}:undefined); }catch(e){} }
 
   // ---------- vuelta de Mercado Pago ----------
@@ -158,6 +160,8 @@ fbq('track','PageView');
   function pick(id, hint){
     st.motivo=id; st.slots=null; st.day=null; st.slot=null; st.error=''; st.hint=hint||'';
     st.revisar = false;
+    // Embudo del pixel: eligio motivo (una vez por motivo y por visita).
+    if (mot(id) && mot(id).available) trackUnaVez('ViewContent', 'm_'+id, {content_name: mot(id).label, content_category: 'turnero'});
     if (id === 'no_se') { render(); scrollCol2(); return; }
     if (st.cfg.enabled && mot(id) && mot(id).available) loadSlots(); else render();
     scrollCol2();
@@ -388,6 +392,8 @@ fbq('track','PageView');
     app.querySelectorAll('[data-day]').forEach(function(b){ b.addEventListener('click', function(){ st.day=b.getAttribute('data-day'); st.slot=null; render(); }); });
     app.querySelectorAll('[data-slot]').forEach(function(b){ b.addEventListener('click', function(){
       st.slot = st.slots[+b.getAttribute('data-slot')]; st.error=''; render();
+      // Embudo del pixel: eligio horario (una vez por motivo y por visita).
+      trackUnaVez('AddToCart', 's_'+st.motivo, {value: st.cfg.deposit_ars, currency:'ARS', content_name: (mot(st.motivo)||{}).label, content_category: 'turnero'});
       if (window.innerWidth < 1060) { var c=document.getElementById('col3'); if(c) c.scrollIntoView({behavior:'smooth',block:'start'}); }
     }); });
     var f = document.getElementById('frm');
