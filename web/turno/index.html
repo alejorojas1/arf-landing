@@ -16,6 +16,15 @@ fbq('track','PageView');
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=951637091057163&ev=PageView&noscript=1"/></noscript>
 <title>Sacá tu turno | Soluciones Dentales ARF</title>
 <meta name="description" content="Elegí qué necesitás, mirá con qué profesional, en qué sede y qué horarios hay, y confirmá tu consulta pagándola por Mercado Pago.">
+<meta property="og:title" content="Sacá tu turno | Soluciones Dentales ARF">
+<meta property="og:description" content="Elegí qué necesitás, mirá con qué profesional, en qué sede y qué horarios hay, y confirmá tu consulta pagándola por Mercado Pago.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.solucionesdentalesarf.com/turno/">
+<meta property="og:image" content="https://www.solucionesdentalesarf.com/assets/compartir.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.solucionesdentalesarf.com/turno/">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#1A0430">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,6 +69,8 @@ fbq('track','PageView');
 .sum .mapa{color:#fff;text-decoration:underline;font-size:.8rem;font-weight:500}
 .poli{background:rgba(255,255,255,.08);border-radius:14px;padding:10px 14px;font-size:.86rem;margin:12px 0 0;line-height:1.45}
 .poli b{color:#fff}
+.tn-wa{float:right;font-weight:600;color:var(--violet);text-decoration:underline;display:none}
+@media (max-width:1059px){.wa-float{display:none}.tn-wa{display:inline}}
 </style>
 <!-- Microsoft Clarity: grabación de sesiones y mapas de calor (nov 2026) -->
 <script>
@@ -219,10 +230,14 @@ fbq('track','PageView');
     var stepOn = st.slot ? 3 : (st.motivo ? 2 : 1);
     var h = '';
     h += '<div class="tn-steps" aria-hidden="true"><span class="on"></span><span class="'+(stepOn>=2?'on':'')+'"></span><span class="'+(stepOn>=3?'on':'')+'"></span></div>';
-    h += '<div class="tn-kicker">Paso '+stepOn+' de 3</div>';
+    h += '<div class="tn-kicker">Paso '+stepOn+' de 3 <a class="tn-wa" href="https://wa.me/5493815477474" target="_blank" rel="noopener">¿Dudas? WhatsApp</a></div>';
     h += '<h1>Sacá tu turno</h1>';
-    h += '<p class="tn-lead">Siempre empezás con una consulta de <b>'+money(cfg.consulta_ars)+'</b>. Según el motivo, te asignamos la profesional y la sede que corresponden, y ves todo antes de pagar.</p>';
-    h += '<ul class="tn-pts">'+
+    // 16/11/2026: con el motivo ya elegido (llega desde una pagina de servicio o
+    // ya lo toco) la entrada se achica a una linea: los horarios suben.
+    var corto = !!mot(st.motivo);
+    if (corto) h += '<p class="tn-lead" style="margin-bottom:18px">Consulta de <b>'+money(cfg.consulta_ars)+'</b>. Si ese día arrancás tu tratamiento, se descuenta.</p>';
+    else h += '<p class="tn-lead">Siempre empezás con una consulta de <b>'+money(cfg.consulta_ars)+'</b>. Según el motivo, te asignamos la profesional y la sede que corresponden, y ves todo antes de pagar.</p>';
+    if (!corto) h += '<ul class="tn-pts">'+
       '<li><svg class="ic"><use href="#i-pin"/></svg>Atendemos en San Miguel de Tucumán</li>'+
       '<li><svg class="ic"><use href="#i-check"/></svg>La profesional te revisa y te dice qué necesitás y cuánto sale</li>'+
       '<li><svg class="ic"><use href="#i-check"/></svg>Si ese día arrancás tu tratamiento, los '+money(cfg.consulta_ars)+' se descuentan</li>'+
@@ -383,8 +398,8 @@ fbq('track','PageView');
     h += '<form class="card form" id="frm" novalidate style="margin-top:14px">';
     h += '<label>Nombre y apellido *<input type="text" name="n" autocomplete="name" required placeholder="Como figura en tu DNI"></label>';
     h += '<div class="two"><label>WhatsApp *<input type="tel" name="p" autocomplete="tel" inputmode="tel" required placeholder="381 ..."></label>';
-    h += '<label>Email *<input type="email" name="e" autocomplete="email" required placeholder="tu@mail.com"></label></div>';
-    h += '<p class="mini">Te mandamos la confirmación y el comprobante por mail, y un recordatorio por WhatsApp antes del turno.</p>';
+    h += '<label>Email (opcional)<input type="email" name="e" autocomplete="email" placeholder="tu@mail.com"></label></div>';
+    h += '<p class="mini">Antes del turno te mandamos un recordatorio por WhatsApp. Si dejás tu mail, también te llega la confirmación y el comprobante.</p>';
     h += '<label class="chk"><input type="checkbox" name="ok" required><span>'+(resto > 0 ? 'Entiendo que la seña de '+money(cfg.deposit_ars)+' se descuenta de la consulta.' : 'Entiendo que pago la consulta completa de '+money(cfg.deposit_ars)+' al reservar, que puedo reprogramar una vez sin costo y que la cancelación con devolución se pide hasta 48 h antes del turno.')+'</span></label>';
     if (st.error) h += '<div class="err" role="alert">'+esc(st.error)+'</div>';
     h += '<button class="btn btn-solid" type="submit"'+(st.sending?' disabled':'')+'><svg class="ic"><use href="#i-lock"/></svg>'+(st.sending?'Generando el pago…':'Pagar '+money(cfg.deposit_ars)+' con Mercado Pago')+'</button>';
@@ -419,7 +434,7 @@ fbq('track','PageView');
     var err = '';
     if (n.length < 3) err = 'Ingresá tu nombre y apellido.';
     else if (p.replace(/\D/g,'').length < 10) err = 'Ingresá tu WhatsApp con característica (ej: 381 555 1234).';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) err = 'Ingresá un email válido.';
+    else if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) err = 'Revisá el email: parece mal escrito. Si no tenés, dejalo vacío.';
     else if (!f.ok.checked) err = 'Marcá la casilla para confirmar el pago de la consulta.';
     if (err) { st.error = err; render(); restore(n,p,em,f.ok.checked); return; }
     st.error=''; st.sending=true; render(); restore(n,p,em,true);
@@ -456,7 +471,7 @@ fbq('track','PageView');
     if (!sessionStorage.getItem('arf_p_'+ref)) { track('Purchase', {value: b.deposit_ars, currency:'ARS', content_name: b.motivo}, ref); try{ sessionStorage.setItem('arf_p_'+ref,'1'); }catch(e){} }
     var resto = Math.max(0,(b.consulta_ars||0)-(b.deposit_ars||0));
     app.innerHTML = '<div class="res"><div class="ok-ic"><svg class="ic"><use href="#i-check"/></svg></div>'+
-      '<h1>¡Turno <span class="it">confirmado</span>!</h1><p class="tn-lead" style="margin:8px auto 0">Recibimos tu '+(resto > 0 ? 'seña' : 'pago')+' de '+money(b.deposit_ars)+'. Te mandamos la confirmación y el comprobante por mail, y un recordatorio por WhatsApp antes del turno.</p>'+
+      '<h1>¡Turno <span class="it">confirmado</span>!</h1><p class="tn-lead" style="margin:8px auto 0">Recibimos tu '+(resto > 0 ? 'seña' : 'pago')+' de '+money(b.deposit_ars)+'. Antes del turno te mandamos un recordatorio por WhatsApp. Si dejaste tu mail, ahí te llega la confirmación y el comprobante.</p>'+
       '<div class="card"><span class="k-label">'+esc(b.motivo)+'</span>'+
       '<p><b>'+esc(whenLabel(b.scheduled_at))+'</b><br><span class="mini">Llegá 10 minutos antes</span></p>'+
       '<p style="margin-top:10px"><b>'+esc(b.profesional||'')+'</b> · '+esc(b.sede||'')+'</p>'+
