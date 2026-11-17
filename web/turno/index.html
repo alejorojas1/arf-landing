@@ -75,6 +75,12 @@ fbq('track','PageView');
 .mot .mt{flex:1;min-width:0}
 .mot .mt b{font-size:1.06rem}
 .mot .mt small{font-size:.84rem}
+.hold .reloj{font-variant-numeric:tabular-nums;font-weight:800;font-size:1.25rem;color:#fff;margin-left:6px;letter-spacing:.5px}
+.hold b{color:#fff}.hold .hold-sub{font-size:.8rem;opacity:.9}
+.buscan{display:flex;align-items:center;gap:9px;margin:12px 0 2px;padding:9px 13px;border-radius:12px;background:rgba(255,111,216,.16);color:#fff;font-weight:600;font-size:.92rem}
+.buscan.claro{background:#FCE7F6;color:#86198F;margin:0 0 12px}
+.buscan .pt{width:9px;height:9px;border-radius:50%;background:#FF4FC8;flex-shrink:0;animation:bpt 1.4s ease-in-out infinite}
+@keyframes bpt{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
 .tn-wa{float:right;font-weight:600;color:var(--violet);text-decoration:underline;display:none}
 @media (max-width:1059px){.wa-float{display:none}.tn-wa{display:inline}}
 </style>
@@ -114,7 +120,17 @@ fbq('track','PageView');
   var qs = new URLSearchParams(location.search);
   var DIAS = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
   var DIAS_L = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
-  var st = {cfg:null, motivo:qs.get('motivo')||'', slots:null, day:null, slot:null, loadingSlots:false, error:'', sending:false, revisar:false, hint:''};
+  // 17/11/2026 (Alejo): id al azar de este navegador. El CRM lo usa para
+  // apartarle el horario elegido (el reloj) y para contar cuantas personas
+  // distintas buscan turno. No es un dato personal.
+  var VID = (function(){
+    var k='arf_vid', v='';
+    try { v = localStorage.getItem(k) || ''; } catch(e){}
+    if (!v) { v = 'v' + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2) + Date.now().toString(36);
+      try { localStorage.setItem(k, v); } catch(e){} }
+    return v;
+  })();
+  var st = {apartado:null, buscan:null, aviso:'', cfg:null, motivo:qs.get('motivo')||'', slots:null, day:null, slot:null, loadingSlots:false, error:'', sending:false, revisar:false, hint:''};
   // "No sé qué tengo": ayuda para elegir la consulta. motivo null = que la revisen (consulta de evaluación).
   var AYUDA = [
     {t:'Me faltan dientes o uso dentadura', m:'protesis'},
@@ -184,7 +200,7 @@ fbq('track','PageView');
   }
 
   function pick(id, hint){
-    st.motivo=id; st.slots=null; st.day=null; st.slot=null; st.error=''; st.hint=hint||'';
+    st.motivo=id; st.slots=null; st.day=null; st.slot=null; st.error=''; st.hint=hint||''; st.apartado=null; st.buscan=null; st.aviso=''; pararReloj();
     st.revisar = false; st.abierto = false;
     // Embudo del pixel: eligio motivo (una vez por motivo y por visita).
     if (mot(id) && mot(id).available) trackUnaVez('ViewContent', 'm_'+id, {content_name: mot(id).label, content_category: 'turnero'});
@@ -202,11 +218,60 @@ fbq('track','PageView');
 
   function loadSlots(){
     st.loadingSlots=true; st.slotsError=''; render();
-    ARF.api('/slots?motivo='+encodeURIComponent(st.motivo)).then(function(r){
+    ARF.api('/slots?motivo='+encodeURIComponent(st.motivo)+'&v='+encodeURIComponent(VID)).then(function(r){
       st.slots = r.options || [];
+      st.buscan = r.buscan || null;
       st.day = st.slots.length ? parts(st.slots[0].slot_iso).key : null;
     }).catch(function(e){ st.slots=[]; st.slotsError='No pudimos traer los horarios. Probá de nuevo o escribinos por WhatsApp.'; })
     .then(function(){ st.loadingSlots=false; render(); });
+  }
+
+  // ---------- reloj del horario apartado y "N personas buscan" ----------
+  var _tic = null;
+  function mmss(seg){ seg = Math.max(0, Math.round(seg)); var m=Math.floor(seg/60), x=seg%60; return (m<10?'0':'')+m+':'+(x<10?'0':'')+x; }
+  function holdHtml(){
+    if (st.apartado && st.apartado.fin > Date.now())
+      return '<b>Te guardamos este horario</b> <span class="reloj" id="hold-clock">'+mmss((st.apartado.fin-Date.now())/1000)+'</span><br><span class="hold-sub">Completá tus datos y pagá antes de que se libere.</span>';
+    return 'Al continuar te guardamos el horario '+((st.cfg&&st.cfg.hold_minutes)||15)+' minutos mientras pagás.';
+  }
+  // Numeros reales que manda el CRM (personas distintas de la ultima semana, sin
+  // contar a quien mira). Con menos de 2 no se muestra nada.
+  function buscanTexto(conHorario){
+    var b = st.buscan; if (!b) return '';
+    if (conHorario && b.horario >= 2) return b.horario+' personas buscan este turno';
+    if (b.motivo >= 2) { var t = (MOT_TXT[st.motivo]||[(mot(st.motivo)||{}).label||''])[0].toLowerCase();
+      return b.motivo+' personas buscan turno de '+t+' esta semana'; }
+    return '';
+  }
+  function buscanHtml(conHorario, claro){ var t = buscanTexto(conHorario); return t ? '<div class="buscan'+(claro?' claro':'')+'"><span class="pt"></span>'+esc(t)+'</div>' : ''; }
+  function pararReloj(){ if (_tic) { clearInterval(_tic); _tic = null; } }
+  function arrancarReloj(){
+    pararReloj();
+    _tic = setInterval(function(){
+      if (!st.apartado) return pararReloj();
+      var falta = (st.apartado.fin - Date.now())/1000;
+      var el = document.getElementById('hold-clock');
+      if (falta > 0) { if (el) el.textContent = mmss(falta); return; }
+      // se vencio: el horario se libera de verdad
+      pararReloj(); st.apartado = null; st.slot = null;
+      st.aviso = 'Se venció el tiempo y liberamos el horario. Si sigue disponible, elegilo de nuevo.';
+      loadSlots();
+    }, 1000);
+  }
+  function apartar(slot){
+    st.apartado = null; pararReloj();
+    ARF.api('/apartar', {method:'POST', body:{motivo: st.motivo, slot_iso: slot.slot_iso, profesional: slot.profesional, visitor: VID}}).then(function(r){
+      if (st.slot !== slot) return;               // ya eligio otro
+      if (r.buscan) st.buscan = r.buscan;
+      if (r.apartado && r.segundos > 0) { st.apartado = {fin: Date.now() + r.segundos*1000}; arrancarReloj(); }
+      // se actualizan solo estos dos recuadros: el formulario no se toca
+      var hb = document.getElementById('hold-box'); if (hb) hb.innerHTML = holdHtml();
+      var bb = document.getElementById('buscan-box'); if (bb) bb.innerHTML = buscanHtml(true);
+    }).catch(function(e){
+      if (st.slot !== slot) return;
+      if (e && e.status === 409) { st.slot = null; st.aviso = 'Ese horario se acaba de ocupar. Elegí otro.'; loadSlots(); }
+      // cualquier otra falla: sigue sin reloj, como antes
+    });
   }
 
   // ---------- render ----------
@@ -288,6 +353,8 @@ fbq('track','PageView');
     } else if (!st.slots || !st.slots.length) {
       h += '<div class="card empty"><div class="em-ic"><svg class="ic"><use href="#i-calx"/></svg></div><h3>No hay horarios libres en los próximos días</h3><p>Escribinos y te avisamos apenas se libere un turno para '+esc(m.label.toLowerCase())+'.</p><a class="btn btn-wa" data-wa-msg href="'+esc(ARF.waUrl('Hola! Quiero sacar turno para '+m.label+' y no encontré horarios en la web'))+'" target="_blank" rel="noopener">Escribinos por WhatsApp</a></div>';
     } else {
+      if (st.aviso) h += '<div class="card" style="margin-bottom:12px"><div class="err">'+esc(st.aviso)+'</div></div>';
+      h += buscanHtml(false, true);
       h += slotsCard();
     }
     h += '</div>';
@@ -389,10 +456,13 @@ fbq('track','PageView');
     var m = mot(st.motivo), s = st.slot, cfg = st.cfg;
     var resto = Math.max(0, (cfg.consulta_ars||0) - (cfg.deposit_ars||0));
     var h = '<div class="sum"><span class="k-label">Resumen</span><h3>'+esc(m.label)+'</h3>';
+    // el reloj y cuantos buscan van arriba de todo: es lo primero que se ve
+    h += '<div class="hold" id="hold-box" style="margin:0 0 4px">'+holdHtml()+'</div><div id="buscan-box" style="margin-bottom:14px">'+buscanHtml(true)+'</div>';
     var si = sedeInfo(s.sede);
     h += '<div class="r"><span>Te atiende</span><b>'+esc(s.profesional)+'<small>'+esc(rolDe(m))+'</small></b></div>';
     h += '<div class="r"><span>Dónde</span><b>'+esc(si.n)+'<small>San Miguel de Tucumán · <a class="mapa" href="'+esc(mapaUrl(si))+'" target="_blank" rel="noopener">ver mapa</a></small></b></div>';
-    h += '<div class="r"><span>Cuándo</span><b>'+esc(whenLabel(s.slot_iso))+'</b></div><hr>';
+    h += '<div class="r"><span>Cuándo</span><b>'+esc(whenLabel(s.slot_iso))+'</b></div>';
+    h += '<hr>';
     h += '<div class="r"><span>Consulta</span><span style="color:#fff">'+money(cfg.consulta_ars)+'</span></div>';
     // 12/11/2026 (Alejo): se paga la consulta completa al reservar. Si el CRM
     // volviera a cobrar menos que la consulta (resto > 0), vuelven los textos de seña.
@@ -404,7 +474,7 @@ fbq('track','PageView');
     }
     if (m.bonificable) h += '<div class="bonif">Si en esa consulta arrancás tu tratamiento, estos '+money(cfg.consulta_ars)+' se <b>descuentan del tratamiento</b>: la consulta te sale gratis.</div>';
     h += '<div class="poli"><b>¿Y si no podés ir?</b> Reprogramás sin costo, una vez. Para cancelar con devolución, avisanos hasta 48 h antes del turno.</div>';
-    h += '<div class="hold">Al continuar te guardamos el horario '+(cfg.hold_minutes||15)+' minutos mientras pagás.</div>';
+
     h += '</div>';
     h += '<form class="card form" id="frm" novalidate style="margin-top:14px">';
     h += '<label>Nombre y apellido *<input type="text" name="n" autocomplete="name" required placeholder="Como figura en tu DNI"></label>';
@@ -426,9 +496,10 @@ fbq('track','PageView');
       track('ViewContent', {content_name: 'ayuda: '+a.t});
       if (a.m && mot(a.m)) pick(a.m, a.t); else revisar();
     }); });
-    app.querySelectorAll('[data-day]').forEach(function(b){ b.addEventListener('click', function(){ st.day=b.getAttribute('data-day'); st.slot=null; render(); }); });
+    app.querySelectorAll('[data-day]').forEach(function(b){ b.addEventListener('click', function(){ st.day=b.getAttribute('data-day'); st.slot=null; st.apartado=null; pararReloj(); render(); }); });
     app.querySelectorAll('[data-slot]').forEach(function(b){ b.addEventListener('click', function(){
-      st.slot = st.slots[+b.getAttribute('data-slot')]; st.error=''; render();
+      st.slot = st.slots[+b.getAttribute('data-slot')]; st.error=''; st.aviso=''; st.apartado=null; render();
+      apartar(st.slot);
       // Embudo del pixel: eligio horario (una vez por motivo y por visita).
       trackUnaVez('AddToCart', 's_'+st.motivo, {value: st.cfg.deposit_ars, currency:'ARS', content_name: (mot(st.motivo)||{}).label, content_category: 'turnero'});
       if (window.innerWidth < 1060) { var c=document.getElementById('col3'); if(c) c.scrollIntoView({behavior:'smooth',block:'start'}); }
@@ -451,14 +522,14 @@ fbq('track','PageView');
     st.error=''; st.sending=true; render(); restore(n,p,em,true);
     ARF.api('/reserve', {method:'POST', body:{
       motivo: st.motivo, slot_iso: st.slot.slot_iso, profesional: st.slot.profesional,
-      patient_name: n, patient_phone: p, patient_email: em
+      patient_name: n, patient_phone: p, patient_email: em, visitor: VID
     }}).then(function(r){
       track('InitiateCheckout', {value: st.cfg.deposit_ars, currency:'ARS', content_name: mot(st.motivo).label}, r.booking_id);
       location.href = r.init_point;
     }).catch(function(e2){
       st.sending=false;
       st.error = e2.message || 'No pudimos generar el pago. Probá de nuevo.';
-      if (e2.status === 409) { st.slot=null; loadSlots(); return; }
+      if (e2.status === 409) { st.slot=null; st.apartado=null; pararReloj(); loadSlots(); return; }
       render(); restore(n,p,em,true);
     });
   }
