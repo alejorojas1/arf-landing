@@ -55,6 +55,8 @@ fbq('track','PageView');
 .tn-pts{list-style:none;padding:0;margin:-8px 0 22px;display:flex;flex-wrap:wrap;gap:8px 10px;max-width:760px}
 .tn-pts li{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:7px 13px;font-size:.88rem;color:var(--text)}
 .tn-pts .ic{width:15px;height:15px;color:var(--violet);flex-shrink:0}
+.tn-num{margin:6px auto 0;font-size:1.15rem}.tn-num b{font-size:1.5rem;color:var(--violet)}
+.tn-wa-main{display:flex;width:100%;max-width:420px;margin:18px auto 0;font-size:1.05rem}
 .sede{display:flex;gap:12px;align-items:flex-start;background:var(--soft);border-radius:16px;padding:14px;margin-bottom:12px}
 .sede .bub{width:44px;height:44px;border-radius:50%;background:#fff;color:var(--violet);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .sede b{display:block;font-size:1.08rem}
@@ -158,6 +160,11 @@ fbq('track','PageView');
   function track(ev,data,id){ try{ if(window.fbq) fbq('track',ev,data||{},id?{eventID:id}:undefined); }catch(e){} }
 
   // ---------- vuelta de Mercado Pago ----------
+  // Sedes: referencia para llegar y link al mapa (12/11/2026, Alejo: "la gente no lee").
+  var SEDES = [
+    {k:/hait/i, n:'Haití 26', ref:'A la altura de Av. Avellaneda al 500, cerca del parque 9 de Julio.', nota:'Primer piso por escalera.', q:'Haití 26, San Miguel de Tucumán'},
+    {k:/vittalia|santiago\s*157/i, n:'Torre Vittalia · Santiago 157', ref:'Entre Balcarce y Monteagudo.', nota:'Piso 12, contrafrente.', q:'Santiago del Estero 157, San Miguel de Tucumán'}
+  ];
   if (qs.get('estado') && qs.get('ref')) { return resultado(qs.get('estado'), qs.get('ref'), 0); }
 
   ARF.motivos().then(function(cfg){
@@ -175,11 +182,6 @@ fbq('track','PageView');
     {id:'no_se',label:'Consulta de evaluación',desc:'No sé qué tengo: me revisan y me dicen qué necesito',available:false}
   ];
 
-  // Sedes: referencia para llegar y link al mapa (12/11/2026, Alejo: "la gente no lee").
-  var SEDES = [
-    {k:/hait/i, n:'Haití 26', ref:'A la altura de Av. Avellaneda al 500, cerca del parque 9 de Julio.', nota:'Primer piso por escalera.', q:'Haití 26, San Miguel de Tucumán'},
-    {k:/vittalia|santiago\s*157/i, n:'Torre Vittalia · Santiago 157', ref:'Entre Balcarce y Monteagudo.', nota:'', q:'Santiago del Estero 157, San Miguel de Tucumán'}
-  ];
   function sedeInfo(nombre){
     for (var i=0;i<SEDES.length;i++){ if (SEDES[i].k.test(nombre||'')) return SEDES[i]; }
     return {n: nombre||'', ref:'', nota:'', q:(nombre||'')+', San Miguel de Tucumán'};
@@ -460,7 +462,7 @@ fbq('track','PageView');
     h += '<div class="hold" id="hold-box" style="margin:0 0 4px">'+holdHtml()+'</div><div id="buscan-box" style="margin-bottom:14px">'+buscanHtml(true)+'</div>';
     var si = sedeInfo(s.sede);
     h += '<div class="r"><span>Te atiende</span><b>'+esc(s.profesional)+'<small>'+esc(rolDe(m))+'</small></b></div>';
-    h += '<div class="r"><span>Dónde</span><b>'+esc(si.n)+'<small>San Miguel de Tucumán · <a class="mapa" href="'+esc(mapaUrl(si))+'" target="_blank" rel="noopener">ver mapa</a></small></b></div>';
+    h += '<div class="r"><span>Dónde</span><b>'+esc(si.n)+'<small>'+(si.nota?esc(si.nota)+' ':'')+'San Miguel de Tucumán · <a class="mapa" href="'+esc(mapaUrl(si))+'" target="_blank" rel="noopener">ver mapa</a></small></b></div>';
     h += '<div class="r"><span>Cuándo</span><b>'+esc(whenLabel(s.slot_iso))+'</b></div>';
     h += '<hr>';
     h += '<div class="r"><span>Consulta</span><span style="color:#fff">'+money(cfg.consulta_ars)+'</span></div>';
@@ -552,14 +554,31 @@ fbq('track','PageView');
   function pintarOk(b, ref){
     if (!sessionStorage.getItem('arf_p_'+ref)) { track('Purchase', {value: b.deposit_ars, currency:'ARS', content_name: b.motivo}, ref); try{ sessionStorage.setItem('arf_p_'+ref,'1'); }catch(e){} }
     var resto = Math.max(0,(b.consulta_ars||0)-(b.deposit_ars||0));
+    // 20/11/2026 (Alejo): número de turno (#100…), el piso a la vista y un solo botón
+    // principal que abre WhatsApp con el mensaje ya escrito; Juli contesta con el turno.
+    var si = sedeInfo(b.sede||'');
+    var piso = (b.piso || si.nota || '').replace(/\.$/,'');
+    var num = b.numero ? '#'+b.numero : '';
+    var waTxt = 'Hola! Reservé por la web' + (num ? ', mi turno es el '+num : '');
+    var waUrl = 'https://wa.me/5493815477474?text='+encodeURIComponent(waTxt);
     app.innerHTML = '<div class="res"><div class="ok-ic"><svg class="ic"><use href="#i-check"/></svg></div>'+
-      '<h1>¡Turno <span class="it">confirmado</span>!</h1><p class="tn-lead" style="margin:8px auto 0">Recibimos tu '+(resto > 0 ? 'seña' : 'pago')+' de '+money(b.deposit_ars)+'. Antes del turno te mandamos un recordatorio por WhatsApp. Si dejaste tu mail, ahí te llega la confirmación y el comprobante.</p>'+
-      '<div class="card"><span class="k-label">'+esc(b.motivo)+'</span>'+
+      '<h1>¡Turno <span class="it">confirmado</span>!</h1>'+
+      (num?'<p class="tn-num">Tu número de turno es <b>'+esc(num)+'</b></p>':'')+
+      '<p class="tn-lead" style="margin:8px auto 0">Recibimos tu '+(resto > 0 ? 'seña' : 'pago')+' de '+money(b.deposit_ars)+'.</p>'+
+      '<a class="btn btn-wa tn-wa-main" id="wa-turno" data-wa-msg="turno" data-no-lead="1" href="'+esc(waUrl)+'" target="_blank" rel="noopener">Recibir mi turno por WhatsApp</a>'+
+      '<p class="mini" style="margin:8px auto 0;max-width:420px">Te mandamos el día, la dirección y el piso para que lo tengas a mano. El mensaje ya está escrito: solo tocá enviar.</p>'+
+      '<div class="card">'+'<span class="k-label">'+esc(b.motivo)+(num?' · Turno '+esc(num):'')+'</span>'+
       '<p><b>'+esc(whenLabel(b.scheduled_at))+'</b><br><span class="mini">Llegá 10 minutos antes</span></p>'+
-      '<p style="margin-top:10px"><b>'+esc(b.profesional||'')+'</b> · '+esc(b.sede||'')+'</p>'+
+      '<p style="margin-top:10px"><b>'+esc(b.profesional||'')+'</b> · '+esc(si.n||b.sede||'')+(piso?'<br><b>'+esc(piso)+'</b>':'')+
+        (si.ref?'<br><span class="mini">'+esc(si.ref)+' San Miguel de Tucumán · <a href="'+esc(mapaUrl(si))+'" target="_blank" rel="noopener">ver mapa</a></span>':'')+'</p>'+
       (resto > 0 ? '<p class="mini" style="margin-top:10px">Abonás en la consulta: <b>'+money(resto)+'</b></p>' : '<p class="mini" style="margin-top:10px">La consulta ya está paga: ese día no abonás nada.</p>')+
       (b.bonificable?'<p class="mini" style="margin-top:6px">Si ese día arrancás tu tratamiento, los '+money(b.consulta_ars)+' que pagaste se descuentan del tratamiento: la consulta te sale gratis.</p>':'')+'</div>'+
-      '<a class="btn btn-wa" href="https://wa.me/5493815477474" target="_blank" rel="noopener">Hablar con ARF por WhatsApp</a></div>';
+      '<p class="mini">Antes del turno te mandamos un recordatorio por WhatsApp. Si dejaste tu mail, ahí te llega la confirmación.</p></div>';
+    var waBtn = document.getElementById('wa-turno');
+    if (waBtn) waBtn.addEventListener('click', function(){
+      trackUnaVez('Contact','wa_'+ref,{content_name:'turno_web_whatsapp'});
+      try{ if (window.clarity) clarity('event','turno_web_whatsapp'); }catch(e){}
+    });
     ARF.decorate(app);
   }
   function pintarMsg(t, p, wa, retry){

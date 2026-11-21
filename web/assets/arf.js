@@ -56,7 +56,8 @@
   // Meta Pixel — "Lead" al tocar cualquier boton/enlace de WhatsApp
   document.addEventListener('click', function(e){
     var a = e.target.closest ? e.target.closest('a[href*="wa.me"]') : null;
-    if (a && window.fbq) { fbq('track', 'Lead', {}, {eventID: ref}); }
+    // el botón de la pantalla de turno confirmado no es un lead nuevo: ya pagó
+    if (a && window.fbq && a.getAttribute('data-no-lead') === null) { fbq('track', 'Lead', {}, {eventID: ref}); }
   }, true);
 
   function api(path, opts){
