@@ -157,6 +157,10 @@ fbq('track','PageView');
   var MOT_TXT = {"protesis": ["Prótesis", "Me faltan dientes o quiero cambiar la que tengo"], "placa_relajacion": ["Placa de relajación", "Aprieto los dientes, bruxismo, dolor de mandíbula"], "placa_contencion": ["Placa de contención", "Para después de los brackets"], "ortodoncia": ["Ortodoncia", "Brackets para chicos y adultos"], "no_se": ["No sé qué necesito", "Me revisan y me dicen qué hacer"]};
   var _yaEnviado = {};
   function trackUnaVez(ev,clave,data){ if (_yaEnviado[clave]) return; _yaEnviado[clave]=1; track(ev,data); }
+  // 23/11/2026: cookies del pixel de Meta, para que el CRM avise la compra desde el servidor
+  // al confirmarse el pago (aunque la persona no vuelva a esta página). Sin cookie = null.
+  function galleta(n){ try{ var m=document.cookie.match(new RegExp('(?:^|; )'+n+'=([^;]*)')); return m?decodeURIComponent(m[1]):null; }catch(e){ return null; } }
+  function clicDeMeta(){ var c=galleta('_fbc'); if(c) return c; try{ var f=new URLSearchParams(location.search).get('fbclid'); return f?('fb.1.'+Date.now()+'.'+f):null; }catch(e){ return null; } }
   function track(ev,data,id){ try{ if(window.fbq) fbq('track',ev,data||{},id?{eventID:id}:undefined); }catch(e){} }
 
   // ---------- vuelta de Mercado Pago ----------
@@ -524,7 +528,8 @@ fbq('track','PageView');
     st.error=''; st.sending=true; render(); restore(n,p,em,true);
     ARF.api('/reserve', {method:'POST', body:{
       motivo: st.motivo, slot_iso: st.slot.slot_iso, profesional: st.slot.profesional,
-      patient_name: n, patient_phone: p, patient_email: em, visitor: VID
+      patient_name: n, patient_phone: p, patient_email: em, visitor: VID,
+      fbp: galleta('_fbp'), fbc: clicDeMeta()
     }}).then(function(r){
       track('InitiateCheckout', {value: st.cfg.deposit_ars, currency:'ARS', content_name: mot(st.motivo).label}, r.booking_id);
       location.href = r.init_point;
