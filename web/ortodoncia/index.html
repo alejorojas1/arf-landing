@@ -181,6 +181,11 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
 .wa-float{position:fixed;bottom:26px;right:26px;z-index:250;background:var(--wa);color:#fff;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 10px 30px rgba(37,211,102,.5);text-decoration:none;transition:.3s var(--ease)}
 .wa-float:hover{transform:scale(1.1) rotate(6deg)}
 .wa-float::before{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid var(--wa);animation:ring 2s infinite}
+/* Nov 2026 (Alejo): en celular el boton de turno queda anclado abajo mientras se scrollea; WhatsApp queda uno solo, chico, al lado. */
+.mobile-bar{position:fixed;left:0;right:0;bottom:0;z-index:260;display:none;gap:10px;align-items:center;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid var(--border);box-shadow:0 -6px 22px rgba(124,31,214,.14)}
+.mobile-bar .btn{flex:1;justify-content:center;text-align:center;padding:15px 20px;font-size:1.04rem}
+.mobile-bar .mb-wa{flex:0 0 52px;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.45rem;text-decoration:none;background:#fff;border:1.5px solid var(--border)}
+@media(max-width:900px){.mobile-bar{display:flex}.wa-float{display:none}footer{padding-bottom:120px}}
 @keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.5);opacity:0}}
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:44px}.hero-card{display:none}
@@ -200,6 +205,21 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
   .cursor,.cursor-r{display:none}
 }
 @media(max-width:1150px) and (min-width:901px){.rev-grid{columns:2}}
+/* Nov 2026 (Alejo): barra de arriba y titular con el estilo de la pagina principal. */
+.logo{align-items:baseline;gap:10px;font-size:1.25rem;color:#fff!important;text-decoration:none}
+.logo small{font-family:'Inter',sans-serif;font-weight:500;font-size:.85rem;color:#DCCBEF}
+.nav-in{padding:14px 24px}
+nav.scrolled{background:rgba(26,4,48,.92)!important;border-bottom:none;box-shadow:0 8px 30px rgba(0,0,0,.2)}
+nav.scrolled .nav-links a:not(.nav-cta){color:#DCCBEF}
+.nav-links .nav-cta{background:#fff;color:var(--violet-d)!important}
+.eyebrow-h{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.hero h1 .it{background:none;-webkit-text-fill-color:currentColor;color:var(--pink)}
+.btn-main{background:var(--g-magenta);color:#fff;box-shadow:0 0 50px rgba(182,0,255,.35)}
+.mobile-bar{background:rgba(251,248,254,.95)}
+.mobile-bar .btn-main{box-shadow:none;min-height:52px;padding:0 20px}
+.mobile-bar .mb-wa{background:var(--wa);border:none;flex-basis:48px;width:48px;height:48px}
+.mobile-bar .mb-wa svg{width:26px;height:26px;fill:#fff}
+@media(max-width:900px){.logo{font-size:1.25rem}.hero{padding:120px 0 70px}.nav-links .nav-cta{padding:10px 18px;font-size:.9rem}}
 </style>
 <!-- Microsoft Clarity: grabación de sesiones y mapas de calor (nov 2026) -->
 <script>
@@ -211,7 +231,7 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
 
 <nav id="nav">
   <div class="nav-in">
-    <div class="logo"><span class="logo-icon">ARF</span> Soluciones Dentales</div>
+    <a class="logo" href="/">ARF <small>Soluciones Dentales</small></a>
     <div class="nav-links">
       <a href="#dolores">¿Te pasa?</a>
       <a href="#resultados">Resultados</a>
@@ -230,11 +250,11 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <div class="hero-badge rv"><span class="dot"></span> Ortodoncia · Turnos online</div>
+        <span class="eyebrow-h rv">Ortodoncia · San Miguel de Tucumán</span>
         <h1 class="rv d1">Alineá tus dientes y <span class="it">reíte sin vergüenza</span></h1>
         <p class="lead rv d2">Brackets metálicos y estéticos, para vos o para tu hijo/a. Todo empieza con una consulta: la profesional revisa tu caso y te dice si estás apto para el tratamiento.</p>
         <div class="hero-cta rv d3">
-          <a class="btn btn-wa" href="/turno/?motivo=ortodoncia">Sacá tu turno</a>
+          <a class="btn btn-main" href="/turno/?motivo=ortodoncia">Sacá tu turno</a>
           <a class="btn btn-glass" href="#resultados">Ver resultados</a>
         </div>
         <p class="rv d3" style="margin-top:18px;font-size:.98rem;color:#DCCBEF"><b style="color:#fff">Consulta $30.000</b> · la reservás online en dos minutos. Si ese día arrancás el tratamiento, se descuenta.</p>
@@ -356,7 +376,7 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
     <div class="blob b1" data-par="0.06" style="top:-40%;right:-10%;width:400px;height:400px"></div>
     <h2>Tu sonrisa nueva <span style="font-style:italic;color:var(--pink)">arranca hoy</span></h2>
     <p>Reservá tu consulta de ortodoncia online ($30.000): la profesional ve tu caso y te dice si estás apto para el tratamiento. Si arrancás ese día, se descuenta.</p>
-    <a class="btn btn-wa" href="/turno/?motivo=ortodoncia">Sacá tu turno</a> <a href="https://wa.me/5493815477474" target="_blank" style="display:block;margin-top:16px;color:inherit;opacity:.85;font-size:.95rem;text-decoration:underline">o escribinos por WhatsApp</a>
+    <a class="btn btn-wa" href="/turno/?motivo=ortodoncia">Sacá tu turno</a>
   </div>
 </section>
 
@@ -373,7 +393,6 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
       </div>
       <div class="f-col">
         <h4>Contacto</h4>
-        <a href="https://wa.me/5493815477474" target="_blank">WhatsApp</a>
         <a href="/software">¿Sos profesional? Conocé la plataforma</a>
         <a href="#faq">Preguntas frecuentes</a>
       </div>
@@ -382,6 +401,7 @@ footer{background:var(--violet-ink);color:#B79ED6;padding:70px 0 34px}
   </div>
 </footer>
 
+<div class="mobile-bar"><a class="btn btn-main" href="/turno/?motivo=ortodoncia">Sacá tu turno</a><a class="mb-wa" href="https://wa.me/5493815477474" target="_blank" rel="noopener" aria-label="Dudas por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg></a></div>
 <a class="wa-float" href="https://wa.me/5493815477474" target="_blank" aria-label="WhatsApp">💬</a>
 <script>
 (function(){
