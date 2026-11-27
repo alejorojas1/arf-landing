@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta para odontólogos | Soluciones Dentales ARF</title>
+<meta name="description" content="Sos odontólogo/a en Tucumán y trabajás con laboratorio dental. Contanos cómo te va en 5 preguntas: tarda un minuto.">
+<meta name="robots" content="noindex,follow">
+<meta name="theme-color" content="#1A0430">
+<meta property="og:title" content="Odontólogos: 5 preguntas sobre tu laboratorio dental">
+<meta property="og:description" content="Tarda un minuto. San Miguel de Tucumán.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/arf.css">
+<!-- Meta Pixel (mismo de las landings): mide la visita y el envio de la encuesta -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','951637091057163');
+fbq('track','PageView');
+</script>
+
+<style>
+/* encuesta a odontólogos (nov 2026) */
+.ez{max-width:620px;margin:0 auto;padding:22px 16px 60px}
+.ez-hero{background:var(--g-deep);color:#fff;border-radius:24px;padding:26px 22px;margin-bottom:18px;box-shadow:var(--sh-md)}
+.ez-hero .eyebrow{color:var(--gold);margin-bottom:8px}
+.ez-hero h1{font-size:clamp(1.65rem,6vw,2.3rem);margin-bottom:10px}
+.ez-hero h1 .it{color:var(--magenta-l);font-style:italic}
+.ez-hero p{color:rgba(255,255,255,.88);font-size:.98rem}
+.ez-hero .tiempo{margin-top:12px;font-size:.84rem;color:var(--gold);font-weight:600}
+.q{background:#fff;border:1px solid var(--border);border-radius:18px;padding:16px;margin:0 0 12px;min-width:0}
+.q .ql{display:flex;gap:10px;align-items:flex-start;font-weight:600;font-size:1rem;padding:0;margin-bottom:4px;float:left;width:100%}
+.q .n{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--violet);color:#fff;font-size:.8rem;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.q .ayuda{display:block;clear:both;font-size:.84rem;color:var(--muted);margin:0 0 4px 34px}
+.q.falta{border-color:#F29BB0;box-shadow:0 0 0 3px rgba(180,18,60,.08)}
+.ops{clear:both;display:flex;flex-direction:column;gap:8px;padding-top:8px}
+.op{position:relative;display:block}
+.op input{position:absolute;opacity:0;pointer-events:none}
+.op span{display:flex;align-items:center;gap:10px;min-height:48px;padding:10px 14px;border:1px solid var(--border);border-radius:14px;background:#fff;cursor:pointer;transition:.15s;font-size:.97rem}
+.op span::before{content:"";width:18px;height:18px;border:2px solid #CDB8E6;border-radius:50%;flex-shrink:0;transition:.15s}
+.op input[type=checkbox]+span::before{border-radius:6px}
+.op input:checked+span{border-color:var(--violet);background:var(--soft);font-weight:600}
+.op input:checked+span::before{background:var(--violet);border-color:var(--violet);box-shadow:inset 0 0 0 3px #fff}
+.op input:focus-visible+span{outline:2px solid var(--violet);outline-offset:2px}
+.contacto{display:none}
+.contacto.on{display:block}
+.contacto input{width:100%;border:1px solid #DCCBEF;border-radius:12px;padding:12px 14px;font:inherit;font-size:1rem;color:var(--text);background:#fff;margin-top:8px}
+.contacto input:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,31,214,.12)}
+.hp{position:absolute;left:-9999px}
+.err{display:none;background:#FFF0F3;color:#B4123C;border:1px solid #FFC9D5;border-radius:12px;padding:10px 14px;font-size:.92rem;margin:6px 0 12px}
+.err.on{display:block}
+.enviar{width:100%;margin-top:6px}
+.legal{font-size:.8rem;color:var(--muted);text-align:center;margin-top:12px}
+.gracias{display:none;text-align:center;background:#fff;border:1px solid var(--border);border-radius:24px;padding:36px 22px}
+.gracias h2{font-size:1.6rem;margin-bottom:8px}
+.gracias p{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<nav id="nav" class="light" aria-label="Principal">
+  <div class="nav-in">
+    <a class="logo" href="/">ARF <small>Soluciones Dentales</small></a>
+  </div>
+</nav>
+
+<main class="ez">
+  <header class="ez-hero">
+    <span class="eyebrow">Para odontólogos · Tucumán</span>
+    <h1>5 preguntas sobre tu <span class="it">laboratorio dental</span></h1>
+    <p>Estamos armando un servicio de laboratorio pensado para consultorios: entrega en fecha y seguimiento de cada trabajo. Antes de lanzarlo queremos escucharte.</p>
+    <p class="tiempo">Tarda 1 minuto · Todo es para tocar</p>
+  </header>
+
+  <form id="f" novalidate>
+    <fieldset class="q" data-k="trabajos">
+      <legend class="ql"><b class="n">1</b>¿Qué trabajos le mandás más al laboratorio?</legend>
+      <span class="ayuda">Podés marcar más de uno.</span>
+      <div class="ops"><label class="op"><input type="checkbox" name="trabajos" value="acrilicas"><span>Prótesis acrílicas</span></label><label class="op"><input type="checkbox" name="trabajos" value="flexibles"><span>Prótesis flexibles</span></label><label class="op"><input type="checkbox" name="trabajos" value="reparaciones"><span>Reparaciones y rebasados</span></label><label class="op"><input type="checkbox" name="trabajos" value="placas"><span>Placas (relajación o contención)</span></label><label class="op"><input type="checkbox" name="trabajos" value="otros"><span>Otros</span></label></div>
+    </fieldset>
+    <fieldset class="q" data-k="precio">
+      <legend class="ql"><b class="n">2</b>¿Cuánto pagás hoy por una completa acrílica?</legend>
+      <span class="ayuda">Lo que te cobra el laboratorio, aproximado.</span>
+      <div class="ops"><label class="op"><input type="radio" name="precio" value="menos_80"><span>Menos de $80.000</span></label><label class="op"><input type="radio" name="precio" value="80_110"><span>$80.000 a $110.000</span></label><label class="op"><input type="radio" name="precio" value="110_140"><span>$110.000 a $140.000</span></label><label class="op"><input type="radio" name="precio" value="140_180"><span>$140.000 a $180.000</span></label><label class="op"><input type="radio" name="precio" value="mas_180"><span>Más de $180.000</span></label></div>
+    </fieldset>
+    <fieldset class="q" data-k="cantidad">
+      <legend class="ql"><b class="n">3</b>¿Cuántos trabajos mandás por mes?</legend>
+      
+      <div class="ops"><label class="op"><input type="radio" name="cantidad" value="1_3"><span>1 a 3</span></label><label class="op"><input type="radio" name="cantidad" value="4_8"><span>4 a 8</span></label><label class="op"><input type="radio" name="cantidad" value="9_15"><span>9 a 15</span></label><label class="op"><input type="radio" name="cantidad" value="mas_15"><span>Más de 15</span></label></div>
+    </fieldset>
+    <fieldset class="q" data-k="molestia">
+      <legend class="ql"><b class="n">4</b>¿Qué es lo que más te molesta de tu laboratorio?</legend>
+      
+      <div class="ops"><label class="op"><input type="radio" name="molestia" value="demoras"><span>Las demoras</span></label><label class="op"><input type="radio" name="molestia" value="calidad"><span>La calidad, que varía</span></label><label class="op"><input type="radio" name="molestia" value="comunicacion"><span>No saber en qué está el trabajo</span></label><label class="op"><input type="radio" name="molestia" value="precio"><span>El precio</span></label><label class="op"><input type="radio" name="molestia" value="nada"><span>Nada, estoy conforme</span></label></div>
+    </fieldset>
+    <fieldset class="q" data-k="probaria">
+      <legend class="ql"><b class="n">5</b>¿Probarías un laboratorio con entrega en fecha y seguimiento de cada pedido?</legend>
+      
+      <div class="ops"><label class="op"><input type="radio" name="probaria" value="si"><span>Sí</span></label><label class="op"><input type="radio" name="probaria" value="tal_vez"><span>Tal vez</span></label><label class="op"><input type="radio" name="probaria" value="no"><span>No</span></label></div>
+    </fieldset>
+    <div class="q contacto" id="contacto">
+      <span class="ql" style="float:none"><b class="n">+</b>¿Te avisamos cuando arranquemos?</span>
+      <span class="ayuda">Opcional. Dejanos tu WhatsApp y te escribimos nosotros.</span>
+      <input type="text" name="nombre" placeholder="Nombre y apellido" autocomplete="name" maxlength="120">
+      <input type="tel" name="whatsapp" placeholder="WhatsApp (ej. 381 555 5555)" autocomplete="tel" inputmode="tel" maxlength="30">
+    </div>
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="err" id="err" role="alert"></div>
+    <button class="btn btn-main enviar" id="btn" type="submit">Enviar respuestas</button>
+    <p class="legal">Usamos tus respuestas solo para diseñar este servicio. No compartimos tus datos.</p>
+  </form>
+
+  <section class="gracias" id="gracias" aria-live="polite">
+    <h2>¡Gracias!</h2>
+    <p id="gracias-t">Tus respuestas nos ayudan un montón.</p>
+  </section>
+</main>
+
+<script>
+(function(){
+  var f=document.getElementById('f'),err=document.getElementById('err'),btn=document.getElementById('btn'),
+      contacto=document.getElementById('contacto'),CLAVES=['trabajos','precio','cantidad','molestia','probaria'];
+  function val(k){
+    var m=[].slice.call(f.querySelectorAll('input[name="'+k+'"]:checked')).map(function(i){return i.value});
+    return k==='trabajos'?m:(m[0]||'');
+  }
+  f.addEventListener('change',function(e){
+    var q=e.target.closest('.q'); if(q) q.classList.remove('falta');
+    if(e.target.name==='probaria') contacto.classList.toggle('on',e.target.value!=='no');
+  });
+  f.addEventListener('submit',function(e){
+    e.preventDefault(); err.classList.remove('on');
+    var d={},falta=null;
+    CLAVES.forEach(function(k){
+      d[k]=val(k);
+      var q=f.querySelector('.q[data-k="'+k+'"]'),vacio=!d[k]||!d[k].length;
+      q.classList.toggle('falta',vacio); if(vacio&&!falta) falta=q;
+    });
+    if(falta){err.textContent='Te falta contestar una pregunta.';err.classList.add('on');falta.scrollIntoView({behavior:'smooth',block:'center'});return;}
+    var conContacto=d.probaria!=='no';
+    d.nombre=conContacto?f.nombre.value.trim():''; d.whatsapp=conContacto?f.whatsapp.value.trim():''; d.website=f.website.value;
+    btn.disabled=true; btn.textContent='Enviando…';
+    fetch('/api/public/encuesta-odontologos',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
+    .then(function(r){return r.json().catch(function(){return {}}).then(function(j){return {ok:r.ok,j:j}})})
+    .then(function(x){
+      if(!x.ok) throw new Error((x.j&&x.j.detail)||'No pudimos enviar tus respuestas. Probá de nuevo.');
+      if(window.fbq) fbq('trackCustom','EncuestaOdontologo',{dejo_contacto:!!d.whatsapp});
+      f.style.display='none';
+      if(d.whatsapp) document.getElementById('gracias-t').textContent='Recibimos tus respuestas. Te escribimos por WhatsApp cuando arranquemos.';
+      var g=document.getElementById('gracias'); g.style.display='block'; g.scrollIntoView({behavior:'smooth',block:'center'});
+    })
+    .catch(function(e2){err.textContent=typeof e2.message==='string'&&e2.message.length<200?e2.message:'No pudimos enviar tus respuestas. Probá de nuevo.';err.classList.add('on');btn.disabled=false;btn.textContent='Enviar respuestas';});
+  });
+})();
+</script>
+</body>
+</html>
